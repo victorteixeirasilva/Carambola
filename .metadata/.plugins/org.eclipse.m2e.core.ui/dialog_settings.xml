@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectWizardLocationPage">
+		<list key="location">
+			<item value="/home/vitin.teixx/Área de Trabalho/--/Bk/eclipse-workspace/EntendendoMetodosJavaCriacao"/>
+			<item value="/home/vitin.teixx/Documentos/Estudos/DIO/Entendendo Métodos Java"/>
+			<item value="/home/vitin.teixx/Área de Trabalho/--/Bk/eclipse-workspace/EntendendoMetodosJavaCriacao/bin/Exercicio"/>
+			<item value="/home/vitin.teixx/Documentos/Estudos/DIO/Estrutura de Dados em Java: Introdução"/>
+			<item value="/home/vitin.teixx/Documentos/Estudos/DIO/Estrutura de Dados em Java: Introdução/Projetos"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardArchetypePage">
+		<item key="catalog" value="All Catalogs"/>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="Maven2ProjectWizardArchifactPage">
+		<list key="package">
+			<item value="br.dio.exerciciosobrecarga"/>
+			<item value="br.dio.exercicio"/>
+			<item value="br.dio.exercicocriacao"/>
+			<item value="br.dio.entendendometodosjava.exercicio"/>
+			<item value="br.dio.entendendometodosjava.exercicioscriacao"/>
+		</list>
+		<list key="groupId">
+			<item value="br.dio"/>
+			<item value="br.dio.entendendometodosjava"/>
+		</list>
+		<list key="artifactId">
+			<item value="exerciciosobrecarga"/>
+			<item value="exercicio"/>
+			<item value="exercicocriacao"/>
+			<item value="exercicioscriacao"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardArtifactPage">
+		<list key="groupId">
+		</list>
+		<list key="name">
+		</list>
+		<list key="artifactId">
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+	<section name="MavenModuleWizardParentPage">
+		<list key="moduleName">
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.ui.internal.wizards.MavenProjectSelectionDialog">
+		<item key="width" value="480"/>
+		<item key="height" value="450"/>
+		<item key="x" value="766"/>
+		<item key="y" value="250"/>
+	</section>
+</section>

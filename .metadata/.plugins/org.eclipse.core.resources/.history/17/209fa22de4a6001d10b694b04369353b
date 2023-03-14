@@ -1,0 +1,9 @@
+package br.dio.exerciciosobrecarga;
+
+public class Area {
+
+	
+	public void quadrado () {
+		
+	}
+}

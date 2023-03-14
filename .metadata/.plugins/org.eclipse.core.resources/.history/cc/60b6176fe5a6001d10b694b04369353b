@@ -1,0 +1,35 @@
+package br.dio.exerciciosobrecarga;
+
+public class Area {
+	private int base = 0;
+	private int altura = 0;
+	
+	
+	
+	public Area() {
+		this.base = 0;
+		this.altura = 0;
+	}
+
+
+
+	public int getBase() {
+		return base;
+	}
+	public void setBase(int base) {
+		this.base = base;
+	}
+	public int getAltura() {
+		return altura;
+	}
+	public void setAltura(int altura) {
+		this.altura = altura;
+	}
+	
+	public void quadrado (int base, int altura) {
+		this.base = base;
+		this.altura = altura;
+		int resultado = base*altura;
+		System.out.println("A area desse quadrado é: "+resultado);
+	}
+}

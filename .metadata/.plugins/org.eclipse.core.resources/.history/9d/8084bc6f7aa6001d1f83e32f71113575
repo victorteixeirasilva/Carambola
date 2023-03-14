@@ -1,0 +1,31 @@
+package br.dio.exercicio;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Obj obj = new Obj();
+		
+		
+		System.out.println("=========== EXERCÍCIO 1 ===========");
+		System.out.println("Descrição: Calcule as 4 operações básicas: soma, subtração, multiplicação e divisão. Sempre 2 valores dever ser passados no método.");
+		System.out.println("===================================");
+		obj.somar(1, 1);
+		System.out.println("---------------------------------");
+		
+		obj.subtrair(5, 3);
+		System.out.println("---------------------------------");
+		
+		obj.multiplicar(2, 5);
+		System.out.println("---------------------------------");
+		
+		obj.dividir(10, 2);
+		System.out.println("---------------------------------");
+		
+		
+		System.out.println("=========== EXERCÍCIO 2 ===========");
+		System.out.println("Descrição: A partir da hora do dia, informe a mensagem adequada: Bom dia, Boa tarde, Boa noite");
+		System.out.println("===================================");
+		obj.horaDoDia(5);
+	}
+
+}

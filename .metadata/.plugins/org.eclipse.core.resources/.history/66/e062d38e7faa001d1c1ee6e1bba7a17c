@@ -1,0 +1,10 @@
+package loops;
+
+public class Ex5_Tabuada {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

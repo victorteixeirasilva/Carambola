@@ -1,0 +1,23 @@
+package arrays;
+
+import java.util.Scanner;
+/*
+ * By: Victor Teixeira Silva 12/02/2023
+ * 
+ * Crie um vetor de 6 números inteiros e mostre-os na ordem inversa.
+ * 
+ */
+
+public class Ex1_OrdemInversa {
+
+	public static void main(String[] args) {
+		int[] vetor = {-5, -6, 15, 50, 8, 4};
+		
+		int count = 0;
+		while(count < (vetor.length-1)) {
+			System.out.println(vetor[count]);
+			count++;
+		}
+	}
+
+}

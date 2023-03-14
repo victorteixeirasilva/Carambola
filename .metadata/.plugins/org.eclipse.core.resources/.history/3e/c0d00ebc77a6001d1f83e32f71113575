@@ -1,0 +1,21 @@
+package br.dio.exercicio;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Obj obj = new Obj();
+		
+		obj.somar(1, 1);
+		System.out.println("---------------------------------");
+		
+		obj.subtrair(5, 3);
+		System.out.println("---------------------------------");
+		
+		obj.multiplicar(2, 5);
+		System.out.println("---------------------------------");
+		
+		obj.dividir(10, 2);
+		System.out.println("---------------------------------");
+	}
+
+}

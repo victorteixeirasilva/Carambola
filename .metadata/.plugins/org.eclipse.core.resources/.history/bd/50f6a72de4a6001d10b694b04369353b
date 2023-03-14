@@ -1,0 +1,24 @@
+package br.dio.exerciciosobrecarga;
+
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		int escolha = 0;
+		
+		Area area = new Area();
+		Scanner opcao = new Scanner(System.in);
+		
+		System.out.println("=========== Cuso DIO: Entendendo Métodos Java ===========");
+		System.out.println("Descrição: Bem vindo a minha aplicação java do exercício pratico da aula de Sobrecarga!");
+		System.out.println("=========================================================");
+		System.out.println("Escolha a opção que deseja acessar: ");
+		System.out.println("Escolha 1 para Quadrado");
+		System.out.println("Escolha 2 para Retângulo");
+		System.out.println("Escolha 3 para Trapézio");
+		System.out.print("Opção: ");
+		escolha = opcao.nextInt();
+	}
+
+}
