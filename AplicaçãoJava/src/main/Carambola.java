@@ -3,7 +3,9 @@ package main;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JOptionPane;
+
 import modelo.Produto;
 import utils.Utils;
 
@@ -56,7 +58,7 @@ public class Carambola {
 		String nome = JOptionPane.showInputDialog("Nome do produto: ");
 		Double preco = Double.parseDouble(JOptionPane.showInputDialog("Preço  do produto: "));
 		
-		Produto produto = new Produto(nome, preco);
+		Produto produto = new Produto();
 		produtos.add(produto);
 		
 		JOptionPane.showMessageDialog(null, produto.getNome() + " cadastrado com sucesso!");
