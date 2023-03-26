@@ -1,13 +1,17 @@
 package modelo;
 
 import java.util.Objects;
+import javax.persistence.Entity;
 
+@Entity
+@Table
 public class UserCliente {
 	 
 	private Integer id;
 	private Integer telefone;
 	private String email;
 	private String nome;
+	private String password;
 	
 	public UserCliente() {
 		
@@ -46,6 +50,14 @@ public class UserCliente {
 
 	public Integer getId() {
 		return id;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override
