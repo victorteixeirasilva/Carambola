@@ -3,9 +3,10 @@ package br.carambola;
 public class Carambola {
 
 	public static void main(String[] args) {
-		Produto produto = new Produto("COCA", "Latinha de coca 600ml", 5.50, null, true);
 		
-		System.out.println(produto);
+		//TESTE CLASSE PRODUTO ABAIXO
+		//Produto produto = new Produto("COCA", "Latinha de coca 600ml", 5.50, null, true); //Criando um produto
+		//System.out.println(produto); //Exibindo detalhes desse produto com o método toString
 
 	}
 	
