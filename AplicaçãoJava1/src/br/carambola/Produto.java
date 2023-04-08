@@ -53,8 +53,14 @@ public class Produto {
 	}
 	@Override
 	public String toString() {
-		return "Produto [id=" + id + "\nnome=" + nome + "\ndescricao=" + descricao + "\npreco=" + preco + "\ncategoria="
-				+ categoria + "\ntemEstoque=" + temEstoque + "]";
+		return    "***Produto***"
+				+ "\nId=" + id
+				+ "\nNome=" + nome 
+				+ "\nDescricao=" + descricao 
+				+ "\nPreço=" + Formatador.doubleToString(this.getPreco()) 
+				+ "\nCategoria=" + categoria 
+				+ "\nSe tem Estoque=" + temEstoque 
+				+ "\n*************";
 	}
 	
 	
