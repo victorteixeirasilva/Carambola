@@ -6,4 +6,12 @@ public class Carambola {
 		
 
 	}
+	
+	public void menu() {
+		
+	}
+	
+	public void cadastrarNoSistema() {
+		
+	}
 }
