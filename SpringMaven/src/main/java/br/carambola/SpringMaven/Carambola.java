@@ -28,9 +28,12 @@ public class Carambola {
 		
 		
 		//TESTE BANCO DE DADOS H2
-		// criação do objeto JdbcTemplate
 		//System.out.println("ola");
-		//Categoria bebidas = new Categoria("Bebidas");		
+		//Categoria bebidas = new Categoria("Bebidas");
+		//Produto produto1 = new Produto("COCA", "LATA 600ML", 6.5, bebidas, true);
+		//Produto produto2 = new Produto("SPRITE", "LATA 600ML", 6.5, bebidas, true);
+		//Produto produto3 = new Produto("FANTA", "LATA 600ML", 6.5, bebidas, true);
+		//bebidas.verProdutosDaCategoria(bebidas);
 	}
 	
 	

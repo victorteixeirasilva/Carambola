@@ -10,6 +10,7 @@ package br.carambola.SpringMaven.DB;
  */
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ConnectionDb {
@@ -34,6 +35,38 @@ public class ConnectionDb {
 		String sql = comandoSQL;
         int row = statement.executeUpdate(sql);
         System.out.println(row + "Registo foi cadastrado corretamente!");
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+	}
+	
+	public void queryVerProdutosDeUmaCategoria(int id1) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(url, usuario, senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa o comando de insert
+		String sql = "SELECT * FROM TB_PRODUTOS PRO JOIN TB_CATEGORIAS CATE ON PRO.PRO_IDCATE = CATE.CATE_IDCATE WHERE CATE.CATE_IDCATE = '"+id1+"';";
+        ResultSet row = statement.executeQuery(sql);
+        System.out.println(row + "Registo foi cadastrado corretamente!");
+        
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	int id = row.getInt("PRO_IDPROD");
+        	String nome = row.getString("PRO_DESC");
+        	String categoria = row.getString("CATE_DESCCATE");
+        	Double valor = row.getDouble("PRO_VALOR");
+        	System.out.println("ID: " + id + ", Nome: " + nome + ", Categoria: " + categoria + ", Valor: " + valor);
+        }
         
         //Fecha Statemente e Conexão
         conexao.close();

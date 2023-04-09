@@ -1,23 +1,15 @@
 package br.carambola.SpringMaven;
+
 import java.sql.SQLException;
-/*
- * CLASSE CATEGORIA
- * 
- * By Victor Teixeira
- * 
- * Anotação:	Não sei se está correto, provavelmente não. Mas deselvolvi a logica dessa classe sem Banco de dados
- * 				mas imagino que nesse metodo verProdutosDaCategoria, não vai manter essa logica e sim uma de consulta
- * 				no banco de dados. OBS: tirar essa dúvida com a professora.
- */
-import java.util.List;
+import java.util.Scanner;
 import br.carambola.SpringMaven.DB.ConnectionDb;
 
 public class Categoria {
 	private int id; //Id da categoria criado após o diagrama
-	private int count = 0; //Count do id criado após a categoria
+	private int count = 10; //Count do id criado após a categoria
 	private String nome;
 	ConnectionDb conn = new ConnectionDb();//Atibuto fora do diagrama
-	
+	Scanner entrada = new Scanner(System.in);
 	
 	public Categoria(String nome) throws SQLException {
 		super();
@@ -27,12 +19,11 @@ public class Categoria {
 		conn.insert("INSERT INTO TB_CATEGORIAS (CATE_IDCATE,CATE_DESCCATE) VALUES (NEXT VALUE FOR SQ_CATE_IDCATE,"+"'"+this.nome+"'"+");");
 	}
 
-	public void verProdutosDaCategoria(List<Produto> produtos, Categoria categoria) {
-		for (Produto produto : produtos) {
-			if(produto.getCategoria().equals(categoria)) {
-				System.out.println(produto);
-			}
-		}
+	public void verProdutosDaCategoria(Categoria categoria) throws SQLException {
+		System.out.print("Qual id da categoria deseja ver os produtos: ");
+		int idCategoria = entrada.nextInt();
+		conn.queryVerProdutosDeUmaCategoria(idCategoria);
+		
 	}
 	
 	public String getNome() {

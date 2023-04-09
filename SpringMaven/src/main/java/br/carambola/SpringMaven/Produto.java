@@ -6,7 +6,7 @@ import br.carambola.SpringMaven.DB.ConnectionDb;
 
 public class Produto {
 	private static int count = 500; //Foi Adicionado o Atributo count para sempre gerar um id com um número depois.
-	private int id; 
+	private int id, idCategoria; //idCategoria está fora do diagrama 
 	private String nome, descricao;
 	private Double preco;
 	private Categoria categoria;
@@ -22,8 +22,9 @@ public class Produto {
 		this.preco = preco;
 		this.categoria = categoria;
 		this.temEstoque = temEstoque;
+		this.idCategoria = this.categoria.getId();
 		Produto.count += 1;
-		conn.insert("INSERT INTO TB_PRODUTOS (PRO_IDPROD,PRO_IDCATE,PRO_DESC,PRO_VALOR,PRO_TEMESTOQUE) VALUES (NEXT VALUE FOR SQ_PRO_IDPROD,'"+this.categoria.getId()+"','"+this.nome+"',"+this.preco+","+this.temEstoque+");");
+		conn.insert("INSERT INTO TB_PRODUTOS (PRO_IDPROD,PRO_IDCATE,PRO_DESC,PRO_VALOR,PRO_TEMESTOQUE) VALUES (NEXT VALUE FOR SQ_PRO_IDPROD,'"+this.idCategoria+"','"+this.nome+"',"+this.preco+","+this.temEstoque+");");
 	}
 	public String getNome() {
 		return nome;
