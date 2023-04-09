@@ -1,4 +1,5 @@
 package br.carambola.SpringMaven;
+import java.sql.SQLException;
 /*
  * CLASSE CATEGORIA
  * 
@@ -9,19 +10,21 @@ package br.carambola.SpringMaven;
  * 				no banco de dados. OBS: tirar essa dúvida com a professora.
  */
 import java.util.List;
+import br.carambola.SpringMaven.DB.ConnectionDb;
 
 public class Categoria {
 	private int id; //Id da categoria criado após o diagrama
 	private int count = 0; //Count do id criado após a categoria
 	private String nome;
+	ConnectionDb conn = new ConnectionDb();
 	
 	
-	
-	public Categoria(String nome) {
+	public Categoria(String nome) throws SQLException {
 		super();
 		this.setId(count);
 		this.nome = nome;
 		count = count + 1;
+		conn.insert("INSERT INTO TB_CATEGORIAS (CATE_IDCATE,CATE_DESCCATE) VALUES (NEXT VALUE FOR SQ_CATE_IDCATE,"+"'"+this.nome+"'"+");");
 	}
 
 	public void verProdutosDaCategoria(List<Produto> produtos, Categoria categoria) {
