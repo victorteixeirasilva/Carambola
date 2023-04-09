@@ -1,4 +1,4 @@
-package br.carambola.SpringMaven;
+package br.carambola.SpringMaven.Usuarios;
 
 public class UsuarioFuncionario implements Usuario {
 	private String nome, email, senha;

@@ -1,4 +1,4 @@
-package br.carambola.SpringMaven;
+package br.carambola.SpringMaven.Usuarios;
 
 public interface Usuario {
 	public static final String nome = "";

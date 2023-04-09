@@ -1,4 +1,4 @@
-package br.carambola.SpringMaven;
+package br.carambola.SpringMaven.Principal;
 
 import java.sql.SQLException;
 

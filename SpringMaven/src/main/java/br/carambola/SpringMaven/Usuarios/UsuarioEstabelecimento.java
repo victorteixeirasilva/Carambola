@@ -1,4 +1,6 @@
-package br.carambola.SpringMaven;
+package br.carambola.SpringMaven.Usuarios;
+
+import br.carambola.SpringMaven.Endereco;
 
 public class UsuarioEstabelecimento implements Usuario {
 	private String nome, email, senha;
