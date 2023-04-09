@@ -2,6 +2,9 @@ package br.carambola.SpringMaven.Principal;
 
 import java.sql.SQLException;
 
+import br.carambola.SpringMaven.Catalogo;
+import br.carambola.SpringMaven.Usuarios.UsuarioEstabelecimento;
+
 
 //import java.util.ArrayList; //Classes importadas para o teste de categoria
 //import java.util.List; //Classes importadas para o teste de categoria
@@ -34,6 +37,12 @@ public class Carambola {
 		//Produto produto2 = new Produto("SPRITE", "LATA 600ML", 6.5, bebidas, true);
 		//Produto produto3 = new Produto("FANTA", "LATA 600ML", 6.5, bebidas, true);
 		//bebidas.verProdutosDaCategoria(bebidas);
+		
+		//TESTE CLASE CATALOGO
+		//METODO CADASTRAR CATEGORIA
+		UsuarioEstabelecimento estabelecimento = new UsuarioEstabelecimento(); 
+		Catalogo catalogo = new Catalogo(estabelecimento);
+		catalogo.cadastrarCategorias();
 	}
 	
 	
