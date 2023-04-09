@@ -16,7 +16,7 @@ public class Categoria {
 	private int id; //Id da categoria criado após o diagrama
 	private int count = 0; //Count do id criado após a categoria
 	private String nome;
-	ConnectionDb conn = new ConnectionDb();
+	ConnectionDb conn = new ConnectionDb();//Atibuto fora do diagrama
 	
 	
 	public Categoria(String nome) throws SQLException {

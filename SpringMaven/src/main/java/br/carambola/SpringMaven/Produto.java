@@ -1,5 +1,9 @@
 package br.carambola.SpringMaven;
 
+import java.sql.SQLException;
+
+import br.carambola.SpringMaven.DB.ConnectionDb;
+
 public class Produto {
 	private static int count = 500; //Foi Adicionado o Atributo count para sempre gerar um id com um número depois.
 	private int id; 
@@ -7,9 +11,10 @@ public class Produto {
 	private Double preco;
 	private Categoria categoria;
 	private boolean temEstoque;
+	ConnectionDb conn = new ConnectionDb();//Atibuto fora do diagrama
 	
 	//Construtor da classe produto que recebe nome, descricao, preco categoria, e se tem estoque
-	public Produto(String nome, String descricao, Double preco, Categoria categoria, boolean temEstoque) {
+	public Produto(String nome, String descricao, Double preco, Categoria categoria, boolean temEstoque) throws SQLException {
 		super();
 		this.id = count; //id do produto recebe o contador que é incrementado no final do construtor fazendo assim que ele gere o id automatico
 		this.nome = nome;
@@ -18,6 +23,7 @@ public class Produto {
 		this.categoria = categoria;
 		this.temEstoque = temEstoque;
 		Produto.count += 1;
+		conn.insert("INSERT INTO TB_PRODUTOS (PRO_IDPROD,PRO_IDCATE,PRO_DESC,PRO_VALOR,PRO_TEMESTOQUE) VALUES (NEXT VALUE FOR SQ_PRO_IDPROD,'"+this.categoria.getId()+"','"+this.nome+"',"+this.preco+","+this.temEstoque+");");
 	}
 	public String getNome() {
 		return nome;
