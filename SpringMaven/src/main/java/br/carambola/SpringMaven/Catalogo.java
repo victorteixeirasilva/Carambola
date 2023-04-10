@@ -3,6 +3,8 @@ package br.carambola.SpringMaven;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import br.carambola.SpringMaven.DB.ConnectionDb;
 import br.carambola.SpringMaven.Usuarios.UsuarioEstabelecimento;
 
@@ -24,15 +26,17 @@ public class Catalogo {
 	}
 
 	public void cadastrarCategorias() throws SQLException {
-		System.out.print("Informe o nome da categoria: ");
-		this.nome = entrada.nextLine();
+		//System.out.print("Informe o nome da categoria: ");
+		this.nome = JOptionPane.showInputDialog("Informe o nome da categoria:");
 		Categoria categoria = new Categoria(nome, id);
-		System.out.println("A categoria "+categoria+" foi cadastrada corretamente!");
+		JOptionPane.showMessageDialog(null, "A categoria "+categoria+" foi cadastrada corretamente!");
+		//System.out.println("A categoria "+categoria+" foi cadastrada corretamente!");
 		//entrada.close();
 	}
 	
 	public void verCategorias() throws SQLException {
-		System.out.println("As categorias do Catalogo "+this.estabelecimento.getNome()+" são:  ");
+		JOptionPane.showMessageDialog(null, "As categorias do Catalogo "+this.estabelecimento.getNome()+" são:  ");
+		//System.out.println("As categorias do Catalogo "+this.estabelecimento.getNome()+" são:  ");
 		conn.queryVerTodasAsCategoriasDeUmCatalogo(id);
 		
 	}
