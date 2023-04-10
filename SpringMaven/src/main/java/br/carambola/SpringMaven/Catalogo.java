@@ -20,7 +20,7 @@ public class Catalogo {
 		this.estabelecimento = estabelecimento;
 		this.nome = estabelecimento.getNome();
 		conn.insert("INSERT INTO TB_CATALOGO(CAT_IDCAT,CAT_NOMECAT) VALUES (NEXT VALUE FOR SQ_CAT_IDCAT,'"+this.nome+"');");
-		count = count + 1;
+		Catalogo.count += 1;
 	}
 
 	public void cadastrarCategorias() throws SQLException {
@@ -28,7 +28,7 @@ public class Catalogo {
 		this.nome = entrada.nextLine();
 		Categoria categoria = new Categoria(nome, id);
 		System.out.println("A categoria "+categoria+" foi cadastrada corretamente!");
-		entrada.close();
+		//entrada.close();
 	}
 	
 	public void verCategorias() throws SQLException {
@@ -37,8 +37,37 @@ public class Catalogo {
 		
 	}
 	
-	public void editarCategorias() {
+	public void editarCategorias() throws SQLException {
+		System.out.print("Informe o Id da categoria que deseja editar: ");
+		int idCategoria = entrada.nextInt();
+		String nomeAtual = conn.queryGetCategoriaBd(idCategoria);
 		
+		System.out.println("Nome atual da categoria: "+nomeAtual);
+		System.out.print("Digite o novo nome: ");
+		String entradaAux = entrada.nextLine();
+		String novoNome = entrada.nextLine();
+		
+		System.out.println("\nO nome da categoria será alterado para: "+novoNome);
+		
+		if(nomeAtual != novoNome) {
+			System.out.print("Tem certeza que deseja editar essa categoria((1)->Sim / (2)->Não): ");
+			int escolha = entrada.nextInt();
+		
+			if(escolha == 1) {
+				//Edita categoria
+				conn.update("UPDATE TB_CATEGORIAS SET CATE_DESCCATE  = '"+novoNome+"' WHERE CATE_IDCATE  = '"+idCategoria+"';");
+			
+			
+			} else if (escolha == 2) {
+				System.out.println("Informação original foi mantida!");
+			} else {
+			System.out.println("Opção Inválida");
+			}
+		} else {			
+		System.out.println("Informações editadas são iguais as informações originais!");
+		}
+		
+		//entrada.close();
 	}
 	
 	public void excluirCategorias() {

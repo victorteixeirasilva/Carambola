@@ -39,10 +39,11 @@ public class Carambola {
 		//bebidas.verProdutosDaCategoria(bebidas);
 		
 		//TESTE CLASE CATALOGO -> METODO CADASTRAR CATEGORIA
-		//UsuarioEstabelecimento estabelecimento = new UsuarioEstabelecimento(); 
-		//Catalogo catalogo = new Catalogo(estabelecimento);
-		//catalogo.cadastrarCategorias();
-		//catalogo.verCategorias();
+		UsuarioEstabelecimento estabelecimento = new UsuarioEstabelecimento(); 
+		Catalogo catalogo = new Catalogo(estabelecimento);
+		catalogo.cadastrarCategorias();
+		catalogo.verCategorias();
+		catalogo.editarCategorias();
 	}
 	
 	
