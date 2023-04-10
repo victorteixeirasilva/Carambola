@@ -6,7 +6,7 @@ public class UsuarioEstabelecimento implements Usuario {
 	private String nome, email, senha;
 	private Endereco endereco;
 	private float classificacao;
-	private int cnpj, telefone;
+	private int cnpj, telefone, id;//O Atributo Id, está fora do Diagrama inicial 
 	
 	public void verificarMesas() {
 		
@@ -118,6 +118,14 @@ public class UsuarioEstabelecimento implements Usuario {
 
 	public void setTelefone(int telefone) {
 		this.telefone = telefone;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

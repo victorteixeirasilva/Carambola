@@ -8,15 +8,15 @@ public class Categoria {
 	private int id; //Id da categoria criado após o diagrama
 	private int count = 10; //Count do id criado após a categoria
 	private String nome;
-	ConnectionDb conn = new ConnectionDb();//Atibuto fora do diagrama
-	Scanner entrada = new Scanner(System.in);
+	private ConnectionDb conn = new ConnectionDb();//Atibuto fora do diagrama
+	private Scanner entrada = new Scanner(System.in);//Atibuto fora do diagrama
 	
-	public Categoria(String nome) throws SQLException {
+	public Categoria(String nome, int id) throws SQLException {
 		super();
 		this.setId(count);
 		this.nome = nome;
 		count = count + 1;
-		conn.insert("INSERT INTO TB_CATEGORIAS (CATE_IDCATE,CATE_DESCCATE) VALUES (NEXT VALUE FOR SQ_CATE_IDCATE,"+"'"+this.nome+"'"+");");
+		conn.insert("INSERT INTO TB_CATEGORIAS (CATE_IDCATE, CATE_IDCAT,CATE_DESCCATE) VALUES (NEXT VALUE FOR SQ_CATE_IDCATE,'"+id+"',"+"'"+this.nome+"'"+");");
 	}
 
 	public void verProdutosDaCategoria(Categoria categoria) throws SQLException {
@@ -40,7 +40,13 @@ public class Categoria {
 
 	@Override
 	public String toString() {
-		return "{Categoria [id=" + id + ", nome=" + nome + "]}";
+		return    "\n{"
+				+ "\nCategoria"
+				+ "\n["
+				+ "\nid=" + id 
+				+ "\nnome=" + nome 
+				+ "\n]"
+				+ "\n}";
 	}
 	
 	
