@@ -1,7 +1,7 @@
 package br.carambola.SpringMaven;
 
 import java.sql.SQLException;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
@@ -11,7 +11,7 @@ import br.carambola.SpringMaven.Usuarios.UsuarioEstabelecimento;
 public class Catalogo {
 	private UsuarioEstabelecimento estabelecimento; //Atributo fora do diagrama
 	private String nome; //Atributo fora do diagrama
-	private Scanner entrada = new Scanner(System.in);
+	//private Scanner entrada = new Scanner(System.in);
 	private ConnectionDb conn = new ConnectionDb();//Atibuto fora do diagrama
 	private int id; //Atributo fora do diagrama
 	private static int  count = 1; //Atributo fora do diagrama
@@ -42,33 +42,38 @@ public class Catalogo {
 	}
 	
 	public void editarCategorias() throws SQLException {
-		System.out.print("Informe o Id da categoria que deseja editar: ");
-		int idCategoria = entrada.nextInt();
+		//System.out.print("Informe o Id da categoria que deseja editar: ");
+		String input = JOptionPane.showInputDialog("Informe o Id da categoria que deseja editar:");
+		int idCategoria = Integer.parseInt(input);
 		String nomeAtual = conn.queryGetCategoriaBd(idCategoria);
 		
-		System.out.println("Nome atual da categoria: "+nomeAtual);
+		JOptionPane.showMessageDialog(null, "Nome atual da categoria: "+nomeAtual);
+		//System.out.println("Nome atual da categoria: "+nomeAtual);
 		System.out.print("Digite o novo nome: ");
-		String entradaAux = entrada.nextLine();
-		String novoNome = entrada.nextLine();
+		//String entradaAux = entrada.nextLine();
+		String novoNome = JOptionPane.showInputDialog("Digite o novo nome:");
 		
-		System.out.println("\nO nome da categoria será alterado para: "+novoNome);
+		JOptionPane.showMessageDialog(null, "O nome da categoria será alterado para: "+novoNome);
+		//System.out.println("\nO nome da categoria será alterado para: "+novoNome);
 		
 		if(nomeAtual != novoNome) {
-			System.out.print("Tem certeza que deseja editar essa categoria((1)->Sim / (2)->Não): ");
-			int escolha = entrada.nextInt();
+			//;System.out.print("Tem certeza que deseja editar essa categoria((1)->Sim / (2)->Não): ");
+			int escolha = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja editar essa categoria?");
 		
-			if(escolha == 1) {
+			if(escolha == JOptionPane.YES_OPTION) {
 				//Edita categoria
 				conn.update("UPDATE TB_CATEGORIAS SET CATE_DESCCATE  = '"+novoNome+"' WHERE CATE_IDCATE  = '"+idCategoria+"';");
 			
 			
-			} else if (escolha == 2) {
-				System.out.println("Informação original foi mantida!");
+			} else if (escolha == JOptionPane.NO_OPTION) {
+				//System.out.println("Informação original foi mantida!");
 			} else {
-			System.out.println("Opção Inválida");
+			JOptionPane.showMessageDialog(null, "Opção Inválida!");
+			//System.out.println("Opção Inválida");
 			}
 		} else {			
-		System.out.println("Informações editadas são iguais as informações originais!");
+		JOptionPane.showMessageDialog(null, "Informações editadas são iguais as informações originais!");
+		//System.out.println("Informações editadas são iguais as informações originais!");
 		}
 		
 		//entrada.close();

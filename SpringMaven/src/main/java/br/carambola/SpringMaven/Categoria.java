@@ -1,7 +1,10 @@
 package br.carambola.SpringMaven;
 
 import java.sql.SQLException;
-import java.util.Scanner;
+//import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
 import br.carambola.SpringMaven.DB.ConnectionDb;
 
 public class Categoria {
@@ -9,7 +12,7 @@ public class Categoria {
 	private int count = 10; //Count do id criado após a categoria
 	private String nome;
 	private ConnectionDb conn = new ConnectionDb();//Atibuto fora do diagrama
-	private Scanner entrada = new Scanner(System.in);//Atibuto fora do diagrama
+	//private Scanner entrada = new Scanner(System.in);//Atibuto fora do diagrama
 	
 	public Categoria(String nome, int id) throws SQLException {
 		super();
@@ -20,8 +23,9 @@ public class Categoria {
 	}
 
 	public void verProdutosDaCategoria(Categoria categoria) throws SQLException {
-		System.out.print("Qual id da categoria deseja ver os produtos: ");
-		int idCategoria = entrada.nextInt();
+		//System.out.print("Qual id da categoria deseja ver os produtos: ");
+		String input = JOptionPane.showInputDialog("Qual id da categoria deseja ver os produtos:");
+		int idCategoria = Integer.parseInt(input);
 		conn.queryVerProdutosDeUmaCategoria(idCategoria);
 		
 	}
@@ -40,13 +44,7 @@ public class Categoria {
 
 	@Override
 	public String toString() {
-		return    "\n{"
-				+ "\nCategoria"
-				+ "\n["
-				+ "\nid=" + id 
-				+ "\nnome=" + nome 
-				+ "\n]"
-				+ "\n}";
+		return  JOptionPane.showInputDialog("A categoria "+nome+" foi cadastrada corretamente");
 	}
 	
 	
