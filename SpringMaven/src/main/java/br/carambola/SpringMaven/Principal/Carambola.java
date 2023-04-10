@@ -38,7 +38,7 @@ public class Carambola {
 		//Produto produto3 = new Produto("FANTA", "LATA 600ML", 6.5, bebidas, true);
 		//bebidas.verProdutosDaCategoria(bebidas);
 		
-		//TESTE CLASE CATALOGO -> METODO CADASTRAR CATEGORIA
+		//TESTE CLASE CATALOGO -> METODO CADASTRAR CATEGORIA -> EDITAR CATEGORIA
 		UsuarioEstabelecimento estabelecimento = new UsuarioEstabelecimento(); 
 		Catalogo catalogo = new Catalogo(estabelecimento);
 		catalogo.cadastrarCategorias();
