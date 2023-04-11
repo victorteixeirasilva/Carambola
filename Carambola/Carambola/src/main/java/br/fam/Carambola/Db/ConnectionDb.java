@@ -172,4 +172,64 @@ public class ConnectionDb {
         return categoria;
 	}
 	
+	public int queryGetIdCatalagoPorEstabelecimento(int idEstabelecimento) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(url, usuario, senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa o comando de insert
+		String sql = "SELECT CAT_IDCAT FROM TB_CATALOGO WHERE CAT_IDUSUEST = '"+idEstabelecimento+"';";
+        ResultSet row = statement.executeQuery(sql);
+        
+        int idCatalogo = 0;
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	idCatalogo = row.getInt("CAT_IDCAT");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+        return idCatalogo;
+	}
+	
+	public int queryIdCatalogoComIdCategoria(int idCategoria) throws SQLException {
+		int idCatalogo = 0;
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(url, usuario, senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa o comando de insert
+		String sql = "SELECT CATE_IDCAT FROM TB_CATEGORIAS WHERE CATE_IDCATE = '1';";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	int idCatalogo1 = row.getInt("CATE_IDCAT");
+        	idCatalogo = idCatalogo1;
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+        return idCatalogo;
+	}
+	
 }

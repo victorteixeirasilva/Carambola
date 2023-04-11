@@ -11,17 +11,17 @@ import br.fam.Carambola.Db.ConnectionDb;
 
 public class Categoria {
 	private int id; //Id da categoria criado após o diagrama
-	private int count = 10; //Count do id criado após a categoria
+	private static int count = 10; //Count do id criado após a categoria
 	private String nome;
 	private ConnectionDb conn = new ConnectionDb();//Atibuto fora do diagrama
 	//private Scanner entrada = new Scanner(System.in);//Atibuto fora do diagrama
 	
-	public Categoria(String nome, int id) throws SQLException {
+	public Categoria(String nome, int idCatalogo) throws SQLException {
 		super();
 		this.setId(count);
 		this.nome = nome;
-		count = count + 1;
-		conn.insert("INSERT INTO TB_CATEGORIAS (CATE_IDCATE, CATE_IDCAT,CATE_DESCCATE) VALUES (NEXT VALUE FOR SQ_CATE_IDCATE,'"+id+"',"+"'"+this.nome+"'"+");");
+		conn.insert("INSERT INTO TB_CATEGORIAS (CATE_IDCATE, CATE_IDCAT,CATE_DESCCATE) VALUES (NEXT VALUE FOR SQ_CATE_IDCATE,'"+idCatalogo+"',"+"'"+this.nome+"'"+");");
+	    Categoria.count += 1;
 	}
 
 	public void verProdutosDaCategoria(Categoria categoria) throws SQLException {
