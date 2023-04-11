@@ -9,7 +9,7 @@ import br.carambola.SpringMaven.DB.ConnectionDb;
 
 public class Categoria {
 	private int id; //Id da categoria criado após o diagrama
-	static int count = 10; //Count do id criado após a categoria
+	private int count = 10; //Count do id criado após a categoria
 	private String nome;
 	private ConnectionDb conn = new ConnectionDb();//Atibuto fora do diagrama
 	//private Scanner entrada = new Scanner(System.in);//Atibuto fora do diagrama
@@ -18,7 +18,7 @@ public class Categoria {
 		super();
 		this.setId(count);
 		this.nome = nome;
-		Categoria.count += 1;
+		count = count + 1;
 		conn.insert("INSERT INTO TB_CATEGORIAS (CATE_IDCATE, CATE_IDCAT,CATE_DESCCATE) VALUES (NEXT VALUE FOR SQ_CATE_IDCATE,'"+id+"',"+"'"+this.nome+"'"+");");
 	}
 
