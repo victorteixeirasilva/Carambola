@@ -14,7 +14,7 @@ public class Catalogo {
 	//private Scanner entrada = new Scanner(System.in);
 	private ConnectionDb conn = new ConnectionDb();//Atibuto fora do diagrama
 	private int id; //Atributo fora do diagrama
-	private static int  count = 1; //Atributo fora do diagrama
+	static int  count = 1; //Atributo fora do diagrama
 	
 	public Catalogo(UsuarioEstabelecimento estabelecimento) throws SQLException {
 		super();
