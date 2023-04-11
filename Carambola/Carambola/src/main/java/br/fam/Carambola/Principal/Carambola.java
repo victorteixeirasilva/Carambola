@@ -46,6 +46,7 @@ public class Carambola {
 		catalogo.cadastrarCategorias();
 		catalogo.verCategorias();
 		catalogo.editarCategorias();
+		catalogo.excluirCategorias();
 	}
 	
 	

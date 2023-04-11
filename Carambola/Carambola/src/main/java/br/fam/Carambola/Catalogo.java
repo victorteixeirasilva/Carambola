@@ -31,7 +31,7 @@ public class Catalogo {
 		//System.out.print("Informe o nome da categoria: ");
 		this.nome = JOptionPane.showInputDialog("Informe o nome da categoria:");
 		Categoria categoria = new Categoria(nome, id);
-		JOptionPane.showMessageDialog(null, "A categoria "+categoria+" foi cadastrada corretamente!");
+		JOptionPane.showMessageDialog(null, "A categoria "+categoria.getNome()+" foi cadastrada corretamente!");
 		//System.out.println("A categoria "+categoria+" foi cadastrada corretamente!");
 		//entrada.close();
 	}
@@ -51,7 +51,7 @@ public class Catalogo {
 		
 		JOptionPane.showMessageDialog(null, "Nome atual da categoria: "+nomeAtual);
 		//System.out.println("Nome atual da categoria: "+nomeAtual);
-		System.out.print("Digite o novo nome: ");
+		//System.out.print("Digite o novo nome: ");
 		//String entradaAux = entrada.nextLine();
 		String novoNome = JOptionPane.showInputDialog("Digite o novo nome:");
 		
@@ -70,7 +70,6 @@ public class Catalogo {
 			} else if (escolha == JOptionPane.NO_OPTION) {
 				//System.out.println("Informação original foi mantida!");
 			} else {
-			JOptionPane.showMessageDialog(null, "Opção Inválida!");
 			//System.out.println("Opção Inválida");
 			}
 		} else {			
@@ -81,7 +80,23 @@ public class Catalogo {
 		//entrada.close();
 	}
 	
-	public void excluirCategorias() {
+	public void excluirCategorias() throws SQLException {
+		String input = JOptionPane.showInputDialog("Informe o Id da categoria que deseja Excluir:");
+		int idCategoria = Integer.parseInt(input);
+		String nomeAtual = conn.queryGetCategoriaBd(idCategoria);
+		
+		JOptionPane.showMessageDialog(null, "Nome atual da categoria: "+nomeAtual);
+		int escolha = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir essa categoria?");
+		
+		if(escolha == JOptionPane.YES_OPTION) {
+			//Excluir categoria
+			conn.update("DELETE FROM TB_CATEGORIAS WHERE CATE_IDCATE = '"+idCategoria+"';");
+		} else if (escolha == JOptionPane.NO_OPTION) {
+			JOptionPane.showMessageDialog(null, "Categoria não foi excluida!");		
+		} else {
+			JOptionPane.showMessageDialog(null, "Opção Inválida!");			
+		}
+		
 		
 	}
 
