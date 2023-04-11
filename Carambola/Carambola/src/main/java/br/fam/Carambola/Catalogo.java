@@ -28,7 +28,7 @@ public class Catalogo {
 	}
 
 	public void cadastrarCategorias() throws SQLException {
-		//System.out.print("Informe o nome da categoria: ");
+		int idEstabelecimento = this.estabelecimento.getId();
 		this.nome = JOptionPane.showInputDialog("Informe o nome da categoria:");
 		Categoria categoria = new Categoria(nome, id);
 		JOptionPane.showMessageDialog(null, "A categoria "+categoria.getNome()+" foi cadastrada corretamente!");
