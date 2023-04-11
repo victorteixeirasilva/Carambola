@@ -2,19 +2,13 @@ package br.fam.Carambola.Principal;
 
 import java.sql.SQLException;
 
-import br.fam.Carambola.Catalogo;
-import br.fam.Carambola.Usuarios.UsuarioEstabelecimento;
-
-
-
-
-//import java.util.ArrayList; //Classes importadas para o teste de categoria
-//import java.util.List; //Classes importadas para o teste de categoria
-
-//Vamo que vamo
 public class Carambola {
 
 	public static void main(String[] args) throws SQLException {
+		
+		
+		
+		
 		
 		//**TESTE CLASSE PRODUTO ABAIXO**
 		//Produto produto = new Produto("COCA", "Latinha de coca 600ml", 5.50, null, true); //Criando um produto
@@ -40,13 +34,13 @@ public class Carambola {
 		//Produto produto3 = new Produto("FANTA", "LATA 600ML", 6.5, bebidas, true);
 		//bebidas.verProdutosDaCategoria(bebidas);
 		
-		//TESTE CLASE CATALOGO -> METODO CADASTRAR CATEGORIA -> EDITAR CATEGORIA
-		UsuarioEstabelecimento estabelecimento = new UsuarioEstabelecimento(); 
-		Catalogo catalogo = new Catalogo(estabelecimento);
-		catalogo.cadastrarCategorias();
-		catalogo.verCategorias();
-		catalogo.editarCategorias();
-		catalogo.excluirCategorias();
+		//TESTE CLASE CATALOGO -> METODO CADASTRAR CATEGORIA -> EDITAR CATEGORIA -EXCLUIR CATEGORIA
+		//UsuarioEstabelecimento estabelecimento = new UsuarioEstabelecimento(); 
+		//Catalogo catalogo = new Catalogo(estabelecimento);
+		//catalogo.cadastrarCategorias();
+		//catalogo.verCategorias();
+		//catalogo.editarCategorias();
+		//catalogo.excluirCategorias();
 	}
 	
 	

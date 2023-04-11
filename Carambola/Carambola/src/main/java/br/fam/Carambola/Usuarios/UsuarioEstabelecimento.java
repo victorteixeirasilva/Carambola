@@ -2,12 +2,28 @@ package br.fam.Carambola.Usuarios;
 
 import br.fam.Carambola.Endereco;
 
-public class UsuarioEstabelecimento implements Usuario {
+public class UsuarioEstabelecimento  {
+	private Usuario usuario = new Usuario();
 	private String nome, email, senha;
 	private Endereco endereco;
 	private float classificacao;
-	private int cnpj, telefone, id;//O Atributo Id, está fora do Diagrama inicial 
+	private int cnpj, telefone, id;
 	
+	
+	
+	public UsuarioEstabelecimento(Usuario usuario, Endereco endereco, float classificacao, int cnpj, int id) {
+		super();
+		this.setUsuario(usuario);
+		this.nome = usuario.getNome();
+		this.email = usuario.getEmail();
+		this.senha = usuario.getSenha();
+		this.endereco = endereco;
+		this.classificacao = classificacao;
+		this.cnpj = cnpj;
+		this.telefone = usuario.getTelefone();
+		this.id = id;
+	}
+
 	public void verificarMesas() {
 		
 	}
@@ -126,6 +142,14 @@ public class UsuarioEstabelecimento implements Usuario {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 	
