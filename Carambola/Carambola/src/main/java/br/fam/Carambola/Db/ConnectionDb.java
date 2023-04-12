@@ -27,11 +27,8 @@ public class ConnectionDb {
 	
 	public void insert(String comandoSQL) throws SQLException{ // metodo de inserir novo registo
 		//Testa a conexão no Banco de dados
-		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
-			System.out.println("Conexão bem-sucedida!");
-		} catch (SQLException e) {
-			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
-		}
+		testeConexao();
+		
 		//Após testar se conecta de fato
 		Connection conexao = DriverManager.getConnection(url, usuario, senha);
 		
@@ -50,11 +47,8 @@ public class ConnectionDb {
 	
 	public void update(String comandoSQL) throws SQLException{ // metodo de atualizar um registo
 		//Testa a conexão no Banco de dados
-		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
-			System.out.println("Conexão bem-sucedida!");
-		} catch (SQLException e) {
-			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
-		}
+		testeConexao();
+		
 		//Após testar se conecta de fato
 		Connection conexao = DriverManager.getConnection(url, usuario, senha);
 		
@@ -73,11 +67,8 @@ public class ConnectionDb {
 	
 	public void queryVerTodasAsCategoriasDeUmCatalogo(int id1) throws SQLException {
 		//Testa a conexão no Banco de dados
-		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
-			System.out.println("Conexão bem-sucedida!");
-		} catch (SQLException e) {
-			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
-		}
+		testeConexao();
+		
 		//Após testar se conecta de fato
 		Connection conexao = DriverManager.getConnection(url, usuario, senha);
 		
@@ -107,11 +98,8 @@ public class ConnectionDb {
 	
 	public void queryVerProdutosDeUmaCategoria(int id1) throws SQLException {
 		//Testa a conexão no Banco de dados
-		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
-			System.out.println("Conexão bem-sucedida!");
-		} catch (SQLException e) {
-			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
-		}
+		testeConexao();
+		
 		//Após testar se conecta de fato
 		Connection conexao = DriverManager.getConnection(url, usuario, senha);
 		
@@ -143,11 +131,8 @@ public class ConnectionDb {
 	
 	public String queryGetCategoriaBd(int id1) throws SQLException {
 		//Testa a conexão no Banco de dados
-		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
-			//System.out.println("Conexão bem-sucedida!");
-		} catch (SQLException e) {
-			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
-		}
+		testeConexao();
+		
 		//Após testar se conecta de fato
 		Connection conexao = DriverManager.getConnection(url, usuario, senha);
 		
@@ -174,11 +159,8 @@ public class ConnectionDb {
 	
 	public int queryGetIdCatalagoPorEstabelecimento(int idEstabelecimento) throws SQLException {
 		//Testa a conexão no Banco de dados
-		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
-			//System.out.println("Conexão bem-sucedida!");
-		} catch (SQLException e) {
-			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
-		}
+		testeConexao();
+		
 		//Após testar se conecta de fato
 		Connection conexao = DriverManager.getConnection(url, usuario, senha);
 		
@@ -204,11 +186,8 @@ public class ConnectionDb {
 	public int queryIdCatalogoComIdCategoria(int idCategoria) throws SQLException {
 		int idCatalogo = 0;
 		//Testa a conexão no Banco de dados
-		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
-			//System.out.println("Conexão bem-sucedida!");
-		} catch (SQLException e) {
-			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
-		}
+		testeConexao();
+		
 		//Após testar se conecta de fato
 		Connection conexao = DriverManager.getConnection(url, usuario, senha);
 		
@@ -230,6 +209,15 @@ public class ConnectionDb {
         conexao.close();
         statement.close();
         return idCatalogo;
+	}
+	
+	public void testeConexao() {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
 	}
 	
 }
