@@ -2,6 +2,9 @@ package br.fam.Carambola.Principal;
 
 import java.sql.SQLException;
 
+import br.fam.Carambola.Catalogo;
+import br.fam.Carambola.Usuarios.UsuarioEstabelecimento;
+
 
 public class Carambola {
 
@@ -36,12 +39,12 @@ public class Carambola {
 		//bebidas.verProdutosDaCategoria();
 		
 		//TESTE CLASE CATALOGO -> METODO CADASTRAR CATEGORIA -> EDITAR CATEGORIA -EXCLUIR CATEGORIA
-		//UsuarioEstabelecimento estabelecimento = new UsuarioEstabelecimento(); 
-		//Catalogo catalogo = new Catalogo(estabelecimento);
-		//catalogo.cadastrarCategorias();
-		//catalogo.verCategorias();
-		//catalogo.editarCategorias();
-		//catalogo.excluirCategorias();
+		UsuarioEstabelecimento estabelecimento = new UsuarioEstabelecimento(); 
+		Catalogo catalogo = new Catalogo(estabelecimento);
+		catalogo.cadastrarCategorias();
+		catalogo.verCategorias();
+		catalogo.editarCategorias();
+		catalogo.excluirCategorias();
 	}
 	
 	

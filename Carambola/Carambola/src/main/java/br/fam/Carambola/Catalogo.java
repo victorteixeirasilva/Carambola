@@ -64,6 +64,7 @@ public class Catalogo {
 					
 					
 				} else if (escolha == JOptionPane.NO_OPTION) {
+					JOptionPane.showMessageDialog(null, "Informação original foi mantida!");
 					//System.out.println("Informação original foi mantida!");
 				} else {
 					//System.out.println("Opção Inválida");
