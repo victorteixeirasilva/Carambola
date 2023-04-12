@@ -2,12 +2,14 @@ package br.fam.Carambola.Principal;
 
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 
 public class Carambola {
 
 	public static void main(String[] args) throws SQLException {
 		
-		
+		menu();
 		
 		
 		
@@ -45,11 +47,29 @@ public class Carambola {
 	}
 	
 	
-	public void menu() {
-		
+	public static void menu() {
+		JOptionPane.showMessageDialog(null, "SEJA BEM VINDO AO CARAMBOLA!");
+		int escolha = JOptionPane.showConfirmDialog(null, 
+				"Já possui cadastro em nosso sistema?"
+				+ "\nSe sim escolha a opção (SIM)"
+				+ "\nSe não escolha a opção (NÃO) para se cadastrar"
+				+ "\nCaso não queira fazer login nem cadastro escolha a opção (CANCELAR)"
+				);
+		if(escolha == JOptionPane.YES_OPTION) {
+			fazerLogin();
+		} else if (escolha == JOptionPane.NO_OPTION) {
+			cadastrarNoSistema();
+		} else if (escolha == JOptionPane.CANCEL_OPTION) {
+			JOptionPane.showMessageDialog(null, 
+						"Obrigado por usar o CARAMBOLA!"
+					+ "\nESPERAMOS SEU RETORNO EM BREVE!");
+		}
 	}
 	
-	public void cadastrarNoSistema() {
+	public static void cadastrarNoSistema() {
+		
+	}
+	public static void fazerLogin() {
 		
 	}
 	
