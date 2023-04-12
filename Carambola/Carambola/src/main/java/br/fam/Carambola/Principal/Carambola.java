@@ -4,6 +4,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import br.fam.Carambola.Db.ConnectionDb;
+
 
 public class Carambola {
 
@@ -70,9 +72,10 @@ public class Carambola {
 		
 	}
 	public static void fazerLogin() {
+		ConnectionDb conn = new ConnectionDb();
 		String email = JOptionPane.showInputDialog("Informe o e-mail do usuário para login");
 		String senha = JOptionPane.showInputDialog("Informe a senha do usuário para login");
-		
+		conn.verificarLoginBd(email, senha);
 		
 	}
 	

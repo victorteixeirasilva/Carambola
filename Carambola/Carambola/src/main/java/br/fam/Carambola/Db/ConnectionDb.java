@@ -2,6 +2,7 @@ package br.fam.Carambola.Db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -28,7 +29,22 @@ public class ConnectionDb {
 	String senha = "";// Senha padrao
 	Formatador formatador = new Formatador();
 	
-	
+	public boolean verificarLoginBd(String email, String senha){
+		boolean resultado = false;
+        String sql = "SELECT * FROM TB_USUARIO WHERE USU_EMAIL = '"+email+"' AND USU_SENHA = '"+senha+"'";
+        try (Connection conn = DriverManager.getConnection(url, usuario, senha);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, usuario);
+            stmt.setString(2, senha);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                resultado = true; // Usuário e senha válidos
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()); // Tratamento de exceções
+        }
+        return resultado;
+	}
 	/**
 	 * 
 	 * @param comandoSQL - String que vai receber o comando sql sendo eles, de inserção
