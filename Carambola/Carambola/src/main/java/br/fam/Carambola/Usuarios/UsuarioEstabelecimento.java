@@ -9,8 +9,6 @@ public class UsuarioEstabelecimento  {
 	private float classificacao;
 	private int cnpj, telefone, id;
 	
-	
-	/*
 	public UsuarioEstabelecimento(Usuario usuario, Endereco endereco, float classificacao, int cnpj, int id) {
 		super();
 		this.setUsuario(usuario);
@@ -23,7 +21,7 @@ public class UsuarioEstabelecimento  {
 		this.telefone = usuario.getTelefone();
 		this.id = id;
 	}
-*/
+
 	public void verificarMesas() {
 		
 	}
