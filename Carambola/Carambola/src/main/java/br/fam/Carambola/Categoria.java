@@ -24,7 +24,7 @@ public class Categoria {
 	    Categoria.count += 1;
 	}
 
-	public void verProdutosDaCategoria(Categoria categoria) throws SQLException {
+	public void verProdutosDaCategoria() throws SQLException {
 		//System.out.print("Qual id da categoria deseja ver os produtos: ");
 		String input = JOptionPane.showInputDialog("Qual id da categoria deseja ver os produtos:");
 		int idCategoria = Integer.parseInt(input);

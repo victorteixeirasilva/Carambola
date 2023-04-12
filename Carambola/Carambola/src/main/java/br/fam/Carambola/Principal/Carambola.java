@@ -33,7 +33,7 @@ public class Carambola {
 		//Produto produto1 = new Produto("COCA", "LATA 600ML", 6.5, bebidas, true);
 		//Produto produto2 = new Produto("SPRITE", "LATA 600ML", 6.5, bebidas, true);
 		//Produto produto3 = new Produto("FANTA", "LATA 600ML", 6.5, bebidas, true);
-		//bebidas.verProdutosDaCategoria(bebidas);
+		//bebidas.verProdutosDaCategoria();
 		
 		//TESTE CLASE CATALOGO -> METODO CADASTRAR CATEGORIA -> EDITAR CATEGORIA -EXCLUIR CATEGORIA
 		//UsuarioEstabelecimento estabelecimento = new UsuarioEstabelecimento(); 
