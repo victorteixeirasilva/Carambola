@@ -70,6 +70,9 @@ public class Carambola {
 		
 	}
 	public static void fazerLogin() {
+		String email = JOptionPane.showInputDialog("Informe o e-mail do usuário para login");
+		String senha = JOptionPane.showInputDialog("Informe a senha do usuário para login");
+		
 		
 	}
 	
