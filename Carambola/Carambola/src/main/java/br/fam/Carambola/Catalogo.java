@@ -19,7 +19,7 @@ public class Catalogo {
 	private static int count = 1; //Atributo fora do diagrama
 	
 	public Catalogo(UsuarioEstabelecimento estabelecimento) throws SQLException {
-		super();
+
 		this.id = count;
 		this.estabelecimento = estabelecimento;
 		this.nome = estabelecimento.getNome();

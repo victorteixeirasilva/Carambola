@@ -1,5 +1,10 @@
 package br.fam.Carambola.Usuarios;
 
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+import br.fam.Carambola.Categoria;
 import br.fam.Carambola.Endereco;
 
 public class UsuarioEstabelecimento  {
@@ -20,6 +25,13 @@ public class UsuarioEstabelecimento  {
 		this.cnpj = cnpj;
 		this.telefone = usuario.getTelefone();
 		this.id = id;
+	}
+	
+	public void editarEndereco() throws SQLException {
+	    String input = JOptionPane.showInputDialog("Informe o novo nome da rua:");
+		Endereco endereco = new Endereco( );
+		
+		JOptionPane.showMessageDialog(null, "A categoria "+categoria.getNome()+" foi cadastrada corretamente!");
 	}
 
 	public void verificarMesas() {
