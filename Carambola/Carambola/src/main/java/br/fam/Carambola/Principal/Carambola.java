@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import br.fam.Carambola.Endereco;
 import br.fam.Carambola.Db.ConnectionDb;
 import br.fam.Carambola.Usuarios.Usuario;
+import br.fam.Carambola.Usuarios.UsuarioCliente;
 import br.fam.Carambola.Usuarios.UsuarioEstabelecimento;
 
 
@@ -64,11 +65,12 @@ public class Carambola {
 			fazerLogin();
 		} else if (escolha == JOptionPane.NO_OPTION) {
 			cadastrarNoSistema();
+			fazerLogin();
 		} else if (escolha == JOptionPane.CANCEL_OPTION) {
 			JOptionPane.showMessageDialog(null, 
 						"Obrigado por usar o CARAMBOLA!"
 					+ "\nESPERAMOS SEU RETORNO EM BREVE!");
-		}
+		} 
 	}
 	
 	public static void cadastrarNoSistema() throws SQLException {
@@ -80,7 +82,7 @@ public class Carambola {
 		}
 	}
 	
-	public static void cadastrarUsuarioCliente() {
+	public static void cadastrarUsuarioCliente() throws SQLException {
 		//Cadastro do usuario
 		String email = JOptionPane.showInputDialog("Informe o email para cadastro:");
 		String senha = JOptionPane.showInputDialog("Informe a senha para cadastro:");
@@ -88,7 +90,10 @@ public class Carambola {
 		int telefone = Integer.parseInt(telefoneString);
 		
 		//Cadastro UsuarioCliente
-		
+		String nome = JOptionPane.showInputDialog("Informe o nome completo:");
+		String cpfString = JOptionPane.showInputDialog("Informe o cpf:");
+		long cpf = Long.parseLong(cpfString);
+		String dataNascimento = JOptionPane.showInputDialog("Informe a data de nascimento: \nLembrando de seguir esse formato (ANO-MÊS-DIA) \nExemplo 23 de agosto de 2003, (2003-08-23");
 		
 		//Cadastro Endereço Cliente
 		String rua = JOptionPane.showInputDialog("Agora vamos cadastrar seu endereço!" + "\nDigite o nome da rua:");
@@ -98,8 +103,15 @@ public class Carambola {
 		String numeroString = JOptionPane.showInputDialog("Digite o número da residencia:");
 		int numero = Integer.parseInt(numeroString);
 		
+		//Criando Objeto do tipo usuario e fazendo o insert do usuário no banco de dados
+		Usuario usuario = new Usuario(telefone,email,senha);
 		
+		//Criando Objeto do tipo usuario cliente e fazendo insert no banco de dados
+		UsuarioCliente usuarioCliente = new UsuarioCliente(usuario, nome, cpf, dataNascimento);
 		
+		//Criando Objeto do tipo endereço e fazendo o insert no banco de dados
+		Endereco endereco = new Endereco(rua, bairro, referencia, cep, numero, usuarioCliente);
+		usuarioCliente.setEndereco(endereco);
 	}
 	
 	public static void cadastrarEstabelecimento() throws SQLException {
