@@ -1,14 +1,34 @@
 package br.fam.Carambola.Usuarios;
 
+import java.sql.SQLException;
+
 import br.fam.Carambola.Endereco;
 import br.fam.Carambola.FormaDePagamento;
+import br.fam.Carambola.Db.ConnectionDb;
 
 public class UsuarioCliente{
-	private String nome, email, senha;
+	private Usuario usuario;
+	private String nome, email, senha, dataNascimento;
+	private long cpf;
 	private int telefone;
+	private int id;
 	private Endereco endereco;
 	private FormaDePagamento formaDePagamento;
+	private ConnectionDb conn = new ConnectionDb();
 	
+	
+	public UsuarioCliente(Usuario usuario,String nome, long cpf, String dataNascimento) throws SQLException {
+		this.nome = nome;
+		this.email = usuario.getEmail();
+		this.senha = usuario.getSenha();
+		this.cpf = cpf;
+		this.dataNascimento = dataNascimento;
+		this.id = usuario.getId();
+		
+		conn.insert("INSERT INTO TB_USUARIOS_CLIENTE(USUCLI_IDUSUCLI, USUCLI_IDUSU, USUCLI_NOME, USU_DATANASC, USU_CPF) VALUES ("+this.usuario.getId()+", "+this.usuario.getId()+", '"+this.nome+"', '"+this.dataNascimento+"', "+this.cpf+");");
+		
+	}
+
 	public void reservarMesa() {
 		
 	}
@@ -71,6 +91,38 @@ public class UsuarioCliente{
 
 	public void setFormaDePagamento(FormaDePagamento formaDePagamento) {
 		this.formaDePagamento = formaDePagamento;
+	}
+
+	public String getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(String dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public long getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(long cpf) {
+		this.cpf = cpf;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

@@ -87,12 +87,10 @@ public class Carambola {
 		String telefoneString = JOptionPane.showInputDialog("Informe o telefone para cadastro");
 		int telefone = Integer.parseInt(telefoneString);
 		
-		//Cadastro UsuarioEstabelecimento
-		String nomeEstabelecimento = JOptionPane.showInputDialog("Informe o nome do Estabelecimento:");
-		String cnpjString = JOptionPane.showInputDialog("Informe o CNPJ do seu Estabelecimento");
-		long cnpj = Long.parseLong(cnpjString);
+		//Cadastro UsuarioCliente
 		
-		//Cadastro Endereço
+		
+		//Cadastro Endereço Cliente
 		String rua = JOptionPane.showInputDialog("Agora vamos cadastrar seu endereço!" + "\nDigite o nome da rua:");
 		String bairro = JOptionPane.showInputDialog("Digite o nome do bairro:");
 		String referencia = JOptionPane.showInputDialog("Digite uma referencia: \nCaso não tenha deixe em branco e clique em (ok)");
@@ -116,7 +114,7 @@ public class Carambola {
 		String cnpjString = JOptionPane.showInputDialog("Informe o CNPJ do seu Estabelecimento");
 		long cnpj = Long.parseLong(cnpjString);
 		
-		//Cadastro Endereço
+		//Cadastro Endereço Estabelecimento
 		String rua = JOptionPane.showInputDialog("Agora vamos cadastrar seu endereço!" + "\nDigite o nome da rua:");
 		String bairro = JOptionPane.showInputDialog("Digite o nome do bairro:");
 		String referencia = JOptionPane.showInputDialog("Digite uma referencia: \nCaso não tenha deixe em branco e clique em (ok)");
