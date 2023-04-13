@@ -3,7 +3,7 @@ package br.fam.Carambola.Usuarios;
 import br.fam.Carambola.Endereco;
 import br.fam.Carambola.FormaDePagamento;
 
-public class UsuarioCliente implements Usuario {
+public class UsuarioCliente{
 	private String nome, email, senha;
 	private int telefone;
 	private Endereco endereco;

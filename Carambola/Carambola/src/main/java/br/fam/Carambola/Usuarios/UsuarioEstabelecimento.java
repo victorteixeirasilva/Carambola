@@ -1,23 +1,29 @@
 package br.fam.Carambola.Usuarios;
 
+import java.sql.SQLException;
+
 import br.fam.Carambola.Endereco;
+import br.fam.Carambola.Db.ConnectionDb;
 
 public class UsuarioEstabelecimento  {
 	private String nome, email, senha;
 	private Endereco endereco;
 	private float classificacao;
-	private int cnpj, telefone, id;
+	private int id;
+	private int telefone;
+	private long cnpj;
+	private Usuario usuario;
+	private ConnectionDb conn = new ConnectionDb();
 	
-	public UsuarioEstabelecimento(Usuario usuario, Endereco endereco, float classificacao, int cnpj, int id) {
-		super();
-		this.nome = 
+	public UsuarioEstabelecimento(Usuario usuario, String nomeEstabelecimento , long cnpj) throws SQLException {
+		this.nome = nomeEstabelecimento;
 		this.email = usuario.getEmail();
 		this.senha = usuario.getSenha();
-		this.endereco = endereco;
-		this.classificacao = classificacao;
 		this.cnpj = cnpj;
 		this.telefone = usuario.getTelefone();
-		this.id = id;
+		this.id = usuario.getId();
+		conn.insert("INSERT INTO TB_USUARIOS_ESTABELECIMENTO(USUEST_IDUSUEST, USUEST_IDUSU, USUEST_NOME, USU_CNPJ) VALUES ("+this.usuario.getId()+", "+this.usuario.getId()+", "+this.nome+", "+this.cnpj+");");
+		
 	}
 
 	public void verificarMesas() {
@@ -116,7 +122,7 @@ public class UsuarioEstabelecimento  {
 		this.classificacao = classificacao;
 	}
 
-	public int getCnpj() {
+	public long getCnpj() {
 		return cnpj;
 	}
 
@@ -127,7 +133,7 @@ public class UsuarioEstabelecimento  {
 	public int getTelefone() {
 		return telefone;
 	}
-
+	
 	public void setTelefone(int telefone) {
 		this.telefone = telefone;
 	}
@@ -138,6 +144,14 @@ public class UsuarioEstabelecimento  {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	

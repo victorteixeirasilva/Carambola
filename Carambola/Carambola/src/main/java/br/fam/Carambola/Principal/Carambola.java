@@ -56,9 +56,9 @@ public class Carambola {
 		JOptionPane.showMessageDialog(null, "SEJA BEM VINDO AO CARAMBOLA!");
 		int escolha = JOptionPane.showConfirmDialog(null, 
 				"Já possui cadastro em nosso sistema?"
-				+ "\nSe sim escolha a opção (SIM)"
-				+ "\nSe não escolha a opção (NÃO) para se cadastrar"
-				+ "\nCaso não queira fazer login nem cadastro escolha a opção (CANCELAR)"
+				+ "\nSe sim escolha a opção (YES) para Login"
+				+ "\nSe não escolha a opção (NO) para se Cadastrar"
+				+ "\nCaso não queira fazer login nem cadastro escolha a opção (CANCEL)"
 				);
 		if(escolha == JOptionPane.YES_OPTION) {
 			fazerLogin();
@@ -72,21 +72,22 @@ public class Carambola {
 	}
 	
 	public static void cadastrarNoSistema() throws SQLException {
-		ConnectionDb conn = new ConnectionDb();
 		int escolha = JOptionPane.showConfirmDialog(null, "Você deseja se cadastrar como Estabelecimento?");
 		if (escolha == JOptionPane.YES_OPTION) {
 			cadastrarEstabelecimento();
+		} else if (escolha == JOptionPane.NO_OPTION) {
+			cadastrarUsuarioCliente();
 		}
 	}
 	
-	public static void cadastrarEstabelecimento() throws SQLException {
+	public static void cadastrarUsuarioCliente() {
 		//Cadastro do usuario
 		String email = JOptionPane.showInputDialog("Informe o email para cadastro:");
 		String senha = JOptionPane.showInputDialog("Informe a senha para cadastro:");
-		
-		//Cadastro UsuarioEstabelecimento
 		String telefoneString = JOptionPane.showInputDialog("Informe o telefone para cadastro");
 		int telefone = Integer.parseInt(telefoneString);
+		
+		//Cadastro UsuarioEstabelecimento
 		String nomeEstabelecimento = JOptionPane.showInputDialog("Informe o nome do Estabelecimento:");
 		String cnpjString = JOptionPane.showInputDialog("Informe o CNPJ do seu Estabelecimento");
 		long cnpj = Long.parseLong(cnpjString);
@@ -99,12 +100,41 @@ public class Carambola {
 		String numeroString = JOptionPane.showInputDialog("Digite o número da residencia:");
 		int numero = Integer.parseInt(numeroString);
 		
+		
+		
+	}
+	
+	public static void cadastrarEstabelecimento() throws SQLException {
+		//Cadastro do usuario
+		String email = JOptionPane.showInputDialog("Informe o email para cadastro:");
+		String senha = JOptionPane.showInputDialog("Informe a senha para cadastro:");
+		String telefoneString = JOptionPane.showInputDialog("Informe o telefone para cadastro");
+		int telefone = Integer.parseInt(telefoneString);
+		
+		//Cadastro UsuarioEstabelecimento
+		String nomeEstabelecimento = JOptionPane.showInputDialog("Informe o nome do Estabelecimento:");
+		String cnpjString = JOptionPane.showInputDialog("Informe o CNPJ do seu Estabelecimento");
+		long cnpj = Long.parseLong(cnpjString);
+		
+		//Cadastro Endereço
+		String rua = JOptionPane.showInputDialog("Agora vamos cadastrar seu endereço!" + "\nDigite o nome da rua:");
+		String bairro = JOptionPane.showInputDialog("Digite o nome do bairro:");
+		String referencia = JOptionPane.showInputDialog("Digite uma referencia: \nCaso não tenha deixe em branco e clique em (ok)");
+		String cep = JOptionPane.showInputDialog("Digite o CEP:");
+		String numeroString = JOptionPane.showInputDialog("Digite o número da residencia:");
+		int numero = Integer.parseInt(numeroString);
+		
+		//Criando Objeto do tipo usuario e fazendo o insert do usuário no banco de dados
 		Usuario usuario = new Usuario(telefone,email,senha);
 		
-		//UsuarioEstabelecimento usuarioEstabelecimento = new UsuarioEstabelecimento(usuario, null, cnpj, telefone, numero);
-		
-		//Endereco endereco = new Endereco(rua, bairro, referencia, telefone, numero,usuarioEstabelecimento.getId());
+		//Criando Objeto do tipo usuario estabelecimento e fazendo insert no banco de dados
+		UsuarioEstabelecimento usuarioEstabelecimento = new UsuarioEstabelecimento(usuario, nomeEstabelecimento, cnpj);
+
+		//Criando Objeto do tipo endereço e fazendo o insert no banco de dados
+		Endereco endereco = new Endereco(rua, bairro, referencia, cep, numero, usuarioEstabelecimento);
+		usuarioEstabelecimento.setEndereco(endereco);
 	}
+	
 	public static void fazerLogin() {
 		ConnectionDb conn = new ConnectionDb();
 		String email = JOptionPane.showInputDialog("Informe o e-mail do usuário para login");
