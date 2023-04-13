@@ -29,6 +29,8 @@ public class ConnectionDb {
 	String senha = "";// Senha padrao
 	Formatador formatador = new Formatador();
 	
+	
+	
 	public boolean verificarLoginBd(String email, String senha){
 		boolean resultado = false;
         String sql = "SELECT * FROM TB_USUARIO WHERE USU_EMAIL = '"+email+"' AND USU_SENHA = '"+senha+"'";

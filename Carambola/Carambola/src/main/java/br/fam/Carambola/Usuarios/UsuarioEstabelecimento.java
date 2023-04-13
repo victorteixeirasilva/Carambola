@@ -3,7 +3,6 @@ package br.fam.Carambola.Usuarios;
 import br.fam.Carambola.Endereco;
 
 public class UsuarioEstabelecimento  {
-	private Usuario usuario = new Usuario();
 	private String nome, email, senha;
 	private Endereco endereco;
 	private float classificacao;
@@ -11,8 +10,7 @@ public class UsuarioEstabelecimento  {
 	
 	public UsuarioEstabelecimento(Usuario usuario, Endereco endereco, float classificacao, int cnpj, int id) {
 		super();
-		this.setUsuario(usuario);
-		this.nome = usuario.getNome();
+		this.nome = 
 		this.email = usuario.getEmail();
 		this.senha = usuario.getSenha();
 		this.endereco = endereco;
@@ -142,13 +140,7 @@ public class UsuarioEstabelecimento  {
 		this.id = id;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+	
 	
 	
 }

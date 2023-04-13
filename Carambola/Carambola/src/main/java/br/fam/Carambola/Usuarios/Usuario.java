@@ -1,29 +1,27 @@
 package br.fam.Carambola.Usuarios;
 
+import java.sql.SQLException;
+
+import br.fam.Carambola.Db.ConnectionDb;
+
 public class Usuario {
-	private String nome;
 	private int telefone, id;
 	private String email;
 	private String senha;
 	private static int count = 1000;
+	private ConnectionDb conn = new ConnectionDb();
 	
 	
-	
-	public Usuario() {
-		super();
-		this.nome = null;
-		this.telefone = 0;
-		this.email = null;
-		this.senha = null;
-		Usuario.setCount(Usuario.getCount() + 1);
+	public Usuario(int telefone, String email, String senha) throws SQLException {
+		this.telefone = telefone;
+		this.email = email;
+		this.senha = senha;
+		conn.insert("INSERT INTO TB_USUARIOS(USU_IDUSU,USU_TEL,USU_EMAIL,USU_SENHA) VALUES (NEXT VALUE FOR SQ_USU_IDUSU,"+this.telefone+",'"+this.email+"','"+this.senha+"');");
+		Usuario.count += 1;
 	}
 
 	public void identificarNoSistema() {
 		
-	}
-
-	public String getNome() {
-		return nome;
 	}
 
 	public int getTelefone() {
