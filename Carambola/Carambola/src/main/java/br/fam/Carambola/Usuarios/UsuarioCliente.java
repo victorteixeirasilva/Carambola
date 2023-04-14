@@ -25,7 +25,7 @@ public class UsuarioCliente{
 		this.dataNascimento = dataNascimento;
 		this.id = usuario.getId();
 		
-		conn.insert("INSERT INTO TB_USUARIOS_CLIENTE(USUCLI_IDUSUCLI, USUCLI_IDUSU, USUCLI_NOME, USU_DATANASC, USU_CPF) VALUES ("+this.usuario.getId()+", "+this.usuario.getId()+", '"+this.nome+"', '"+this.dataNascimento+"', "+this.cpf+");");
+		conn.insert("INSERT INTO TB_USUARIOS_CLIENTE(USUCLI_IDUSUCLI, USUCLI_IDUSU, USUCLI_NOME, USU_DATANASC, USU_CPF) VALUES ("+this.id+", "+this.id+", '"+this.nome+"', '"+this.dataNascimento+"', "+this.cpf+");");
 		
 	}
 
