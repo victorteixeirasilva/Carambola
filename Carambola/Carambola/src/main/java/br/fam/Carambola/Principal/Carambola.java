@@ -163,6 +163,7 @@ public class Carambola {
 						+ "3-Ver Forma de Pagamento Cadastrada\n"
 						+ "4-Editar Forma de Pagamento\n"
 						+ "5-Excluir Forma de Pagamento"
+						+ "7-Desconectar-se"
 						+ "6-Sair"
 						);
 				int opcao = Integer.parseInt(opcaoString);
@@ -178,6 +179,8 @@ public class Carambola {
 				case 5:
 				
 				case 6:
+					
+				case 7:
 				
 				default:
 					

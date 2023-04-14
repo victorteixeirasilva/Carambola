@@ -1,6 +1,6 @@
 package br.fam.Carambola.Usuarios;
 
-public class UsuarioFuncionario implements Usuario {
+public class UsuarioFuncionario  {
 	private String nome, email, senha;
 	private int cpf;
 	
