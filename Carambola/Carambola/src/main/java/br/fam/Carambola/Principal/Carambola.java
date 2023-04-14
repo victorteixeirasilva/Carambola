@@ -124,15 +124,21 @@ public class Carambola {
 		String senha = JOptionPane.showInputDialog("Informe a senha do usuário para login");
 		if(conn.verificarLoginBd(email, senha)) {
 			int idUsuario = conn.buscarIdUsuario(email, senha);
-			if(conn.verificarSeEstabelecimento(idUsuario)) {//Se usuario for cadastrado e for estabelecimento
+			if(conn.verificarSeEstabelecimento(idUsuario)) {//Se usuario for cadastrado e for do tipo estabelecimento
 				menuEstabelecimento(idUsuario);
-			} else if (conn.verificarSeCliente(idUsuario)){
+			} else if (conn.verificarSeCliente(idUsuario)){ //Se usuario for cadatrado e for do tipo cliente
 				menuUsuarioCliente(idUsuario);
-			} // Falta verificar se é Funcionario
+			} else if (conn.verificarSeFuncionario(idUsuario)){ //Se usuario for cadatrado e for do tipo funcionario
+				menuFuncionario(idUsuario);
+			}
 		} else {
 			JOptionPane.showInputDialog("Email ou senha invalidos\n \nClique ok para tentar novamente!");
 			fazerLogin();
 		}
+	}
+	
+	private static void menuFuncionario(int idUsuario) {
+		
 	}
 	
 	private static void menuEstabelecimento(int idEstabelecimento) {
@@ -162,7 +168,7 @@ public class Carambola {
 		opcao = Integer.parseInt(opcaoString);
 		switch (opcao){
 		case 1:
-			usuario.buscarEstabelecimento(); //Não implementado ainda
+			usuario.buscarEstabelecimento();
 			break;
 		case 2:
 			usuario.verInformacoesDaConta(); //Não implementado ainda
