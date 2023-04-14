@@ -13,6 +13,7 @@ public class Endereco {
 	private int numero;
 	private static int count = 1;
 	private ConnectionDb conn = new ConnectionDb();
+	private int id;
 	
 	public Endereco(String rua, String bairro, String referencia, String cep, int numero, UsuarioEstabelecimento estabelecimento) throws SQLException {
 		
@@ -22,21 +23,22 @@ public class Endereco {
 		this.referencia = referencia;
 		this.cep = cep;
 		this.numero = numero;
+		this.id = estabelecimento.getId();
 		
-		conn.insert("INSERT INTO TB_ENDERECO(END_IDEND, END_IDUSU, END_RUA, END_BAIRRO, END_REFERENCIA, END_CEP, END_NUMERO) VALUES (NEXT VALUE FOR SQ_END_IDEND, '"+this.estabelecimento.getId()+"', '"+this.rua+"', '"+this.bairro+"', '"+this.referencia+"', '"+this.cep+"', '"+this.numero+"');");
+		conn.insert("INSERT INTO TB_ENDERECOS(END_IDEND,END_IDUSU,END_RUA,END_BAIRRO,END_REFERENCIA,END_CEP,END_NUMERO) VALUES(NEXT VALUE FOR SQ_END_IDEND,"+this.id+",'"+this.rua+"','"+this.bairro+"','"+this.referencia+"','"+this.cep+"',"+this.numero+");");
 		Endereco.setCount(Endereco.getCount() + 1);
 	}
 	
 	public Endereco(String rua, String bairro, String referencia, String cep, int numero, UsuarioCliente usuarioCliente) throws SQLException {
 		
-		this.usuarioCliente = usuarioCliente;
+		this.setUsuarioCliente(usuarioCliente);
 		this.rua = rua;
 		this.bairro = bairro;
 		this.referencia = referencia;
 		this.cep = cep;
 		this.numero = numero;
-		
-		conn.insert("INSERT INTO TB_ENDERECO(END_IDEND, END_IDUSU, END_RUA, END_BAIRRO, END_REFERENCIA, END_CEP, END_NUMERO) VALUES (NEXT VALUE FOR SQ_END_IDEND, '"+this.usuarioCliente.getId()+"', '"+this.rua+"', '"+this.bairro+"', '"+this.referencia+"', '"+this.cep+"', '"+this.numero+"');");
+		this.id = usuarioCliente.getId();
+		conn.insert("INSERT INTO TB_ENDERECO(END_IDEND, END_IDUSU, END_RUA, END_BAIRRO, END_REFERENCIA, END_CEP, END_NUMERO) VALUES (NEXT VALUE FOR SQ_END_IDEND, "+this.id+", '"+this.rua+"', '"+this.bairro+"', '"+this.referencia+"', '"+this.cep+"', "+this.numero+");");
 		Endereco.setCount(Endereco.getCount() + 1);
 	}
 	
@@ -85,6 +87,22 @@ public class Endereco {
 
 	public void setEstabelecimento(UsuarioEstabelecimento estabelecimento) {
 		this.estabelecimento = estabelecimento;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public UsuarioCliente getUsuarioCliente() {
+		return usuarioCliente;
+	}
+
+	public void setUsuarioCliente(UsuarioCliente usuarioCliente) {
+		this.usuarioCliente = usuarioCliente;
 	}
 	
 	

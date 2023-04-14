@@ -56,10 +56,10 @@ public class Carambola {
 	public static void menu() throws SQLException {
 		JOptionPane.showMessageDialog(null, "SEJA BEM VINDO AO CARAMBOLA!");
 		int escolha = JOptionPane.showConfirmDialog(null, 
-				"Já possui cadastro em nosso sistema?"
-				+ "\nSe sim escolha a opção (YES) para Login"
-				+ "\nSe não escolha a opção (NO) para se Cadastrar"
-				+ "\nCaso não queira fazer login nem cadastro escolha a opção (CANCEL)"
+				"Já possui cadastro em nosso sistema?\n"
+				+ "\nSe sim escolha a opção (YES) para Login\n"
+				+ "\nSe não escolha a opção (NO) para se Cadastrar\n"
+				+ "\nCaso não queira fazer login nem cadastro escolha a opção (CANCEL)\n"
 				);
 		if(escolha == JOptionPane.YES_OPTION) {
 			fazerLogin();
@@ -86,8 +86,8 @@ public class Carambola {
 		//Cadastro do usuario
 		String email = JOptionPane.showInputDialog("Informe o email para cadastro:");
 		String senha = JOptionPane.showInputDialog("Informe a senha para cadastro:");
-		String telefoneString = JOptionPane.showInputDialog("Informe o telefone para cadastro");
-		int telefone = Integer.parseInt(telefoneString);
+		String telefoneString = JOptionPane.showInputDialog("Informe o telefone para cadastro:");
+		long telefone = Long.parseLong(telefoneString);
 		
 		//Cadastro UsuarioCliente
 		String nome = JOptionPane.showInputDialog("Informe o nome completo:");
@@ -119,7 +119,7 @@ public class Carambola {
 		String email = JOptionPane.showInputDialog("Informe o email para cadastro:");
 		String senha = JOptionPane.showInputDialog("Informe a senha para cadastro:");
 		String telefoneString = JOptionPane.showInputDialog("Informe o telefone para cadastro");
-		int telefone = Integer.parseInt(telefoneString);
+		long telefone = Long.parseLong(telefoneString);
 		
 		//Cadastro UsuarioEstabelecimento
 		String nomeEstabelecimento = JOptionPane.showInputDialog("Informe o nome do Estabelecimento:");

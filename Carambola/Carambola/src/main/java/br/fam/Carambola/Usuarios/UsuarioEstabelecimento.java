@@ -10,19 +10,20 @@ public class UsuarioEstabelecimento  {
 	private Endereco endereco;
 	private float classificacao;
 	private int id;
-	private int telefone;
+	private long telefone;
 	private long cnpj;
 	private Usuario usuario;
 	private ConnectionDb conn = new ConnectionDb();
 	
 	public UsuarioEstabelecimento(Usuario usuario, String nomeEstabelecimento , long cnpj) throws SQLException {
+		this.usuario = usuario;
 		this.nome = nomeEstabelecimento;
-		this.email = usuario.getEmail();
-		this.senha = usuario.getSenha();
+		this.email = this.usuario.getEmail();
+		this.senha = this.usuario.getSenha();
 		this.cnpj = cnpj;
-		this.telefone = usuario.getTelefone();
-		this.id = usuario.getId();
-		conn.insert("INSERT INTO TB_USUARIOS_ESTABELECIMENTO(USUEST_IDUSUEST, USUEST_IDUSU, USUEST_NOME, USU_CNPJ) VALUES ("+this.usuario.getId()+", "+this.usuario.getId()+", "+this.nome+", "+this.cnpj+");");
+		this.telefone = this.usuario.getTelefone();
+		this.id = this.usuario.getId();
+		conn.insert("INSERT INTO TB_USUARIOS_ESTABELECIMENTO(USUEST_IDUSUEST, USUEST_IDUSU, USUEST_NOME, USU_CNPJ) VALUES ("+this.usuario.getId()+", "+this.usuario.getId()+", '"+this.nome+"', "+this.cnpj+");");
 		
 	}
 
@@ -130,11 +131,11 @@ public class UsuarioEstabelecimento  {
 		this.cnpj = cnpj;
 	}
 
-	public int getTelefone() {
+	public long getTelefone() {
 		return telefone;
 	}
 	
-	public void setTelefone(int telefone) {
+	public void setTelefone(long telefone) {
 		this.telefone = telefone;
 	}
 

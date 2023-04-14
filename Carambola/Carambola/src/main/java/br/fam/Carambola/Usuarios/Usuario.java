@@ -5,14 +5,16 @@ import java.sql.SQLException;
 import br.fam.Carambola.Db.ConnectionDb;
 
 public class Usuario {
-	private int telefone, id;
+	private int id;
+	private long telefone;
 	private String email;
 	private String senha;
 	private static int count = 1000;
 	private ConnectionDb conn = new ConnectionDb();
 	
 	
-	public Usuario(int telefone, String email, String senha) throws SQLException {
+	public Usuario(long telefone, String email, String senha) throws SQLException {
+		this.id = count;
 		this.telefone = telefone;
 		this.email = email;
 		this.senha = senha;
@@ -24,7 +26,7 @@ public class Usuario {
 		
 	}
 
-	public int getTelefone() {
+	public long getTelefone() {
 		return telefone;
 	}
 
