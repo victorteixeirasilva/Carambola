@@ -150,10 +150,42 @@ public class Carambola {
 		String email = JOptionPane.showInputDialog("Informe o e-mail do usuário para login");
 		String senha = JOptionPane.showInputDialog("Informe a senha do usuário para login");
 		if(conn.verificarLoginBd(email, senha)) {
-			if(conn.verificarSeEstabelecimento(conn.buscarIdUsuarioPorEmailESenha(email, senha))) {//Se usuario for cadastrado e for estabelecimento
-				JOptionPane.showMessageDialog(null, "VOCÊ ESTÁ CADASTRADO CORRETAMENTE E É DO TIPO ESTABELECIMENTO!");
-			} 
+			if(conn.verificarSeEstabelecimento(conn.buscarIdUsuario(email, senha))) {//Se usuario for cadastrado e for estabelecimento
+				JOptionPane.showMessageDialog(null, "VOCÊ ESTÁ CADASTRADO CORRETAMENTE \nÉ UM USUÁRIO DO TIPO ESTABELECIMENTO!");
+			} else {
+				String opcaoString = JOptionPane.showInputDialog(
+						"Olá "+conn.getNomeBdCliente(conn.buscarIdUsuario(email, senha))+" \n"
+						+ "\nBem vindo ao menu do CARAMBOLA!\n"
+						+ "\nEscolha uma das opões abaixo:\n"
+						+ "1-Buscar Estabelecimento\n"
+						+ "2-Cadastrar Forma de Pagamento\n"
+						+ "3-Ver Forma de Pagamento Cadastrada\n"
+						+ "4-Editar Forma de Pagamento\n"
+						+ "5-Excluir Forma de Pagamento"
+						+ "6-Sair"
+						);
+				int opcao = Integer.parseInt(opcaoString);
+				switch (opcao){
+				case 1:
+					
+				case 2:
+				
+				case 3:
+					
+				case 4:
+				
+				case 5:
+				
+				case 6:
+				
+				default:
+					
+				}
+			}
 			
+		} else {
+			JOptionPane.showInputDialog("Email ou senha invalidos\n \nClique ok para tentar novamente!");
+			fazerLogin();
 		}
 	}
 	

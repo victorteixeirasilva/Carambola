@@ -14,12 +14,11 @@ public class Usuario {
 	
 	
 	public Usuario(long telefone, String email, String senha) throws SQLException {
-		this.id = count;
 		this.telefone = telefone;
 		this.email = email;
 		this.senha = senha;
 		conn.insert("INSERT INTO TB_USUARIOS(USU_IDUSU,USU_TEL,USU_EMAIL,USU_SENHA) VALUES (NEXT VALUE FOR SQ_USU_IDUSU,"+this.telefone+",'"+this.email+"','"+this.senha+"');");
-		Usuario.count += 1;
+		id = conn.buscarIdUsuario(email, senha);
 	}
 
 	public void identificarNoSistema() {

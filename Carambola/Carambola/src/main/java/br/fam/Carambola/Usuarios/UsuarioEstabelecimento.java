@@ -22,7 +22,7 @@ public class UsuarioEstabelecimento  {
 		this.senha = this.usuario.getSenha();
 		this.cnpj = cnpj;
 		this.telefone = this.usuario.getTelefone();
-		this.id = this.usuario.getId();
+		this.id = usuario.getId();
 		conn.insert("INSERT INTO TB_USUARIOS_ESTABELECIMENTO(USUEST_IDUSUEST, USUEST_IDUSU, USUEST_NOME, USU_CNPJ) VALUES ("+this.usuario.getId()+", "+this.usuario.getId()+", '"+this.nome+"', "+this.cnpj+");");
 		
 	}

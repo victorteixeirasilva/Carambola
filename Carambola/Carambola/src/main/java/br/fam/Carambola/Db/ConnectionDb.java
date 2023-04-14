@@ -2,7 +2,6 @@ package br.fam.Carambola.Db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -29,10 +28,146 @@ public class ConnectionDb {
 	String senha = "";// Senha padrao
 	Formatador formatador = new Formatador();
 	
-	public int buscarIdUsuarioPorEmailESenha(String email, String senha) throws SQLException {
+	public String getNomeBdCliente(int idUsuario) throws SQLException {
 		//Testa a conexão no Banco de dados
-		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USUCLI_NOME) FROM TB_USUARIOS_CLIENTE WHERE USUCLI_IDUSU = "+idUsuario+";";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        String nomeBd = "";
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	nomeBd = row.getString("USUCLI_NOME");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+		
+        return nomeBd;
+	}
+	
+	public int buscarIdUsuario(String emailUsuario, String senhaUsuario) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
 			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+				
+		//executa a query
+		String sql = "SELECT (USU_IDUSU) FROM TB_USUARIOS WHERE USU_EMAIL = '"+emailUsuario+"' AND USU_SENHA = '"+senhaUsuario+"';";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        int idUsuario = 0;
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	idUsuario = row.getInt("USU_IDUSU");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+		
+        return idUsuario;
+	}
+	
+	
+	
+	public boolean verificarSeEstabelecimento(int idUsuario) throws SQLException {
+		boolean resultado = false;
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+				
+		//executa a query
+		String sql = "SELECT (USUEST_IDUSU) FROM TB_USUARIOS_ESTABELECIMENTO WHERE USUEST_IDUSU = "+idUsuario+"; ";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        int idUsuarioBd = 0;
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	idUsuarioBd = row.getInt("USUEST_IDUSU");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+        
+        if(idUsuario == idUsuarioBd) {
+        	resultado = true;
+        } else {
+        	resultado = false;
+        }
+        return resultado;
+	}
+	
+	private String queryGetSenha(String email, String senha) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USU_SENHA) FROM TB_USUARIOS WHERE USU_EMAIL = '"+email+"' AND USU_SENHA = '"+senha+"';";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        String senhaBd = "";
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	senhaBd = row.getString("USU_SENHA");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+		
+        return senhaBd;
+	}
+	
+	private String queryGetEmail(String emailUsuario, String senhaUsuario) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			//System.out.println("Conexão bem-sucedida!");
 		} catch (SQLException e) {
 			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
 		}
@@ -41,70 +176,38 @@ public class ConnectionDb {
 		Connection conexao = DriverManager.getConnection(url, usuario, senha);
 		
 		//Cria um statement para receber comandos
-		PreparedStatement ps = conexao.prepareStatement("SELECT (USU_IDUSU) FROM TB_USUARIOS WHERE USU_EMAIL = "+email+" AND senha = "+senha+";");
-        ps.setString(1, email);
-        ps.setString(2, senha);
-	    
-	    ResultSet rs = ps.executeQuery();
-	    
-	    int id = -1;
-	    if (rs.next()) {
-	        id = rs.getInt("id");
-	    }
-	    
-	    rs.close();
-	    ps.close();
-	    return id;
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USU_EMAIL) FROM TB_USUARIOS WHERE USU_EMAIL = '"+emailUsuario+"' AND USU_SENHA = '"+senhaUsuario+"';";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        String emailBd = "";
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	emailBd = row.getString("USU_EMAIL");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+		
+        return emailBd;
+		
 	}
 	
-	public boolean verificarSeCliente(int idUsuario) {
-		boolean resultado = false;
-        String sql = "SELECT (USUCLI_IDUSU) FROM TB_USUARIOS_CLIENTE WHERE USUCLI_IDUSU = "+idUsuario+";";
-        try (Connection conn = DriverManager.getConnection(url, usuario, senha);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, usuario);
-            stmt.setString(2, senha);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                resultado = true; // Usuário e senha válidos
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage()); // Tratamento de exceções
-        }
-        return resultado;
-	}
 	
-	public boolean verificarSeEstabelecimento(int idUsuario) {
+	public boolean verificarLoginBd(String emailUsuario, String senhaUsuario) throws SQLException{
 		boolean resultado = false;
-        String sql = "SELECT (USUEST_IDUSU ) FROM TB_USUARIOS_ESTABELECIMENTO WHERE USUEST_IDUSU = "+idUsuario+";";
-        try (Connection conn = DriverManager.getConnection(url, usuario, senha);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, usuario);
-            stmt.setString(2, senha);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                resultado = true; // Usuário e senha válidos
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage()); // Tratamento de exceções
+        String emailBd = queryGetEmail(emailUsuario, senhaUsuario);
+        String senhaBd = queryGetSenha(emailUsuario, senhaUsuario);
+        if((emailUsuario.equalsIgnoreCase(emailBd))&&(senhaUsuario.equals(senhaBd))) {
+        	resultado = true;
+        } else {
+        	resultado = false;
         }
-        return resultado;
-	}
-	
-	public boolean verificarLoginBd(String email, String senha){
-		boolean resultado = false;
-        String sql = "SELECT * FROM TB_USUARIO WHERE USU_EMAIL = '"+email+"' AND USU_SENHA = '"+senha+"'";
-        try (Connection conn = DriverManager.getConnection(url, usuario, senha);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, usuario);
-            stmt.setString(2, senha);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                resultado = true; // Usuário e senha válidos
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage()); // Tratamento de exceções
-        }
+        
         return resultado;
 	}
 	/**
