@@ -16,15 +16,19 @@ public class Catalogo {
 	//private Scanner entrada = new Scanner(System.in);
 	private ConnectionDb conn = new ConnectionDb();//Atibuto fora do diagrama
 	private int id; //Atributo fora do diagrama
-	private static int count = 1; //Atributo fora do diagrama
+	//private static int count = 1; //Atributo fora do diagrama
+	
+	public Catalogo() {
+		
+	}
 	
 	public Catalogo(UsuarioEstabelecimento estabelecimento) throws SQLException {
 		super();
-		this.id = count;
 		this.estabelecimento = estabelecimento;
 		this.nome = estabelecimento.getNome();
-		conn.insert("INSERT INTO TB_CATALOGO(CAT_IDCAT,CAT_NOMECAT) VALUES (NEXT VALUE FOR SQ_CAT_IDCAT,'"+this.nome+"');");
-		Catalogo.count += 1;
+		this.id = estabelecimento.getId();
+		conn.insert("INSERT INTO TB_CATALOGO(CAT_IDCAT,CAT_NOMECAT) VALUES ("+this.id+",'"+this.nome+"');");
+		//Catalogo.count += 1;
 	}
 
 	public void cadastrarCategorias() throws SQLException {
@@ -35,9 +39,9 @@ public class Catalogo {
 	
 	}
 	
-	public void verCategorias() throws SQLException {
-		JOptionPane.showMessageDialog(null, "As categorias do Catalogo "+this.estabelecimento.getNome()+" são:  ");
-		conn.queryVerTodasAsCategoriasDeUmCatalogo(id);
+	public void verCategorias(int idEstabelecimento) throws SQLException {
+		JOptionPane.showMessageDialog(null, "As categorias desse estabelecimento são:  ");
+		conn.queryVerTodasAsCategoriasDeUmCatalogo(idEstabelecimento);
 		
 	}
 	
