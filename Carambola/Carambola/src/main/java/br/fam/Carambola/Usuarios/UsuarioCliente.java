@@ -38,7 +38,33 @@ public class UsuarioCliente{
 	}
 	
 	public void verInformacoesDaConta() {
+	String opcaoString = JOptionPane.showInputDialog(null, 
+				  "Bem Vindo aos Detalhes da sua conta:\n"
+				+ "\n1 - Nome: "+this.nome
+				+ "\n2 - E-MAIL: "+this.email
+				+ "\n3 - Senha: "+this.cpf
+				+ "\n4 - Data de Nascimento: "+this.dataNascimento
+				+ "\n5 - Caso não deseje editar nenhuma informação\n"
+				+ "\nInforme o número cujo a informação deseja editar");
+	int opcao = Integer.parseInt(opcaoString);
+	switch(opcao) {
+		case 1:
+		String novoNome = JOptionPane.showInputDialog("Nome: "+this.nome +"\n\nInforme o Novo Nome:");
 		
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		default:
+	}
+	
+	
+	
 	}
 
 	private void reservarMesa() {

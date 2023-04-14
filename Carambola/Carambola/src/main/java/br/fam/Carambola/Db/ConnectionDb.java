@@ -32,6 +32,38 @@ public class ConnectionDb {
 		
 	}
 	
+	public int getIdCategoria(String nomeCategoria, int idEstabelecimentos) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+				
+		//executa a query
+		String sql = "SELECT (CATE_IDCATE) FROM TB_CATEGORIAS WHERE CATE_DESCCATE = '"+nomeCategoria+"' AND CATE_IDCAT = "+idEstabelecimentos+";";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        int idCategoria = 0;
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	idCategoria = row.getInt("CATE_IDCATE");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+		
+        return idCategoria;
+	}
+	
 	public void queryVerTodosOsEstabelecimentos() throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
