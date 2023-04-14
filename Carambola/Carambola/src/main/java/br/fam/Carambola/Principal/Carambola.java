@@ -153,7 +153,7 @@ public class Carambola {
 			int idUsuario = conn.buscarIdUsuario(email, senha);
 			if(conn.verificarSeEstabelecimento(idUsuario)) {//Se usuario for cadastrado e for estabelecimento
 				JOptionPane.showMessageDialog(null, "VOCÊ ESTÁ CADASTRADO CORRETAMENTE \nÉ UM USUÁRIO DO TIPO ESTABELECIMENTO!");
-			} else {
+			} else if (conn.verificarSeCliente(idUsuario)){
 				String nomeClienteBd = conn.getNomeBdCliente(idUsuario); 
 				String opcaoString = JOptionPane.showInputDialog(
 						"Olá "+nomeClienteBd+" \n"
