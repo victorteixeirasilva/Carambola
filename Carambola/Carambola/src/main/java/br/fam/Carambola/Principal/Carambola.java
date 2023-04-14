@@ -159,12 +159,13 @@ public class Carambola {
 						+ "\nBem vindo ao menu do CARAMBOLA!\n"
 						+ "\nEscolha uma das opões abaixo:\n\n"
 						+ "1-Buscar Estabelecimento\n"
-						+ "2-Cadastrar Forma de Pagamento\n"
-						+ "3-Ver Forma de Pagamento Cadastrada\n"
-						+ "4-Editar Forma de Pagamento\n"
-						+ "5-Excluir Forma de Pagamento"
+						+ "2-Ver Informações da Conta\n"
+						+ "3-Cadastrar Forma de Pagamento\n"
+						+ "4-Ver Forma de Pagamento Cadastrada\n"
+						+ "5-Editar Forma de Pagamento\n"
+						+ "6-Excluir Forma de Pagamento"
 						+ "7-Desconectar-se"
-						+ "6-Sair"
+						+ "8-Sair"
 						);
 				int opcao = Integer.parseInt(opcaoString);
 				switch (opcao){
@@ -181,6 +182,8 @@ public class Carambola {
 				case 6:
 					
 				case 7:
+				
+				case 8:
 				
 				default:
 					
