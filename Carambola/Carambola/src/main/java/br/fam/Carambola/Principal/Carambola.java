@@ -178,18 +178,18 @@ public class Carambola {
 					usuario.buscarEstabelecimento(); //Não implementado ainda
 					break;
 				case 2:
-					usuario.verInformacoesDaConta();
+					usuario.verInformacoesDaConta(); //Não implementado ainda
 					break;
 				case 3:
-					usuario.getFormaDePagamento().cadastrarFormaDePagamento();
+					usuario.getFormaDePagamento().cadastrarFormaDePagamento(); //Não implementado ainda
 					break;
 				case 4:
-					usuario.getFormaDePagamento().verFormaDePagamento();
+					usuario.getFormaDePagamento().verFormaDePagamento(); //Não implementado ainda
 					break;
 				case 5:
-					usuario.getFormaDePagamento().editarFomraDePagamento();
+					usuario.getFormaDePagamento().editarFomraDePagamento(); //Não implementado ainda
 				case 6:
-					usuario.getFormaDePagamento().excluirFormaDePagamento();
+					usuario.getFormaDePagamento().excluirFormaDePagamento(); //Não implementado ainda
 				case 7:
 					fazerLogin();
 					break;
