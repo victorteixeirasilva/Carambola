@@ -28,6 +28,10 @@ public class ConnectionDb {
 	String senha = "";// Senha padrao
 	Formatador formatador = new Formatador();
 	
+	public void mostrarMesasDisponiveis() {
+		
+	}
+	
 	public void queryVerTodosOsEstabelecimentos() throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {

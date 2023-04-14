@@ -41,7 +41,12 @@ public class UsuarioCliente{
 		
 	}
 
-	public void reservarMesa() {
+	private void reservarMesa() {
+		String mesaReservadaString = JOptionPane.showInputDialog("Informe o número da mesa que deseja reservar:");
+		int mesaReservada = Integer.parseInt(mesaReservadaString);
+		//Codigo para mudar o status de disponivel da mesa para false
+		
+		//Codigo para verificar se a mesa foi reservada corretamente, se sim informar ao usuario
 		
 	}
 	
@@ -65,17 +70,20 @@ public class UsuarioCliente{
 		
 		switch (opcao) {
 			case JOptionPane.YES_OPTION:
+				JOptionPane.showMessageDialog(null, "Mesas disponíveis no estabelecimento:");
+				conn.mostrarMesasDisponiveis();
+				reservarMesa();
 				break;
-			case JOptionPane.NO_OPTION:
+			case JOptionPane.NO_OPTION:				
+				Catalogo catalogo = new Catalogo();
+				catalogo.verCategorias(idEstabelecimento);
+				Categoria categoria = new Categoria();
+				categoria.verProdutosDaCategoria();
+				comprarProdutos(idEstabelecimento);
 				break;
 			case JOptionPane.CANCEL_OPTION:
 				break;
 		}
-		Catalogo catalogo = new Catalogo();
-		catalogo.verCategorias(idEstabelecimento);
-		Categoria categoria = new Categoria();
-		categoria.verProdutosDaCategoria();
-		comprarProdutos(idEstabelecimento);
 	}
 	
 	public void comprarProdutos(int idEstabelecimento) throws SQLException {
@@ -95,8 +103,10 @@ public class UsuarioCliente{
 			Categoria categoria = new Categoria();
 			categoria.verProdutosDaCategoria();
 			comprarProdutos(idEstabelecimento);
+			//Falta perguntar ao usuário o número da mesa em que ele está
 			break;
 		case JOptionPane.NO_OPTION:
+			//Precisa inserir itens de pedido, pedido, em comanda ou mesa
 			conn.insert("");
 			break;
 		case JOptionPane.CANCEL_OPTION:
