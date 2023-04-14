@@ -38,7 +38,8 @@ public class Endereco {
 		this.cep = cep;
 		this.numero = numero;
 		this.id = usuarioCliente.getId();
-		conn.insert("INSERT INTO TB_ENDERECO(END_IDEND, END_IDUSU, END_RUA, END_BAIRRO, END_REFERENCIA, END_CEP, END_NUMERO) VALUES (NEXT VALUE FOR SQ_END_IDEND, "+this.id+", '"+this.rua+"', '"+this.bairro+"', '"+this.referencia+"', '"+this.cep+"', "+this.numero+");");
+		
+		conn.insert("INSERT INTO TB_ENDERECOS(END_IDEND,END_IDUSU,END_RUA,END_BAIRRO,END_REFERENCIA,END_CEP,END_NUMERO) VALUES(NEXT VALUE FOR SQ_END_IDEND,"+this.id+",'"+this.rua+"','"+this.bairro+"','"+this.referencia+"','"+this.cep+"',"+this.numero+");");
 		Endereco.setCount(Endereco.getCount() + 1);
 	}
 	
