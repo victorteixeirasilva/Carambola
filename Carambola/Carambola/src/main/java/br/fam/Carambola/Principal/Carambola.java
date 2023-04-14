@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import br.fam.Carambola.Catalogo;
 import br.fam.Carambola.Endereco;
 import br.fam.Carambola.Db.ConnectionDb;
 import br.fam.Carambola.Usuarios.Usuario;
@@ -112,6 +113,8 @@ public class Carambola {
 		//Criando Objeto do tipo endereço e fazendo o insert no banco de dados
 		Endereco endereco = new Endereco(rua, bairro, referencia, cep, numero, usuarioCliente);
 		usuarioCliente.setEndereco(endereco);
+		
+		JOptionPane.showInputDialog("Cadastro finalizado com sucesso!");
 	}
 	
 	public static void cadastrarEstabelecimento() throws SQLException {
@@ -143,6 +146,11 @@ public class Carambola {
 		//Criando Objeto do tipo endereço e fazendo o insert no banco de dados
 		Endereco endereco = new Endereco(rua, bairro, referencia, cep, numero, usuarioEstabelecimento);
 		usuarioEstabelecimento.setEndereco(endereco);
+		
+		//
+		Catalogo catalogo = new Catalogo(usuarioEstabelecimento);
+		JOptionPane.showInputDialog("Cadastro finalizado com sucesso!");
+		catalogo.getEstabelecimento();
 	}
 	
 	public static void fazerLogin() throws SQLException {

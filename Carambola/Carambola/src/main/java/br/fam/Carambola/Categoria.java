@@ -16,6 +16,10 @@ public class Categoria {
 	private ConnectionDb conn = new ConnectionDb();//Atibuto fora do diagrama
 	//private Scanner entrada = new Scanner(System.in);//Atibuto fora do diagrama
 	
+	public Categoria() {
+		
+	}
+	
 	public Categoria(String nome, int idCatalogo) throws SQLException {
 		super();
 		this.setId(count);
@@ -29,7 +33,6 @@ public class Categoria {
 		String input = JOptionPane.showInputDialog("Qual id da categoria deseja ver os produtos:");
 		int idCategoria = Integer.parseInt(input);
 		conn.queryVerProdutosDeUmaCategoria(idCategoria);
-		
 	}
 	
 	public String getNome() {

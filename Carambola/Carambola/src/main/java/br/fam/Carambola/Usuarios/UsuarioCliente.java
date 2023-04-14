@@ -2,6 +2,10 @@ package br.fam.Carambola.Usuarios;
 
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
+import br.fam.Carambola.Catalogo;
+import br.fam.Carambola.Categoria;
 import br.fam.Carambola.Endereco;
 import br.fam.Carambola.FormaDePagamento;
 import br.fam.Carambola.Db.ConnectionDb;
@@ -41,16 +45,64 @@ public class UsuarioCliente{
 		
 	}
 	
-	public void buscarEstabelecimento() {
-		
+	public void buscarEstabelecimento() throws SQLException {
+		conn.queryVerTodosOsEstabelecimentos();
+		String idEstabelecimentoString = JOptionPane.showInputDialog("Digite o Id do estabelecimento que deseja: ");
+		int idEstabelecimento = Integer.parseInt(idEstabelecimentoString);
+		if(idEstabelecimento == JOptionPane.CANCEL_OPTION) {
+			buscarEstabelecimento();
+		}
+		escolherEstabelecimento(idEstabelecimento);
 	}
 	
-	public void escolherEstabelecimento() {
+	private void escolherEstabelecimento(int idEstabelecimento) throws SQLException {
+		String nomeEstabelecimento = conn.getNomeBdEstabelecimento(idEstabelecimento);
+		JOptionPane.showMessageDialog(null, "Bem Vindo ao estabelecimento "+nomeEstabelecimento);
+		int opcao = JOptionPane.showConfirmDialog(null, "Deseja reservar uma mesa no estabelecimento?"
+				+ "\nSe sim selecione a opção (YES)"
+				+ "\nSe não selecione a opção (NO) para ver o catalogo"
+				+ "\nSelecione (CANCEL) para retornar ao menu");
 		
+		switch (opcao) {
+			case JOptionPane.YES_OPTION:
+				break;
+			case JOptionPane.NO_OPTION:
+				break;
+			case JOptionPane.CANCEL_OPTION:
+				break;
+		}
+		Catalogo catalogo = new Catalogo();
+		catalogo.verCategorias(idEstabelecimento);
+		Categoria categoria = new Categoria();
+		categoria.verProdutosDaCategoria();
+		comprarProdutos(idEstabelecimento);
 	}
 	
-	public void comprarProdutos() {
-		
+	public void comprarProdutos(int idEstabelecimento) throws SQLException {
+		String idProdutoString = JOptionPane.showInputDialog("Digite o id do produto que deseja comprar:");
+		int idProduto = Integer.parseInt(idProdutoString);
+		String quantidadeString = JOptionPane.showInputDialog("Digite a quantidade que deseja comprar:");
+		int quantidade = Integer.parseInt(quantidadeString);
+		int opcao = JOptionPane.showConfirmDialog(null, "Itens adicionado ao seu carrinho:"
+				+ "\nDeseja continuar comprado precione (YES)"
+				+ "\nDeseja finalizar seu pedido precione (NO)"
+				+ "\nPara remover esses produtos do seu carrinho (CANCEL)");
+		switch (opcao) {
+		case JOptionPane.YES_OPTION:
+			conn.insert("");
+			Catalogo catalogo = new Catalogo();
+			catalogo.verCategorias(idEstabelecimento);
+			Categoria categoria = new Categoria();
+			categoria.verProdutosDaCategoria();
+			comprarProdutos(idEstabelecimento);
+			break;
+		case JOptionPane.NO_OPTION:
+			conn.insert("");
+			break;
+		case JOptionPane.CANCEL_OPTION:
+			JOptionPane.showMessageDialog(null, "Produtos retirados do seu carrinho!");
+			break;
+		}
 	}
 
 	public String getNome() {
