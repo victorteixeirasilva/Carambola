@@ -154,6 +154,8 @@ public class Carambola {
 			if(conn.verificarSeEstabelecimento(idUsuario)) {//Se usuario for cadastrado e for estabelecimento
 				JOptionPane.showMessageDialog(null, "VOCÊ ESTÁ CADASTRADO CORRETAMENTE \nÉ UM USUÁRIO DO TIPO ESTABELECIMENTO!");
 			} else if (conn.verificarSeCliente(idUsuario)){
+				int opcao;
+				do {
 				String nomeClienteBd = conn.getNomeBdCliente(idUsuario); 
 				String opcaoString = JOptionPane.showInputDialog(
 						"Olá "+nomeClienteBd+" \n"
@@ -164,31 +166,43 @@ public class Carambola {
 						+ "3-Cadastrar Forma de Pagamento\n"
 						+ "4-Ver Forma de Pagamento Cadastrada\n"
 						+ "5-Editar Forma de Pagamento\n"
-						+ "6-Excluir Forma de Pagamento"
-						+ "7-Desconectar-se"
-						+ "8-Sair"
+						+ "6-Excluir Forma de Pagamento\n"
+						+ "7-Desconectar-se\n"
+						+ "8-Sair\n"
 						);
-				int opcao = Integer.parseInt(opcaoString);
+				
+				UsuarioCliente usuario = new UsuarioCliente();
+				opcao = Integer.parseInt(opcaoString);
 				switch (opcao){
 				case 1:
-					
+					usuario.buscarEstabelecimento(); //Não implementado ainda
+					break;
 				case 2:
-				
+					usuario.verInformacoesDaConta();
+					break;
 				case 3:
-					
+					usuario.getFormaDePagamento().cadastrarFormaDePagamento();
+					break;
 				case 4:
-				
+					usuario.getFormaDePagamento().verFormaDePagamento();
+					break;
 				case 5:
-				
+					usuario.getFormaDePagamento().editarFomraDePagamento();
 				case 6:
-					
+					usuario.getFormaDePagamento().excluirFormaDePagamento();
 				case 7:
-				
+					fazerLogin();
+					break;
 				case 8:
-				
+					JOptionPane.showMessageDialog(null, 
+							"Obrigado por usar o CARAMBOLA!"
+						+ "\nESPERAMOS SEU RETORNO EM BREVE!");
+					break;
 				default:
+					JOptionPane.showMessageDialog(null, "Opção invalida, por favor tente novamente!");
 					
-				}
+					}
+				} while (opcao != 7);
 			}
 			
 		} else {
