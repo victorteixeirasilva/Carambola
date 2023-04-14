@@ -150,10 +150,11 @@ public class Carambola {
 		String email = JOptionPane.showInputDialog("Informe o e-mail do usuário para login");
 		String senha = JOptionPane.showInputDialog("Informe a senha do usuário para login");
 		if(conn.verificarLoginBd(email, senha)) {
-			if(conn.verificarSeEstabelecimento(conn.buscarIdUsuario(email, senha))) {//Se usuario for cadastrado e for estabelecimento
+			int idUsuario = conn.buscarIdUsuario(email, senha);
+			if(conn.verificarSeEstabelecimento(idUsuario)) {//Se usuario for cadastrado e for estabelecimento
 				JOptionPane.showMessageDialog(null, "VOCÊ ESTÁ CADASTRADO CORRETAMENTE \nÉ UM USUÁRIO DO TIPO ESTABELECIMENTO!");
 			} else {
-				String nomeClienteBd = conn.getNomeBdCliente(conn.buscarIdUsuario(email, senha)); 
+				String nomeClienteBd = conn.getNomeBdCliente(idUsuario); 
 				String opcaoString = JOptionPane.showInputDialog(
 						"Olá "+nomeClienteBd+" \n"
 						+ "\nBem vindo ao menu do CARAMBOLA!\n"
