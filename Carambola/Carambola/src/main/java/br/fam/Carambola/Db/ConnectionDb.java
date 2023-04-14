@@ -56,7 +56,7 @@ public class ConnectionDb {
         //Fecha Statemente e Conexão
         conexao.close();
         statement.close();
-		
+
         return nomeBd;
 	}
 	
@@ -93,6 +93,43 @@ public class ConnectionDb {
 	}
 	
 	
+	public boolean verificarSeCliente(int idUsuario) throws SQLException {
+		boolean resultado = false;
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USUCLI_IDUSU) FROM TB_USUARIOS_CLIENTE WHERE USUCLI_IDUSU = "+idUsuario+"; ";
+        ResultSet row = statement.executeQuery(sql);
+		
+        int idUsuarioBd = 0;
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	idUsuarioBd = row.getInt("USUCLI_IDUSU");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+        
+        if(idUsuario == idUsuarioBd) {
+        	resultado = true;
+        } else {
+        	resultado = false;
+        }
+        
+		return resultado;
+	}
 	
 	public boolean verificarSeEstabelecimento(int idUsuario) throws SQLException {
 		boolean resultado = false;

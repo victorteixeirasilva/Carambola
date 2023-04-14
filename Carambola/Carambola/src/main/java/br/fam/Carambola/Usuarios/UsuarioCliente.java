@@ -17,6 +17,10 @@ public class UsuarioCliente{
 	private ConnectionDb conn = new ConnectionDb();
 	
 	
+	public UsuarioCliente() {
+		
+	}
+	
 	public UsuarioCliente(Usuario usuario,String nome, long cpf, String dataNascimento) throws SQLException {
 		this.nome = nome;
 		this.email = usuario.getEmail();
@@ -26,6 +30,10 @@ public class UsuarioCliente{
 		this.id = usuario.getId();
 		
 		conn.insert("INSERT INTO TB_USUARIOS_CLIENTE(USUCLI_IDUSUCLI, USUCLI_IDUSU, USUCLI_NOME, USU_DATANASC, USU_CPF) VALUES ("+this.id+", "+this.id+", '"+this.nome+"', '"+this.dataNascimento+"', "+this.cpf+");");
+		
+	}
+	
+	public void verInformacoesDaConta() {
 		
 	}
 

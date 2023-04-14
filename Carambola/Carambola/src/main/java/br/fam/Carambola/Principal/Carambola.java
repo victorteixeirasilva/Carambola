@@ -150,10 +150,13 @@ public class Carambola {
 		String email = JOptionPane.showInputDialog("Informe o e-mail do usuário para login");
 		String senha = JOptionPane.showInputDialog("Informe a senha do usuário para login");
 		if(conn.verificarLoginBd(email, senha)) {
-			if(conn.verificarSeEstabelecimento(conn.buscarIdUsuario(email, senha))) {//Se usuario for cadastrado e for estabelecimento
+			int idUsuario = conn.buscarIdUsuario(email, senha);
+			if(conn.verificarSeEstabelecimento(idUsuario)) {//Se usuario for cadastrado e for estabelecimento
 				JOptionPane.showMessageDialog(null, "VOCÊ ESTÁ CADASTRADO CORRETAMENTE \nÉ UM USUÁRIO DO TIPO ESTABELECIMENTO!");
-			} else {
-				String nomeClienteBd = conn.getNomeBdCliente(conn.buscarIdUsuario(email, senha)); 
+			} else if (conn.verificarSeCliente(idUsuario)){
+				int opcao;
+				do {
+				String nomeClienteBd = conn.getNomeBdCliente(idUsuario); 
 				String opcaoString = JOptionPane.showInputDialog(
 						"Olá "+nomeClienteBd+" \n"
 						+ "\nBem vindo ao menu do CARAMBOLA!\n"
@@ -163,31 +166,43 @@ public class Carambola {
 						+ "3-Cadastrar Forma de Pagamento\n"
 						+ "4-Ver Forma de Pagamento Cadastrada\n"
 						+ "5-Editar Forma de Pagamento\n"
-						+ "6-Excluir Forma de Pagamento"
-						+ "7-Desconectar-se"
-						+ "8-Sair"
+						+ "6-Excluir Forma de Pagamento\n"
+						+ "7-Desconectar-se\n"
+						+ "8-Sair\n"
 						);
-				int opcao = Integer.parseInt(opcaoString);
+				
+				UsuarioCliente usuario = new UsuarioCliente();
+				opcao = Integer.parseInt(opcaoString);
 				switch (opcao){
 				case 1:
-					
+					usuario.buscarEstabelecimento(); //Não implementado ainda
+					break;
 				case 2:
-				
+					usuario.verInformacoesDaConta(); //Não implementado ainda
+					break;
 				case 3:
-					
+					usuario.getFormaDePagamento().cadastrarFormaDePagamento(); //Não implementado ainda
+					break;
 				case 4:
-				
+					usuario.getFormaDePagamento().verFormaDePagamento(); //Não implementado ainda
+					break;
 				case 5:
-				
+					usuario.getFormaDePagamento().editarFomraDePagamento(); //Não implementado ainda
 				case 6:
-					
+					usuario.getFormaDePagamento().excluirFormaDePagamento(); //Não implementado ainda
 				case 7:
-				
+					fazerLogin();
+					break;
 				case 8:
-				
+					JOptionPane.showMessageDialog(null, 
+							"Obrigado por usar o CARAMBOLA!"
+						+ "\nESPERAMOS SEU RETORNO EM BREVE!");
+					break;
 				default:
+					JOptionPane.showMessageDialog(null, "Opção invalida, por favor tente novamente!");
 					
-				}
+					}
+				} while (opcao != 7);
 			}
 			
 		} else {
