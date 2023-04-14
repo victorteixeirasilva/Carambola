@@ -145,11 +145,16 @@ public class Carambola {
 		usuarioEstabelecimento.setEndereco(endereco);
 	}
 	
-	public static void fazerLogin() {
+	public static void fazerLogin() throws SQLException {
 		ConnectionDb conn = new ConnectionDb();
 		String email = JOptionPane.showInputDialog("Informe o e-mail do usuário para login");
 		String senha = JOptionPane.showInputDialog("Informe a senha do usuário para login");
-		conn.verificarLoginBd(email, senha);	
+		if(conn.verificarLoginBd(email, senha)) {
+			if(conn.verificarSeEstabelecimento(conn.buscarIdUsuarioPorEmailESenha(email, senha))) {
+				
+			}
+			
+		}
 	}
 	
 }

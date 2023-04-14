@@ -29,7 +29,67 @@ public class ConnectionDb {
 	String senha = "";// Senha padrao
 	Formatador formatador = new Formatador();
 	
+	public int buscarIdUsuarioPorEmailESenha(String email, String senha) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(url, usuario, senha);
+		
+		//Cria um statement para receber comandos
+		PreparedStatement ps = conexao.prepareStatement("SELECT (USU_IDUSU) FROM TB_USUARIOS WHERE USU_EMAIL = "+email+" AND senha = "+senha+";");
+        ps.setString(1, email);
+        ps.setString(2, senha);
+	    
+	    ResultSet rs = ps.executeQuery();
+	    
+	    int id = -1;
+	    if (rs.next()) {
+	        id = rs.getInt("id");
+	    }
+	    
+	    rs.close();
+	    ps.close();
+	    return id;
+	}
 	
+	public boolean verificarSeCliente(int idUsuario) {
+		boolean resultado = false;
+        String sql = "SELECT (USUCLI_IDUSU) FROM TB_USUARIOS_CLIENTE WHERE USUCLI_IDUSU = "+idUsuario+";";
+        try (Connection conn = DriverManager.getConnection(url, usuario, senha);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, usuario);
+            stmt.setString(2, senha);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                resultado = true; // Usuário e senha válidos
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()); // Tratamento de exceções
+        }
+        return resultado;
+	}
+	
+	public boolean verificarSeEstabelecimento(int idUsuario) {
+		boolean resultado = false;
+        String sql = "SELECT (USUEST_IDUSU ) FROM TB_USUARIOS_ESTABELECIMENTO WHERE USUEST_IDUSU = "+idUsuario+";";
+        try (Connection conn = DriverManager.getConnection(url, usuario, senha);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, usuario);
+            stmt.setString(2, senha);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                resultado = true; // Usuário e senha válidos
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()); // Tratamento de exceções
+        }
+        return resultado;
+	}
 	
 	public boolean verificarLoginBd(String email, String senha){
 		boolean resultado = false;
