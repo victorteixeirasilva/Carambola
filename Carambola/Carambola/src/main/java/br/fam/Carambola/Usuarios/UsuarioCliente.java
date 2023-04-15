@@ -43,9 +43,8 @@ public class UsuarioCliente{
 			    + "\n1 - Nome: "+conn.getNomeBdCliente(idUsuario)
 				+ "\n2 - E-MAIL: "+conn.getEmailUsuarioCliente(idUsuario)
 				+ "\n3 - Senha: "+conn.getSenhaUsuarioCliente(idUsuario)
-				+ "\n4 - Data de Nascimento: "+conn.getDataUsuarioCliente(idUsuario)
-				+ "\n5 - CPF:"+conn.getCPFUsuarioCliente(idUsuario)
-				+ "\n6 - Caso não deseje editar nenhuma informação\n"
+				+ "\n4 - CPF:"+conn.getCPFUsuarioCliente(idUsuario)
+				+ "\n5 - Caso não deseje editar nenhuma informação\n"
 				+ "\nInforme o número cujo a informação deseja editar");
 	int opcao = Integer.parseInt(opcaoString);
 	int opcao2;
@@ -93,20 +92,6 @@ public class UsuarioCliente{
 			}		
 			break;
 		case 4:
-			String novaData = JOptionPane.showInputDialog("Data de Nascimento: "+conn.getDataUsuarioCliente(idUsuario)+"\n\nInforme a nova Data de Nascimento:");
-			opcao2 = JOptionPane.showConfirmDialog(null, "A data será alterado para "+novaData+"\n\nTem certeza que deseja fazer esssa edição?"
-					+ "\n\nPara confirmar edição selecione (YES)."
-					+ "\n\nCaso deseje editar novamente selecione (NO)."
-					+ "\n\nCaso queira cancelar edição selecione (CANCEL).");
-			if(opcao2 == JOptionPane.YES_OPTION) {			
-				conn.update("UPDATE TB_USUARIOS_CLIENTE SET USU_DATANASC = '"+novaData+"' WHERE USUCLI_IDUSUCLI = "+idUsuario+";");
-			} else if(opcao2 == JOptionPane.NO_OPTION) {
-				verInformacoesDaConta(idUsuario);
-			} else if (opcao2 == JOptionPane.CANCEL_OPTION) {
-				return;
-			}
-			break;
-		case 5:
 			String novoCPF = JOptionPane.showInputDialog("CPF: "+conn.getCPFUsuarioCliente(idUsuario)+"\n\nInforme o Novo CPF:");
 			opcao2 = JOptionPane.showConfirmDialog(null, "O CPF será alterado para "+novoCPF+"\n\nTem certeza que deseja fazer esssa edição?"
 					+ "\n\nPara confirmar edição selecione (YES)."
@@ -120,7 +105,7 @@ public class UsuarioCliente{
 				return;
 			}
 			break;
-		case 6:
+		case 5:
 			return;
 		default:
 			JOptionPane.showMessageDialog(null, "Você informou uma opção inválida");
