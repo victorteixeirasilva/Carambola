@@ -1,10 +1,7 @@
 package br.fam.Carambola;
 
 import java.sql.SQLException;
-//import java.util.Scanner;
-
 import javax.swing.JOptionPane;
-
 import br.fam.Carambola.Db.ConnectionDb;
 import br.fam.Carambola.Usuarios.UsuarioEstabelecimento;
 
@@ -13,39 +10,39 @@ import br.fam.Carambola.Usuarios.UsuarioEstabelecimento;
 public class Catalogo {
 	private UsuarioEstabelecimento estabelecimento; //Atributo fora do diagrama
 	private String nome; //Atributo fora do diagrama
-	//private Scanner entrada = new Scanner(System.in);
 	private ConnectionDb conn = new ConnectionDb();//Atibuto fora do diagrama
 	private int id; //Atributo fora do diagrama
-	private static int count = 1; //Atributo fora do diagrama
+	
+	public Catalogo() {
+		
+	}
 	
 	public Catalogo(UsuarioEstabelecimento estabelecimento) throws SQLException {
 		super();
-		this.id = count;
 		this.estabelecimento = estabelecimento;
 		this.nome = estabelecimento.getNome();
-		conn.insert("INSERT INTO TB_CATALOGO(CAT_IDCAT,CAT_NOMECAT) VALUES (NEXT VALUE FOR SQ_CAT_IDCAT,'"+this.nome+"');");
-		Catalogo.count += 1;
+		this.id = estabelecimento.getId();
+		conn.insert("INSERT INTO TB_CATALOGO(CAT_IDCAT,CAT_NOMECAT) VALUES ("+this.id+",'"+this.nome+"');");
 	}
 
-	public void cadastrarCategorias() throws SQLException {
+	public void cadastrarCategorias(int idEstabelecimento) throws SQLException {
 		this.nome = JOptionPane.showInputDialog("Informe o nome da categoria:");
-		Categoria categoria = new Categoria(nome, id);
-		
+		Categoria categoria = new Categoria(nome, idEstabelecimento);
 		JOptionPane.showMessageDialog(null, "A categoria "+categoria.getNome()+" foi cadastrada corretamente!");
 	
 	}
 	
-	public void verCategorias() throws SQLException {
-		JOptionPane.showMessageDialog(null, "As categorias do Catalogo "+this.estabelecimento.getNome()+" são:  ");
-		conn.queryVerTodasAsCategoriasDeUmCatalogo(id);
+	public void verCategorias(int idEstabelecimento) throws SQLException {
+		JOptionPane.showMessageDialog(null, "As categorias desse estabelecimento são:  ");
+		conn.queryVerTodasAsCategoriasDeUmCatalogo(idEstabelecimento);
 		
 	}
 	
 	public void editarCategorias() throws SQLException {
 		String input = JOptionPane.showInputDialog("Informe o Id da categoria que deseja editar:");
 		int idCategoria = Integer.parseInt(input);
-		
 		if(this.id == conn.queryIdCatalogoComIdCategoria(idCategoria)) {//Verifica se o id do catalogo é igual o id do catalogo do id de categoria informado
+			
 			String nomeAtual = conn.queryGetCategoriaBd(idCategoria);	
 			JOptionPane.showMessageDialog(null, "Nome atual da categoria: "+nomeAtual);
 			
@@ -102,9 +99,6 @@ public class Catalogo {
 		} else {
 			JOptionPane.showMessageDialog(null, "Você não possui categoria com esse id");
 		}
-		
-		
-		
 	}
 
 	public UsuarioEstabelecimento getEstabelecimento() {

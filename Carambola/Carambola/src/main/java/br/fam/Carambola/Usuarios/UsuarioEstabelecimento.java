@@ -1,23 +1,30 @@
 package br.fam.Carambola.Usuarios;
 
+import java.sql.SQLException;
+
 import br.fam.Carambola.Endereco;
+import br.fam.Carambola.Db.ConnectionDb;
 
 public class UsuarioEstabelecimento  {
 	private String nome, email, senha;
 	private Endereco endereco;
 	private float classificacao;
-	private int cnpj, telefone, id;
+	private int id;
+	private long telefone;
+	private long cnpj;
+	private Usuario usuario;
+	private ConnectionDb conn = new ConnectionDb();
 	
-	public UsuarioEstabelecimento(Usuario usuario, Endereco endereco, float classificacao, int cnpj, int id) {
-		super();
-		this.nome = 
-		this.email = usuario.getEmail();
-		this.senha = usuario.getSenha();
-		this.endereco = endereco;
-		this.classificacao = classificacao;
+	public UsuarioEstabelecimento(Usuario usuario, String nomeEstabelecimento , long cnpj) throws SQLException {
+		this.usuario = usuario;
+		this.nome = nomeEstabelecimento;
+		this.email = this.usuario.getEmail();
+		this.senha = this.usuario.getSenha();
 		this.cnpj = cnpj;
-		this.telefone = usuario.getTelefone();
-		this.id = id;
+		this.telefone = this.usuario.getTelefone();
+		this.id = usuario.getId();
+		conn.insert("INSERT INTO TB_USUARIOS_ESTABELECIMENTO(USUEST_IDUSUEST, USUEST_IDUSU, USUEST_NOME, USU_CNPJ) VALUES ("+this.usuario.getId()+", "+this.usuario.getId()+", '"+this.nome+"', "+this.cnpj+");");
+		
 	}
 
 	public void verificarMesas() {
@@ -116,7 +123,7 @@ public class UsuarioEstabelecimento  {
 		this.classificacao = classificacao;
 	}
 
-	public int getCnpj() {
+	public long getCnpj() {
 		return cnpj;
 	}
 
@@ -124,11 +131,11 @@ public class UsuarioEstabelecimento  {
 		this.cnpj = cnpj;
 	}
 
-	public int getTelefone() {
+	public long getTelefone() {
 		return telefone;
 	}
-
-	public void setTelefone(int telefone) {
+	
+	public void setTelefone(long telefone) {
 		this.telefone = telefone;
 	}
 
@@ -138,6 +145,14 @@ public class UsuarioEstabelecimento  {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	

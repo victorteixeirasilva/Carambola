@@ -2,7 +2,6 @@ package br.fam.Carambola.Db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -29,22 +28,514 @@ public class ConnectionDb {
 	String senha = "";// Senha padrao
 	Formatador formatador = new Formatador();
 	
+	public void mostrarMesasDisponiveis() {
+		
+	}
 	
+	public String getSenhaUsuarioCliente(int idUsuario) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USU_SENHA) FROM TB_USUARIOS WHERE USU_IDUSU = "+idUsuario+";";
+		ResultSet row = statement.executeQuery(sql);
+		
+		
+		String senha = "";
+		//Mostra o resultado na tela]
+		while(row.next()) {
+			senha = row.getString("USU_SENHA");
+		}
+		
+		//Fecha Statemente e Conexão
+		conexao.close();
+		statement.close();
+		
+		return senha;
+	}
 	
-	public boolean verificarLoginBd(String email, String senha){
-		boolean resultado = false;
-        String sql = "SELECT * FROM TB_USUARIO WHERE USU_EMAIL = '"+email+"' AND USU_SENHA = '"+senha+"'";
-        try (Connection conn = DriverManager.getConnection(url, usuario, senha);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, usuario);
-            stmt.setString(2, senha);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                resultado = true; // Usuário e senha válidos
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage()); // Tratamento de exceções
+	public int getDataUsuarioCliente(int idUsuario) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USU_DATANASC) FROM TB_USUARIOS_CLIENTE WHERE USUCLI_IDUSUCLI = "+idUsuario+";";
+		ResultSet row = statement.executeQuery(sql);
+		
+		
+		int dataNascimento = 0;
+		//Mostra o resultado na tela]
+		while(row.next()) {
+			dataNascimento = row.getInt("USU_DATANASC");
+		}
+		
+		//Fecha Statemente e Conexão
+		conexao.close();
+		statement.close();
+		
+		return dataNascimento;
+	}
+	
+	public long getCPFUsuarioCliente(int idUsuario) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USU_CPF) FROM TB_USUARIOS_CLIENTE WHERE USUCLI_IDUSUCLI = "+idUsuario+";";
+		ResultSet row = statement.executeQuery(sql);
+		
+		
+		long cpf = 0;
+		//Mostra o resultado na tela]
+		while(row.next()) {
+			cpf = row.getLong("USU_CPF");
+		}
+		
+		//Fecha Statemente e Conexão
+		conexao.close();
+		statement.close();
+		
+		return cpf;
+	}
+	
+	public String getEmailUsuarioCliente(int idUsuario) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USU_EMAIL) FROM TB_USUARIOS WHERE USU_IDUSU = "+idUsuario+";";
+		ResultSet row = statement.executeQuery(sql);
+		
+		
+		String email = "";
+		//Mostra o resultado na tela]
+		while(row.next()) {
+			email = row.getString("USU_EMAIL");
+		}
+		
+		//Fecha Statemente e Conexão
+		conexao.close();
+		statement.close();
+		
+		return email;
+	}
+	
+	public String getNomeUsuarioCliente(int idUsuario) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+				
+		//executa a query
+		String sql = "SELECT (USUEST_NOME) FROM TB_USUARIOS_ESTABELECIMENTO WHERE USUEST_IDUSU  = "+idUsuario+";";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        String nome = "";
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	nome = row.getString("USUEST_NOME");
         }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+		
+        return nome;
+	}
+	
+	public int getIdCategoria(String nomeCategoria, int idEstabelecimentos) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+				
+		//executa a query
+		String sql = "SELECT (CATE_IDCATE) FROM TB_CATEGORIAS WHERE CATE_DESCCATE = '"+nomeCategoria+"' AND CATE_IDCAT = "+idEstabelecimentos+";";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        int idCategoria = 0;
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	idCategoria = row.getInt("CATE_IDCATE");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+		
+        return idCategoria;
+	}
+	
+	public void queryVerTodosOsEstabelecimentos() throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(url, usuario, senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa o comando de insert
+		String sql = "SELECT USUEST_IDUSUEST,USUEST_NOME FROM TB_USUARIOS_ESTABELECIMENTO;";
+        ResultSet row = statement.executeQuery(sql);
+        System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
+        
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	int idEstabelecimento = row.getInt("USUEST_IDUSUEST");
+        	String nomeEstabelecimento = row.getString("USUEST_NOME");
+        	JOptionPane.showMessageDialog(null,   "\nId do Estabelecimento: " + idEstabelecimento
+        										+ "\nNome do Estabelecimento: " + nomeEstabelecimento);
+        }
+	}
+	public String getNomeBdEstabelecimento(int idEstabelecimento) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USUEST_NOME) FROM TB_USUARIOS_ESTABELECIMENTO WHERE USUEST_IDUSUEST = "+idEstabelecimento+";";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        String nomeBd = "";
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	nomeBd = row.getString("USUEST_NOME");
+        }
+        
+        conexao.close();
+        statement.close();
+
+        return nomeBd;
+	}
+	
+	public String getNomeBdCliente(int idUsuario) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USUCLI_NOME) FROM TB_USUARIOS_CLIENTE WHERE USUCLI_IDUSU = "+idUsuario+";";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        String nomeBd = "";
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	nomeBd = row.getString("USUCLI_NOME");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+
+        return nomeBd;
+	}
+	
+	public int buscarIdUsuario(String emailUsuario, String senhaUsuario) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+				
+		//executa a query
+		String sql = "SELECT (USU_IDUSU) FROM TB_USUARIOS WHERE USU_EMAIL = '"+emailUsuario+"' AND USU_SENHA = '"+senhaUsuario+"';";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        int idUsuario = 0;
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	idUsuario = row.getInt("USU_IDUSU");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+		
+        return idUsuario;
+	}
+	
+	public boolean verificarSeFuncionario(int idUsuario) throws SQLException {
+		boolean resultado = false;
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USUFUN_IDUSU) FROM TB_USUARIOS_FUNCIONARIO WHERE USUFUN_IDUSU = "+idUsuario+"; ";
+        ResultSet row = statement.executeQuery(sql);
+		
+        int idUsuarioBd = 0;
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	idUsuarioBd = row.getInt("USUFUN_IDUSU");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+        
+        if(idUsuario == idUsuarioBd) {
+        	resultado = true;
+        } else {
+        	resultado = false;
+        }
+        		
+		return resultado;
+	}
+	
+	public boolean verificarSeCliente(int idUsuario) throws SQLException {
+		boolean resultado = false;
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USUCLI_IDUSU) FROM TB_USUARIOS_CLIENTE WHERE USUCLI_IDUSU = "+idUsuario+"; ";
+        ResultSet row = statement.executeQuery(sql);
+		
+        int idUsuarioBd = 0;
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	idUsuarioBd = row.getInt("USUCLI_IDUSU");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+        
+        if(idUsuario == idUsuarioBd) {
+        	resultado = true;
+        } else {
+        	resultado = false;
+        }
+        
+		return resultado;
+	}
+	
+	public boolean verificarSeEstabelecimento(int idUsuario) throws SQLException {
+		boolean resultado = false;
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+				
+		//executa a query
+		String sql = "SELECT (USUEST_IDUSU) FROM TB_USUARIOS_ESTABELECIMENTO WHERE USUEST_IDUSU = "+idUsuario+"; ";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        int idUsuarioBd = 0;
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	idUsuarioBd = row.getInt("USUEST_IDUSU");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+        
+        if(idUsuario == idUsuarioBd) {
+        	resultado = true;
+        } else {
+        	resultado = false;
+        }
+        return resultado;
+	}
+	
+	private String queryGetSenha(String email, String senha) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USU_SENHA) FROM TB_USUARIOS WHERE USU_EMAIL = '"+email+"' AND USU_SENHA = '"+senha+"';";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        String senhaBd = "";
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	senhaBd = row.getString("USU_SENHA");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+		
+        return senhaBd;
+	}
+	
+	private String queryGetEmail(String emailUsuario, String senhaUsuario) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(url, usuario, senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USU_EMAIL) FROM TB_USUARIOS WHERE USU_EMAIL = '"+emailUsuario+"' AND USU_SENHA = '"+senhaUsuario+"';";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        String emailBd = "";
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	emailBd = row.getString("USU_EMAIL");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+		
+        return emailBd;
+		
+	}
+	
+	
+	public boolean verificarLoginBd(String emailUsuario, String senhaUsuario) throws SQLException{
+		boolean resultado = false;
+        String emailBd = queryGetEmail(emailUsuario, senhaUsuario);
+        String senhaBd = queryGetSenha(emailUsuario, senhaUsuario);
+        if((emailUsuario.equalsIgnoreCase(emailBd))&&(senhaUsuario.equals(senhaBd))) {
+        	resultado = true;
+        } else {
+        	resultado = false;
+        }
+        
         return resultado;
 	}
 	/**
@@ -154,10 +645,8 @@ public class ConnectionDb {
         //Mostra o resultado na tela]
         while(row.next()) {
         	int id = row.getInt("CATE_IDCATE");
-        	int idCat = row.getInt("CATE_IDCAT");
         	String nomeCategoria = row.getString("CATE_DESCCATE");
         	JOptionPane.showMessageDialog(null,   "\nId da Categoria: " + id
-        										+ "\nId do Catalogo: " + idCat
         										+ "\nNome da Categoria: " + nomeCategoria);
         	//System.out.println("Id da Categoria: " + id + ", Id do Catalogo: " + idCatalogo + ", Nome da Categoria: " + nomeCategoria);
         }
