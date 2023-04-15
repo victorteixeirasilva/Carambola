@@ -39,10 +39,10 @@ public class UsuarioCliente{
 	
 	public void verInformacoesDaConta(int idUsuario) throws SQLException {
 	String opcaoString = JOptionPane.showInputDialog(null, 
-				  "Bem Vindo aos Detalhes da sua conta:\n"
-				+ "\n1 - Nome: "+conn.getNomeBdCliente(idUsuario)
+				  "Bem Vindo aos Detalhes da sua conta:\n" 
+			    + "\n1 - Nome: "+conn.getNomeBdCliente(idUsuario)
 				+ "\n2 - E-MAIL: "+conn.getEmailUsuarioCliente(idUsuario)
-				+ "\n3 - Senha: "+
+				+ "\n3 - Senha: "+conn.getSenhaUsuarioCliente(idUsuario)
 				+ "\n4 - Data de Nascimento: "+conn.getDataUsuarioCliente(idUsuario)
 				+ "\n5 - CPF:"+conn.getCPFUsuarioCliente(idUsuario)
 				+ "\n5 - Caso não deseje editar nenhuma informação\n"
@@ -79,7 +79,7 @@ public class UsuarioCliente{
 			}
 			break;
 		case 3:
-			String novaSenha = JOptionPane.showInputDialog("Senha: "+conn.+"\n\nInforme o Novo Nome:");
+			String novaSenha = JOptionPane.showInputDialog("Senha: "+conn.getSenhaUsuarioCliente(idUsuario)+"\n\nInforme o Novo Nome:");
 			opcao2 = JOptionPane.showConfirmDialog(null, "O e-mail será alterado para "+novaSenha+"\n\nTem certeza que deseja fazer esssa edição?"
 					+ "\n\nPara confirmar edição selecione (YES)."
 					+ "\n\nCaso deseje editar novamente selecione (NO)."
