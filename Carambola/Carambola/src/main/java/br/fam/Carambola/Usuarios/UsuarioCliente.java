@@ -45,7 +45,7 @@ public class UsuarioCliente{
 				+ "\n3 - Senha: "+conn.getSenhaUsuarioCliente(idUsuario)
 				+ "\n4 - Data de Nascimento: "+conn.getDataUsuarioCliente(idUsuario)
 				+ "\n5 - CPF:"+conn.getCPFUsuarioCliente(idUsuario)
-				+ "\n5 - Caso não deseje editar nenhuma informação\n"
+				+ "\n6 - Caso não deseje editar nenhuma informação\n"
 				+ "\nInforme o número cujo a informação deseja editar");
 	int opcao = Integer.parseInt(opcaoString);
 	int opcao2;
@@ -65,7 +65,7 @@ public class UsuarioCliente{
 			}
 			break;
 		case 2:
-			String novoEmail = JOptionPane.showInputDialog("E-MAIL: "+conn.getEmailUsuarioCliente(idUsuario)+"\n\nInforme o Novo Nome:");
+			String novoEmail = JOptionPane.showInputDialog("E-MAIL: "+conn.getEmailUsuarioCliente(idUsuario)+"\n\nInforme o Novo E-MAIL:");
 			opcao2 = JOptionPane.showConfirmDialog(null, "O e-mail será alterado para "+novoEmail+"\n\nTem certeza que deseja fazer esssa edição?"
 					+ "\n\nPara confirmar edição selecione (YES)."
 					+ "\n\nCaso deseje editar novamente selecione (NO)."
@@ -79,13 +79,13 @@ public class UsuarioCliente{
 			}
 			break;
 		case 3:
-			String novaSenha = JOptionPane.showInputDialog("Senha: "+conn.getSenhaUsuarioCliente(idUsuario)+"\n\nInforme o Novo Nome:");
-			opcao2 = JOptionPane.showConfirmDialog(null, "O e-mail será alterado para "+novaSenha+"\n\nTem certeza que deseja fazer esssa edição?"
+			String novaSenha = JOptionPane.showInputDialog("Senha: "+conn.getSenhaUsuarioCliente(idUsuario)+"\n\nInforme o Nova Senha:");
+			opcao2 = JOptionPane.showConfirmDialog(null, "A senha será alterado para "+novaSenha+"\n\nTem certeza que deseja fazer esssa edição?"
 					+ "\n\nPara confirmar edição selecione (YES)."
 					+ "\n\nCaso deseje editar novamente selecione (NO)."
 					+ "\n\nCaso queira cancelar edição selecione (CANCEL).");
 			if(opcao2 == JOptionPane.YES_OPTION) {			
-				conn.update("UPDATE TB_USUARIOS SET USU_EMAIL = '"+novaSenha+"' WHERE USU_IDUSU = "+idUsuario+";");
+				conn.update("UPDATE TB_USUARIOS SET USU_SENHA = '"+novaSenha+"' WHERE USU_IDUSU = "+idUsuario+";");
 			} else if(opcao2 == JOptionPane.NO_OPTION) {
 				verInformacoesDaConta(idUsuario);
 			} else if (opcao2 == JOptionPane.CANCEL_OPTION) {
@@ -93,12 +93,38 @@ public class UsuarioCliente{
 			}		
 			break;
 		case 4:
-			
+			String novaData = JOptionPane.showInputDialog("Data de Nascimento: "+conn.getDataUsuarioCliente(idUsuario)+"\n\nInforme a nova Data de Nascimento:");
+			opcao2 = JOptionPane.showConfirmDialog(null, "A data será alterado para "+novaData+"\n\nTem certeza que deseja fazer esssa edição?"
+					+ "\n\nPara confirmar edição selecione (YES)."
+					+ "\n\nCaso deseje editar novamente selecione (NO)."
+					+ "\n\nCaso queira cancelar edição selecione (CANCEL).");
+			if(opcao2 == JOptionPane.YES_OPTION) {			
+				conn.update("UPDATE TB_USUARIOS_CLIENTE SET USU_DATANASC = '"+novaData+"' WHERE USUCLI_IDUSUCLI = "+idUsuario+";");
+			} else if(opcao2 == JOptionPane.NO_OPTION) {
+				verInformacoesDaConta(idUsuario);
+			} else if (opcao2 == JOptionPane.CANCEL_OPTION) {
+				return;
+			}
 			break;
 		case 5:
-			
+			String novoCPF = JOptionPane.showInputDialog("CPF: "+conn.getCPFUsuarioCliente(idUsuario)+"\n\nInforme o Novo CPF:");
+			opcao2 = JOptionPane.showConfirmDialog(null, "O CPF será alterado para "+novoCPF+"\n\nTem certeza que deseja fazer esssa edição?"
+					+ "\n\nPara confirmar edição selecione (YES)."
+					+ "\n\nCaso deseje editar novamente selecione (NO)."
+					+ "\n\nCaso queira cancelar edição selecione (CANCEL).");
+			if(opcao2 == JOptionPane.YES_OPTION) {			
+				conn.update("UPDATE TB_USUARIOS_CLIENTE SET USU_CPF = '"+novoCPF+"' WHERE USUCLI_IDUSUCLI = "+idUsuario+";");
+			} else if(opcao2 == JOptionPane.NO_OPTION) {
+				verInformacoesDaConta(idUsuario);
+			} else if (opcao2 == JOptionPane.CANCEL_OPTION) {
+				return;
+			}
 			break;
+		case 6:
+			return;
 		default:
+			JOptionPane.showMessageDialog(null, "Você informou uma opção inválida");
+			verInformacoesDaConta(idUsuario);
 	}
 	
 	
