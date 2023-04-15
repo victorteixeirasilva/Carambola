@@ -37,20 +37,30 @@ public class UsuarioCliente{
 		
 	}
 	
-	public void verInformacoesDaConta() {
+	public void verInformacoesDaConta(int idUsuario) throws SQLException {
 	String opcaoString = JOptionPane.showInputDialog(null, 
 				  "Bem Vindo aos Detalhes da sua conta:\n"
-				+ "\n1 - Nome: "+this.nome
-				+ "\n2 - E-MAIL: "+this.email
-				+ "\n3 - Senha: "+this.cpf
-				+ "\n4 - Data de Nascimento: "+this.dataNascimento
+				+ "\n1 - Nome: "+conn.getNomeBdCliente(idUsuario)
+				+ "\n2 - E-MAIL: "+conn.getEmailUsuarioCliente(idUsuario)
+				+ "\n3 - Senha: "+conn.getCPFUsuarioCliente(idUsuario)
+				+ "\n4 - Data de Nascimento: "+conn.getDataUsuarioCliente(idUsuario)
 				+ "\n5 - Caso não deseje editar nenhuma informação\n"
 				+ "\nInforme o número cujo a informação deseja editar");
 	int opcao = Integer.parseInt(opcaoString);
 	switch(opcao) {
 		case 1:
-		String novoNome = JOptionPane.showInputDialog("Nome: "+this.nome +"\n\nInforme o Novo Nome:");
-		
+		String novoNome = JOptionPane.showInputDialog("Nome: "+conn.getNomeBdCliente(idUsuario)+"\n\nInforme o Novo Nome:");
+		int opcao2 = JOptionPane.showConfirmDialog(null, "O Nome será alterado para "+novoNome+"\n\nTem certeza que deseja fazer esssa edição?"
+				+ "\n\nPara confirmar edição selecione (YES)."
+				+ "\n\nCaso deseje editar novamente selecione (NO)."
+				+ "\n\nCaso queira cancelar edição selecione (CANCEL).");
+		if(opcao2 == JOptionPane.YES_OPTION) {			
+			conn.update("");
+		} else if(opcao2 == JOptionPane.NO_OPTION) {
+			verInformacoesDaConta(idUsuario);
+		} else if (opcao2 == JOptionPane.CANCEL_OPTION) {
+			return;
+		}
 			break;
 		case 2:
 			break;
