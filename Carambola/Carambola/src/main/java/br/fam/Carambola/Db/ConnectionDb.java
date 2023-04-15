@@ -31,6 +31,37 @@ public class ConnectionDb {
 	public void mostrarMesasDisponiveis() {
 		
 	}
+	public int getSenhaUsuarioCliente(int idUsuario) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (USU_DATANASC) FROM TB_USUARIOS_CLIENTE WHERE USUCLI_IDUSUCLI = "+idUsuario+";";
+		ResultSet row = statement.executeQuery(sql);
+		
+		
+		int dataNascimento = 0;
+		//Mostra o resultado na tela]
+		while(row.next()) {
+			dataNascimento = row.getInt("USU_DATANASC");
+		}
+		
+		//Fecha Statemente e Conexão
+		conexao.close();
+		statement.close();
+		
+		return dataNascimento;
+	}
 	
 	public int getDataUsuarioCliente(int idUsuario) throws SQLException {
 		//Testa a conexão no Banco de dados
