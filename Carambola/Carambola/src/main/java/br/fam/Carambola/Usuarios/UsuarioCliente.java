@@ -10,30 +10,24 @@ import br.fam.Carambola.Endereco;
 import br.fam.Carambola.FormaDePagamento;
 import br.fam.Carambola.Db.ConnectionDb;
 
-public class UsuarioCliente{
+public class UsuarioCliente extends Usuario{
+	
 	private Usuario usuario;
-	private String nome, email, senha, dataNascimento;
+	
+	private String nome, dataNascimento;
 	private long cpf;
-	private int telefone;
-	private int id;
 	private Endereco endereco;
 	private FormaDePagamento formaDePagamento;
+	
 	private ConnectionDb conn = new ConnectionDb();
 	
 	
-	public UsuarioCliente() {
-		
-	}
-	
 	public UsuarioCliente(Usuario usuario,String nome, long cpf, String dataNascimento) throws SQLException {
+		super();
 		this.nome = nome;
-		this.email = usuario.getEmail();
-		this.senha = usuario.getSenha();
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
-		this.id = usuario.getId();
-		
-		conn.insert("INSERT INTO TB_USUARIOS_CLIENTE(USUCLI_IDUSUCLI, USUCLI_IDUSU, USUCLI_NOME, USU_DATANASC, USU_CPF) VALUES ("+this.id+", "+this.id+", '"+this.nome+"', '"+this.dataNascimento+"', "+this.cpf+");");
+		conn.insert("INSERT INTO TB_USUARIOS_CLIENTE(USUCLI_IDUSUCLI, USUCLI_IDUSU, USUCLI_NOME, USU_DATANASC, USU_CPF) VALUES ("+getId()+", "+ getId()+", '"+this.nome+"', '"+this.dataNascimento+"', "+this.cpf+");");
 		
 	}
 	
@@ -198,30 +192,6 @@ public class UsuarioCliente{
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public int getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(int telefone) {
-		this.telefone = telefone;
-	}
-
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -261,15 +231,6 @@ public class UsuarioCliente{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-	
 	
 	
 }

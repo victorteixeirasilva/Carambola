@@ -10,6 +10,12 @@ public class Pedido {
 	private FormaDePagamento formaDePagamento;
 	private Double valorTotalDoPedido;
 	private String status;
+	
+	
+	
+	
+	
+	
 	public UsuarioCliente getUsuarioCliente() {
 		return usuarioCliente;
 	}

@@ -11,7 +11,7 @@ public class Usuario {
 	private String senha;
 	private static int count = 1000;
 	private ConnectionDb conn = new ConnectionDb();
-	
+
 	
 	public Usuario(long telefone, String email, String senha) throws SQLException {
 		this.telefone = telefone;
@@ -19,6 +19,10 @@ public class Usuario {
 		this.senha = senha;
 		conn.insert("INSERT INTO TB_USUARIOS(USU_IDUSU,USU_TEL,USU_EMAIL,USU_SENHA) VALUES (NEXT VALUE FOR SQ_USU_IDUSU,"+this.telefone+",'"+this.email+"','"+this.senha+"');");
 		id = conn.buscarIdUsuario(email, senha);
+	}
+
+	public Usuario() {
+	
 	}
 
 	public void identificarNoSistema() {
