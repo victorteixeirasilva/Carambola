@@ -5,25 +5,20 @@ import java.sql.SQLException;
 import br.fam.Carambola.Endereco;
 import br.fam.Carambola.Db.ConnectionDb;
 
-public class UsuarioEstabelecimento  {
-	private String nome, email, senha;
+public class UsuarioEstabelecimento extends Usuario {
+	private String nome;
 	private Endereco endereco;
 	private float classificacao;
-	private int id;
-	private long telefone;
 	private long cnpj;
 	private Usuario usuario;
 	private ConnectionDb conn = new ConnectionDb();
 	
 	public UsuarioEstabelecimento(Usuario usuario, String nomeEstabelecimento , long cnpj) throws SQLException {
+		super();
 		this.usuario = usuario;
 		this.nome = nomeEstabelecimento;
-		this.email = this.usuario.getEmail();
-		this.senha = this.usuario.getSenha();
 		this.cnpj = cnpj;
-		this.telefone = this.usuario.getTelefone();
-		this.id = usuario.getId();
-		conn.insert("INSERT INTO TB_USUARIOS_ESTABELECIMENTO(USUEST_IDUSUEST, USUEST_IDUSU, USUEST_NOME, USU_CNPJ) VALUES ("+this.usuario.getId()+", "+this.usuario.getId()+", '"+this.nome+"', "+this.cnpj+");");
+		conn.insert("INSERT INTO TB_USUARIOS_ESTABELECIMENTO(USUEST_IDUSUEST, USUEST_IDUSU, USUEST_NOME, USU_CNPJ) VALUES ("+getId()+", "+getId()+", '"+this.nome+"', "+this.cnpj+");");
 		
 	}
 
@@ -91,22 +86,6 @@ public class UsuarioEstabelecimento  {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -131,21 +110,6 @@ public class UsuarioEstabelecimento  {
 		this.cnpj = cnpj;
 	}
 
-	public long getTelefone() {
-		return telefone;
-	}
-	
-	public void setTelefone(long telefone) {
-		this.telefone = telefone;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public Usuario getUsuario() {
 		return usuario;
