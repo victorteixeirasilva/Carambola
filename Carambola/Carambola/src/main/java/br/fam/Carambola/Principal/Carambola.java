@@ -171,7 +171,7 @@ public class Carambola {
 			usuario.buscarEstabelecimento();
 			break;
 		case 2:
-			usuario.verInformacoesDaConta(idUsuario); //Não implementado ainda
+			usuario.verInformacoesDaConta(idUsuario);
 			break;
 		case 3:
 			usuario.getFormaDePagamento().cadastrarFormaDePagamento(); //Não implementado ainda

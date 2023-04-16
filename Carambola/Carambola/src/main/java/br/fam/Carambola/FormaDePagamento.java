@@ -4,7 +4,7 @@ public class FormaDePagamento {
 	private int numeroDoCartao, codigoDeSeguranca;
 	private String nomeDoTitular;
 	
-	@SuppressWarnings("unused")
+	
 	private void validarCartao() {
 		
 	}
