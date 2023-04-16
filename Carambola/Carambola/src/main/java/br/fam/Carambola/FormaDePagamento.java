@@ -93,7 +93,8 @@ public class FormaDePagamento {
 	
 	public void cadastrarFormaDePagamento() {
 		String numeroCartao = JOptionPane.showInputDialog("Informe o número do seu cartão: ");
-		validarCartao(numeroCartao);
+		validarCartao(numeroCartao); //Validação Ok
+		//Falta após validar, cadastrar o mesmo no Banco de Dados
 	}
 
 	public String getNumeroDoCartao() {
