@@ -14,7 +14,7 @@ public class FormaDePagamento {
 		} else if (numero1IdEmissor.equals("4")) {
 			return "VISA";
 		} else if (numero1IdEmissor.equals("5")) {
-			return "MASTER";
+			return "MASTER CARD";
 		} else if (numero1IdEmissor.equals("6")) {
 			return "DISCOVER";
 		} else {
@@ -61,8 +61,7 @@ public class FormaDePagamento {
 		
 	}
 	
-	private void validarCartao() {
-		String numeroCartao = JOptionPane.showInputDialog("Informe o número do cartão: ");
+	private void validarCartao(String numeroCartao) {
 		if((numeroCartao.length() >= 13)&&(numeroCartao.length() <= 16)) {
 			boolean flag = checkValidadeCartao(numeroCartao);
 			
@@ -93,7 +92,8 @@ public class FormaDePagamento {
 	}
 	
 	public void cadastrarFormaDePagamento() {
-		
+		String numeroCartao = JOptionPane.showInputDialog("Informe o número do seu cartão: ");
+		validarCartao(numeroCartao);
 	}
 
 	public String getNumeroDoCartao() {

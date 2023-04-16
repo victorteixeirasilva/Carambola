@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import br.fam.Carambola.Catalogo;
 import br.fam.Carambola.Endereco;
+import br.fam.Carambola.FormaDePagamento;
 import br.fam.Carambola.Db.ConnectionDb;
 import br.fam.Carambola.Usuarios.Usuario;
 import br.fam.Carambola.Usuarios.UsuarioCliente;
@@ -174,7 +175,8 @@ public class Carambola {
 			usuario.verInformacoesDaConta(idUsuario);
 			break;
 		case 3:
-			usuario.getFormaDePagamento().cadastrarFormaDePagamento(); //Não implementado ainda
+			FormaDePagamento formaDePagamento = new FormaDePagamento();
+			formaDePagamento.cadastrarFormaDePagamento();//Não implementado ainda
 			break;
 		case 4:
 			usuario.getFormaDePagamento().verFormaDePagamento(); //Não implementado ainda
