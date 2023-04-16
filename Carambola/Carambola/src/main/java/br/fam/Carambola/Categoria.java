@@ -38,14 +38,11 @@ public class Categoria {
 		return nome;
 	}
 
-	public int getId() {
+	public int getId() throws SQLException {
+		id = conn.getIdCategoria(this.nome, this.idEstabelecimento);
 		return id;
 	}
 	
-	private void setId(int id) {
-		this.id = id;
-	}
-
 	@Override
 	public String toString() {
 		return  JOptionPane.showInputDialog("A categoria "+nome+" foi cadastrada corretamente");
