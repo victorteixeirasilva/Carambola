@@ -3,7 +3,7 @@
 import javax.swing.JOptionPane;
 
 public class FormaDePagamento {
-	private int codigoDeSeguranca;
+	private int codigoDeSeguranca, dataVencimento;
 	private String numeroDoCartao, nomeDoTitular, bandeiraCartao;
 	
 	private String checkBandeiraCartao(String numero1IdEmissor, String numero2IdEmissor) {
@@ -93,8 +93,14 @@ public class FormaDePagamento {
 	
 	public void cadastrarFormaDePagamento() {
 		String numeroCartao = JOptionPane.showInputDialog("Informe o número do seu cartão: ");
-		validarCartao(numeroCartao); //Validação Ok
-		//Falta após validar, cadastrar o mesmo no Banco de Dados
+		validarCartao(numeroCartao);
+		this.nomeDoTitular = JOptionPane.showInputDialog("Informe o nome completo do titular do cartão: ");
+		String codigoSegurancaString = JOptionPane.showInputDialog("Informe o código de segurança: ");
+		this.codigoDeSeguranca = Integer.parseInt(codigoSegurancaString);
+		String dataVencimentoString = JOptionPane.showInputDialog("Informe a data de vencimento do cartão: \n\nLembrese de pasar a data como Ano-Mês, exemplo (2030-08");
+		this.dataVencimento = Integer.parseInt(dataVencimentoString);
+		
+		
 	}
 
 	public String getNumeroDoCartao() {
@@ -127,6 +133,14 @@ public class FormaDePagamento {
 
 	public void setBandeiraCartao(String bandeiraCartao) {
 		this.bandeiraCartao = bandeiraCartao;
+	}
+
+	public int getDataVencimento() {
+		return dataVencimento;
+	}
+
+	public void setDataVencimento(int dataVencimento) {
+		this.dataVencimento = dataVencimento;
 	}
 	
 	
