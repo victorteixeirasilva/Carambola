@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import br.fam.Carambola.Catalogo;
 import br.fam.Carambola.Endereco;
+import br.fam.Carambola.FormaDePagamento;
 import br.fam.Carambola.Db.ConnectionDb;
 import br.fam.Carambola.Usuarios.Usuario;
 import br.fam.Carambola.Usuarios.UsuarioCliente;
@@ -13,48 +14,13 @@ import br.fam.Carambola.Usuarios.UsuarioEstabelecimento;
 
 
 public class Carambola {
-
+	
 	public static void main(String[] args) throws SQLException {
 		
 		menu();
-		
-		
-		
-		//**TESTE CLASSE PRODUTO ABAIXO**
-		//Produto produto = new Produto("COCA", "Latinha de coca 600ml", 5.50, null, true); //Criando um produto
-		//System.out.println(produto); //Exibindo detalhes desse produto com o método toString
-
-		//***TESTE CLASSE CATEGORIA ABAIXO***
-		//List<Produto> produtos = new ArrayList<Produto>();
-		//produtos.add(new Produto("COCA", "Latinha de 600ml", 5.50, bebidas, true));//Criando um produto
-		//produtos.add(new Produto("SPRITE", "Latinha de 600ml", 5.50, bebidas, true));//Criando um produto
-		//produtos.add(new Produto("AGUA", "Latinha de 600ml", 5.50, bebidas, true));//Criando um produto
-		//produtos.add(new Produto("BK", "LANCHE", 5.50, comidas, true));//Criando um produto
-		//produtos.add(new Produto("MC", "LANCHE", 5.50, comidas, true));//Criando um produto
-		//produtos.add(new Produto("OUTBACK", "LANCHE", 5.50, comidas, true));//Criando um produto
-		//bebidas.verProdutosDaCategoria(produtos, bebidas);
-		//bebidas.verProdutosDaCategoria(produtos, comidas);
-		
-		
-		//TESTE BANCO DE DADOS H2
-		//System.out.println("ola");
-		//Categoria bebidas = new Categoria("Bebidas",14);
-		//Produto produto1 = new Produto("COCA", "LATA 600ML", 6.5, bebidas, true);
-		//Produto produto2 = new Produto("SPRITE", "LATA 600ML", 6.5, bebidas, true);
-		//Produto produto3 = new Produto("FANTA", "LATA 600ML", 6.5, bebidas, true);
-		//bebidas.verProdutosDaCategoria();
-		
-		//TESTE CLASE CATALOGO -> METODO CADASTRAR CATEGORIA -> EDITAR CATEGORIA -EXCLUIR CATEGORIA
-		//UsuarioEstabelecimento estabelecimento = new UsuarioEstabelecimento(); 
-		//Catalogo catalogo = new Catalogo(estabelecimento);
-		//catalogo.cadastrarCategorias();
-		//catalogo.verCategorias();
-		//catalogo.editarCategorias();
-		//catalogo.excluirCategorias();
 	}
 	
-	
-	public static void menu() throws SQLException {
+	private static void menu() throws SQLException {
 		JOptionPane.showMessageDialog(null, "SEJA BEM VINDO AO CARAMBOLA!");
 		int escolha = JOptionPane.showConfirmDialog(null, 
 				"Já possui cadastro em nosso sistema?\n"
@@ -74,7 +40,7 @@ public class Carambola {
 		} 
 	}
 	
-	public static void cadastrarNoSistema() throws SQLException {
+	private static void cadastrarNoSistema() throws SQLException {
 		int escolha = JOptionPane.showConfirmDialog(null, "Você deseja se cadastrar como Estabelecimento?");
 		if (escolha == JOptionPane.YES_OPTION) {
 			cadastrarEstabelecimento();
@@ -83,7 +49,7 @@ public class Carambola {
 		}
 	}
 	
-	public static void cadastrarUsuarioCliente() throws SQLException {
+	private static void cadastrarUsuarioCliente() throws SQLException {
 		//Cadastro do usuario
 		String email = JOptionPane.showInputDialog("Informe o email para cadastro:");
 		String senha = JOptionPane.showInputDialog("Informe a senha para cadastro:");
@@ -117,7 +83,7 @@ public class Carambola {
 		JOptionPane.showInputDialog("Cadastro finalizado com sucesso!");
 	}
 	
-	public static void cadastrarEstabelecimento() throws SQLException {
+	private static void cadastrarEstabelecimento() throws SQLException {
 		//Cadastro do usuario
 		String email = JOptionPane.showInputDialog("Informe o email para cadastro:");
 		String senha = JOptionPane.showInputDialog("Informe a senha para cadastro:");
@@ -153,70 +119,85 @@ public class Carambola {
 		catalogo.getEstabelecimento();
 	}
 	
-	public static void fazerLogin() throws SQLException {
+	private static void fazerLogin() throws SQLException {
 		ConnectionDb conn = new ConnectionDb();
 		String email = JOptionPane.showInputDialog("Informe o e-mail do usuário para login");
 		String senha = JOptionPane.showInputDialog("Informe a senha do usuário para login");
 		if(conn.verificarLoginBd(email, senha)) {
 			int idUsuario = conn.buscarIdUsuario(email, senha);
-			if(conn.verificarSeEstabelecimento(idUsuario)) {//Se usuario for cadastrado e for estabelecimento
-				JOptionPane.showMessageDialog(null, "VOCÊ ESTÁ CADASTRADO CORRETAMENTE \nÉ UM USUÁRIO DO TIPO ESTABELECIMENTO!");
-			} else if (conn.verificarSeCliente(idUsuario)){
-				int opcao;
-				do {
-				String nomeClienteBd = conn.getNomeBdCliente(idUsuario); 
-				String opcaoString = JOptionPane.showInputDialog(
-						"Olá "+nomeClienteBd+" \n"
-						+ "\nBem vindo ao menu do CARAMBOLA!\n"
-						+ "\nEscolha uma das opões abaixo:\n\n"
-						+ "1-Buscar Estabelecimento\n"
-						+ "2-Ver Informações da Conta\n"
-						+ "3-Cadastrar Forma de Pagamento\n"
-						+ "4-Ver Forma de Pagamento Cadastrada\n"
-						+ "5-Editar Forma de Pagamento\n"
-						+ "6-Excluir Forma de Pagamento\n"
-						+ "7-Desconectar-se\n"
-						+ "8-Sair\n"
-						);
-				
-				UsuarioCliente usuario = new UsuarioCliente();
-				opcao = Integer.parseInt(opcaoString);
-				switch (opcao){
-				case 1:
-					usuario.buscarEstabelecimento(); //Não implementado ainda
-					break;
-				case 2:
-					usuario.verInformacoesDaConta(); //Não implementado ainda
-					break;
-				case 3:
-					usuario.getFormaDePagamento().cadastrarFormaDePagamento(); //Não implementado ainda
-					break;
-				case 4:
-					usuario.getFormaDePagamento().verFormaDePagamento(); //Não implementado ainda
-					break;
-				case 5:
-					usuario.getFormaDePagamento().editarFomraDePagamento(); //Não implementado ainda
-				case 6:
-					usuario.getFormaDePagamento().excluirFormaDePagamento(); //Não implementado ainda
-				case 7:
-					fazerLogin();
-					break;
-				case 8:
-					JOptionPane.showMessageDialog(null, 
-							"Obrigado por usar o CARAMBOLA!"
-						+ "\nESPERAMOS SEU RETORNO EM BREVE!");
-					break;
-				default:
-					JOptionPane.showMessageDialog(null, "Opção invalida, por favor tente novamente!");
-					
-					}
-				} while (opcao != 7);
+			if(conn.verificarSeEstabelecimento(idUsuario)) {//Se usuario for cadastrado e for do tipo estabelecimento
+				menuEstabelecimento(idUsuario);
+			} else if (conn.verificarSeCliente(idUsuario)){ //Se usuario for cadatrado e for do tipo cliente
+				menuUsuarioCliente(idUsuario);
+			} else if (conn.verificarSeFuncionario(idUsuario)){ //Se usuario for cadatrado e for do tipo funcionario
+				menuFuncionario(idUsuario);
 			}
-			
 		} else {
 			JOptionPane.showInputDialog("Email ou senha invalidos\n \nClique ok para tentar novamente!");
 			fazerLogin();
 		}
+	}
+	
+	private static void menuFuncionario(int idUsuario) {
+		
+	}
+	
+	private static void menuEstabelecimento(int idEstabelecimento) {
+		
+	}
+	
+	private static void menuUsuarioCliente(int idUsuario) throws SQLException {
+		ConnectionDb conn = new ConnectionDb();
+		int opcao;
+		do {
+		String nomeClienteBd = conn.getNomeBdCliente(idUsuario); 
+		String opcaoString = JOptionPane.showInputDialog(
+				"Olá "+nomeClienteBd+" \n"
+				+ "\nBem vindo ao menu do CARAMBOLA!\n"
+				+ "\nEscolha uma das opões abaixo:\n\n"
+				+ "1-Buscar Estabelecimento\n"
+				+ "2-Ver Informações da Conta\n"
+				+ "3-Cadastrar Forma de Pagamento\n"
+				+ "4-Ver Forma de Pagamento Cadastrada\n"
+				+ "5-Editar Forma de Pagamento\n"
+				+ "6-Excluir Forma de Pagamento\n"
+				+ "7-Desconectar-se\n"
+				+ "8-Sair\n"
+				);
+		
+		UsuarioCliente usuario = new UsuarioCliente();
+		opcao = Integer.parseInt(opcaoString);
+		switch (opcao){
+		case 1:
+			usuario.buscarEstabelecimento();
+			break;
+		case 2:
+			usuario.verInformacoesDaConta(idUsuario);
+			break;
+		case 3:
+			FormaDePagamento formaDePagamento = new FormaDePagamento();
+			formaDePagamento.cadastrarFormaDePagamento();//Não implementado ainda
+			break;
+		case 4:
+			usuario.getFormaDePagamento().verFormaDePagamento(); //Não implementado ainda
+			break;
+		case 5:
+			usuario.getFormaDePagamento().editarFomraDePagamento(); //Não implementado ainda
+		case 6:
+			usuario.getFormaDePagamento().excluirFormaDePagamento(); //Não implementado ainda
+		case 7:
+			fazerLogin();
+			break;
+		case 8:
+			JOptionPane.showMessageDialog(null, 
+					"Obrigado por usar o CARAMBOLA!"
+				+ "\nESPERAMOS SEU RETORNO EM BREVE!");
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Opção invalida, por favor tente novamente!");
+			
+			}
+		} while (opcao != 7);
 	}
 	
 }
