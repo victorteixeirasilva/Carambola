@@ -1,23 +1,34 @@
  package br.fam.Carambola;
 
+import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
+
+import br.fam.Carambola.Db.ConnectionDb;
 
 public class FormaDePagamento {
 	private int codigoDeSeguranca, dataVencimento;
 	private String numeroDoCartao, nomeDoTitular, bandeiraCartao;
+	private ConnectionDb conn = new ConnectionDb();
 	
 	private String checkBandeiraCartao(String numero1IdEmissor, String numero2IdEmissor) {
 		if(numero2IdEmissor.equals("37")) {
+			setBandeiraCartao("AMERICAN EXPRESS");
 			return "AMERICAN EXPRESS";
 		} else if (numero2IdEmissor.equals("35")) {
+			setBandeiraCartao("JCB");
 			return "JCB";
 		} else if (numero1IdEmissor.equals("4")) {
+			setBandeiraCartao("VISA");
 			return "VISA";
 		} else if (numero1IdEmissor.equals("5")) {
+			setBandeiraCartao("MASTER CARD");
 			return "MASTER CARD";
 		} else if (numero1IdEmissor.equals("6")) {
+			setBandeiraCartao("DISCOVER");
 			return "DISCOVER";
 		} else {
+			setBandeiraCartao("Bandeira desconhecida");
 			return "Bandeira desconhecida";
 		}
 	}
@@ -91,7 +102,7 @@ public class FormaDePagamento {
 		
 	}
 	
-	public void cadastrarFormaDePagamento() {
+	public void cadastrarFormaDePagamento() throws SQLException {
 		String numeroCartao = JOptionPane.showInputDialog("Informe o número do seu cartão: ");
 		validarCartao(numeroCartao);
 		this.nomeDoTitular = JOptionPane.showInputDialog("Informe o nome completo do titular do cartão: ");
@@ -99,8 +110,8 @@ public class FormaDePagamento {
 		this.codigoDeSeguranca = Integer.parseInt(codigoSegurancaString);
 		String dataVencimentoString = JOptionPane.showInputDialog("Informe a data de vencimento do cartão: \n\nLembrese de pasar a data como Ano-Mês, exemplo (2030-08");
 		this.dataVencimento = Integer.parseInt(dataVencimentoString);
-		
-		
+		String bandeiraCartao = checkBandeiraCartao(numeroCartao.substring(0,1), numeroCartao.substring(0,2));
+		conn.insert(""); // Falta criar a parte do banco de dados para armazenar infos
 	}
 
 	public String getNumeroDoCartao() {
