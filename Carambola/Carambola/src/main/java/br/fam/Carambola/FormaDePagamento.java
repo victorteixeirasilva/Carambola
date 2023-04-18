@@ -90,14 +90,10 @@ public class FormaDePagamento {
 		}
 	}
 	
-	public void excluirFormaDePagamento() {
-		
-	}
-	
-	public void editarFomraDePagamento(int idUsuario) throws SQLException {
+	public void excluirFormaDePagamento(int idUsuario) throws SQLException {
 		JOptionPane.showMessageDialog(null, "AS FORMAS DE PAGAMENTO CADASTRADAS SÃO:");
 		conn.verDetalhesFormaPagamento(idUsuario);
-		String idFormaDePagamentoString = JOptionPane.showInputDialog("\n\nInforme o Id da forma de pagamento que deseja editar:\n\n");
+		String idFormaDePagamentoString = JOptionPane.showInputDialog("\n\nInforme o Id da forma de pagamento que deseja excluir:\n\n");
 		int idFormaDePagamento = Integer.parseInt(idFormaDePagamentoString);
 		
 	}

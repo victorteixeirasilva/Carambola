@@ -32,6 +32,46 @@ public class ConnectionDb {
 		
 	}
 	
+	public void verDetalhesFormaPagamentoPorId(int idFormaPagamento) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa o comando de insert
+		String sql = "SELECT PAG_IDPAG,PAG_NUMERO,PAG_BANDEIRA,PAG_NOME,PAG_CODSEG,PAG_DATAVENCI  FROM TB_FORMAS_PAGAMENTO WHERE PAG_IDPAG = "+idFormaPagamento+";";
+        ResultSet row = statement.executeQuery(sql);
+        System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
+        
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	int idFormaDePagamento = row.getInt("PAG_IDPAG");
+        	String numeroCartao = row.getString("PAG_NUMERO");
+        	String bandeiraCartao = row.getString("PAG_BANDEIRA");
+        	String nomeTitular = row.getString("PAG_NOME");
+        	String codigoSeguranca = row.getString("PAG_CODSEG");
+        	String dataVencimento = row.getString("PAG_DATAVENCI");
+        	JOptionPane.showMessageDialog(null, 
+  				"DETALHES DAS FORMAS DE PAGAMENTO CADASTRADAS!\n\n"
+  				+ "\nId Forma de Pagamento: "+idFormaDePagamento
+  				+ "\nNúmero do Cartão: "+numeroCartao
+  				+ "\nBandeira do Cartão: "+bandeiraCartao
+  				+ "\nNome do Titular do Cartão: "+nomeTitular
+  				+ "\nCódigo de Segurança: "+codigoSeguranca
+  				+ "\nData de Vencimento: "+dataVencimento.substring(0,7)
+  				+ "\n");
+        }
+        	
+        }
+	
 	public void verDetalhesFormaPagamento(int idUsuario) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {

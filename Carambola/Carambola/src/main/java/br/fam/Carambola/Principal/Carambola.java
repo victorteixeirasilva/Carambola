@@ -159,10 +159,9 @@ public class Carambola {
 				+ "2-Ver Informações da Conta\n"
 				+ "3-Cadastrar Forma de Pagamento\n"
 				+ "4-Ver Forma de Pagamento Cadastrada\n"
-				+ "5-Editar Forma de Pagamento\n"
-				+ "6-Excluir Forma de Pagamento\n"
-				+ "7-Desconectar-se\n"
-				+ "8-Sair\n"
+				+ "5-Excluir Forma de Pagamento\n"
+				+ "6-Desconectar-se\n"
+				+ "7-Sair\n"
 				);
 		
 		UsuarioCliente usuario = new UsuarioCliente();
@@ -182,13 +181,11 @@ public class Carambola {
 			formaDePagamento.verFormaDePagamento(idUsuario);
 			break;
 		case 5:
-			formaDePagamento.editarFomraDePagamento(idUsuario); //Não implementado ainda
+			formaDePagamento.excluirFormaDePagamento(idUsuario); //Não implementado ainda
 		case 6:
-			usuario.getFormaDePagamento().excluirFormaDePagamento(); //Não implementado ainda
-		case 7:
 			fazerLogin();
 			break;
-		case 8:
+		case 7:
 			JOptionPane.showMessageDialog(null, 
 					"Obrigado por usar o CARAMBOLA!"
 				+ "\nESPERAMOS SEU RETORNO EM BREVE!");
@@ -197,7 +194,7 @@ public class Carambola {
 			JOptionPane.showMessageDialog(null, "Opção invalida, por favor tente novamente!");
 			
 			}
-		} while (opcao != 8);
+		} while (opcao != 7);
 	}
 	
 }
