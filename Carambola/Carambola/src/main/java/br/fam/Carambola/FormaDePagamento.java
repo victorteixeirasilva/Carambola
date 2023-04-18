@@ -102,16 +102,24 @@ public class FormaDePagamento {
 		
 	}
 	
-	public void cadastrarFormaDePagamento() throws SQLException {
+	public void cadastrarFormaDePagamento(int idUsuario) throws SQLException {
 		String numeroCartao = JOptionPane.showInputDialog("Informe o número do seu cartão: ");
 		validarCartao(numeroCartao);
 		this.nomeDoTitular = JOptionPane.showInputDialog("Informe o nome completo do titular do cartão: ");
 		String codigoSegurancaString = JOptionPane.showInputDialog("Informe o código de segurança: ");
 		this.codigoDeSeguranca = Integer.parseInt(codigoSegurancaString);
 		String dataVencimentoString = JOptionPane.showInputDialog("Informe a data de vencimento do cartão: \n\nLembrese de pasar a data como Ano-Mês, exemplo (2030-08");
-		this.dataVencimento = Integer.parseInt(dataVencimentoString);
 		String bandeiraCartao = checkBandeiraCartao(numeroCartao.substring(0,1), numeroCartao.substring(0,2));
-		conn.insert(""); // Falta criar a parte do banco de dados para armazenar infos
+		conn.insert("INSERT INTO TB_FORMAS_PAGAMENTO(PAG_IDPAG, PAG_IDUSU, PAG_NUMERO, PAG_NOME, PAG_BANDEIRA, PAG_CODSEG, PAG_DATAVENCI) VALUES (NEXT VALUE FOR SQ_PAG_IDPAG,"+idUsuario+",'"+numeroCartao+"', '"+nomeDoTitular+"', '"+bandeiraCartao+"', "+codigoDeSeguranca+", '"+dataVencimentoString+"-01');");
+		JOptionPane.showMessageDialog(null, 
+				  "FORMA DE PAGAMENTO CADASTRADA CORRETAMENTE:\n\n"
+				+ "DETALHES DA FORMA DE PAGAMENTO!\n\n"
+				+ "Número do Cartão:"+numeroCartao
+				+ "Bandeira do Cartão:"+bandeiraCartao
+				+ "Nome do Titular do Cartão:"+nomeDoTitular
+				+ "Código de Segurança:"+codigoSegurancaString
+				+ "Data de Vencimento:"+dataVencimentoString
+				+ "");
 	}
 
 	public String getNumeroDoCartao() {

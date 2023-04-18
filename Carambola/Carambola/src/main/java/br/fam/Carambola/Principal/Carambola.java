@@ -176,7 +176,7 @@ public class Carambola {
 			break;
 		case 3:
 			FormaDePagamento formaDePagamento = new FormaDePagamento();
-			formaDePagamento.cadastrarFormaDePagamento();//Não implementado ainda
+			formaDePagamento.cadastrarFormaDePagamento(idUsuario);//Não implementado ainda
 			break;
 		case 4:
 			usuario.getFormaDePagamento().verFormaDePagamento(); //Não implementado ainda
@@ -197,7 +197,7 @@ public class Carambola {
 			JOptionPane.showMessageDialog(null, "Opção invalida, por favor tente novamente!");
 			
 			}
-		} while (opcao != 7);
+		} while (opcao != 8);
 	}
 	
 }
