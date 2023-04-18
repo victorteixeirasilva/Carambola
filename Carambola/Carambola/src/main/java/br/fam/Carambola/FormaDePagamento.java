@@ -95,7 +95,19 @@ public class FormaDePagamento {
 		conn.verDetalhesFormaPagamento(idUsuario);
 		String idFormaDePagamentoString = JOptionPane.showInputDialog("\n\nInforme o Id da forma de pagamento que deseja excluir:\n\n");
 		int idFormaDePagamento = Integer.parseInt(idFormaDePagamentoString);
-		
+		conn.verDetalhesFormaPagamentoPorId(idFormaDePagamento);
+		int escolha = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir essa forma de pagamento?\n(OBS: Essa ação não é reversivel!)");
+		switch (escolha) {
+			case JOptionPane.YES_OPTION:
+				conn.insert("DELETE FROM TB_FORMAS_PAGAMENTO WHERE PAG_IDPAG = "+idFormaDePagamento+";");
+				break;
+			case JOptionPane.NO_OPTION:
+				JOptionPane.showMessageDialog(null, idFormaDePagamentoString);
+				break;
+			case JOptionPane.CANCEL_OPTION:
+				break;
+		 
+		}
 	}
 	
 	public void verFormaDePagamento(int idUsuario) throws SQLException {
