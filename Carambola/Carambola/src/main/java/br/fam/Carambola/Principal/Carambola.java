@@ -166,6 +166,7 @@ public class Carambola {
 				);
 		
 		UsuarioCliente usuario = new UsuarioCliente();
+		FormaDePagamento formaDePagamento = new FormaDePagamento();
 		opcao = Integer.parseInt(opcaoString);
 		switch (opcao){
 		case 1:
@@ -175,11 +176,10 @@ public class Carambola {
 			usuario.verInformacoesDaConta(idUsuario);
 			break;
 		case 3:
-			FormaDePagamento formaDePagamento = new FormaDePagamento();
-			formaDePagamento.cadastrarFormaDePagamento(idUsuario);//Não implementado ainda
+			formaDePagamento.cadastrarFormaDePagamento(idUsuario);
 			break;
 		case 4:
-			usuario.getFormaDePagamento().verFormaDePagamento(); //Não implementado ainda
+			formaDePagamento.verFormaDePagamento(idUsuario); //Não implementado ainda
 			break;
 		case 5:
 			usuario.getFormaDePagamento().editarFomraDePagamento(); //Não implementado ainda

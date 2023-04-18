@@ -98,8 +98,8 @@ public class FormaDePagamento {
 		
 	}
 	
-	public void verFormaDePagamento() {
-		
+	public void verFormaDePagamento(int idUsuario) throws SQLException {
+		conn.verDetalhesFormaPagamento(idUsuario);
 	}
 	
 	public void cadastrarFormaDePagamento(int idUsuario) throws SQLException {
@@ -114,12 +114,12 @@ public class FormaDePagamento {
 		JOptionPane.showMessageDialog(null, 
 				  "FORMA DE PAGAMENTO CADASTRADA CORRETAMENTE:\n\n"
 				+ "DETALHES DA FORMA DE PAGAMENTO!\n\n"
-				+ "Número do Cartão:"+numeroCartao
-				+ "Bandeira do Cartão:"+bandeiraCartao
-				+ "Nome do Titular do Cartão:"+nomeDoTitular
-				+ "Código de Segurança:"+codigoSegurancaString
-				+ "Data de Vencimento:"+dataVencimentoString
-				+ "");
+				+ "\nNúmero do Cartão: "+numeroCartao
+				+ "\nBandeira do Cartão: "+bandeiraCartao
+				+ "\nNome do Titular do Cartão: "+nomeDoTitular
+				+ "\nCódigo de Segurança: "+codigoSegurancaString
+				+ "\nData de Vencimento: "+dataVencimentoString
+				+ "\n");
 	}
 
 	public String getNumeroDoCartao() {
