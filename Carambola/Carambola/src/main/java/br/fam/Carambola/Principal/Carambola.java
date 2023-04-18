@@ -179,10 +179,10 @@ public class Carambola {
 			formaDePagamento.cadastrarFormaDePagamento(idUsuario);
 			break;
 		case 4:
-			formaDePagamento.verFormaDePagamento(idUsuario); //Não implementado ainda
+			formaDePagamento.verFormaDePagamento(idUsuario);
 			break;
 		case 5:
-			usuario.getFormaDePagamento().editarFomraDePagamento(); //Não implementado ainda
+			formaDePagamento.editarFomraDePagamento(idUsuario); //Não implementado ainda
 		case 6:
 			usuario.getFormaDePagamento().excluirFormaDePagamento(); //Não implementado ainda
 		case 7:
