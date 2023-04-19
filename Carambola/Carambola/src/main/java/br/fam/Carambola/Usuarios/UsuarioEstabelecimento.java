@@ -2,6 +2,8 @@ package br.fam.Carambola.Usuarios;
 
 import java.sql.SQLException;
 
+import br.fam.Carambola.Catalogo;
+import br.fam.Carambola.Categoria;
 import br.fam.Carambola.Endereco;
 import br.fam.Carambola.Db.ConnectionDb;
 
@@ -14,6 +16,10 @@ public class UsuarioEstabelecimento  {
 	private long cnpj;
 	private Usuario usuario;
 	private ConnectionDb conn = new ConnectionDb();
+	
+	public UsuarioEstabelecimento() {
+		
+	}
 	
 	public UsuarioEstabelecimento(Usuario usuario, String nomeEstabelecimento , long cnpj) throws SQLException {
 		this.usuario = usuario;
@@ -79,8 +85,11 @@ public class UsuarioEstabelecimento  {
 		
 	}
 	
-	public void verCatalogo() {
-		
+	public void verCatalogo(int idEstabelecimento) throws SQLException {
+		Catalogo catalogo = new Catalogo();
+		catalogo.verCategorias(idEstabelecimento);
+		Categoria categoria = new Categoria();
+		categoria.verProdutosDaCategoria();
 	}
 
 	public String getNome() {

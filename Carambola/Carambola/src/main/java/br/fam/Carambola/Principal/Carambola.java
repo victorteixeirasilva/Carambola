@@ -142,8 +142,87 @@ public class Carambola {
 		
 	}
 	
-	private static void menuEstabelecimento(int idEstabelecimento) {
+	private static void menuEstabelecimento(int idEstabelecimento) throws SQLException {
+		ConnectionDb conn = new ConnectionDb();
+		int opcao;
+		do {
+		String nomeEstabelecimentoBd = conn.getNomeBdEstabelecimento(idEstabelecimento); 
+		String opcaoString = JOptionPane.showInputDialog(
+				"Olá "+nomeEstabelecimentoBd+" \n"
+				+ "\nBem vindo ao menu do CARAMBOLA!\n"
+				+ "\nEscolha uma das opões abaixo:\n\n"
+				+ "1-Verificar Mesas\n"
+				+ "2-Atualizar Estoque\n"
+				+ "3-Cadastrar Produto\n"
+				+ "4-Excluir Produto\n"
+				+ "5-Editar Produto\n"
+				+ "6-Ver Produtos\n"
+				+ "7-Verificar Faturamento\n"
+				+ "8-Impulsionar Estabelecimento\n"
+				+ "9-Ver Funcionários Cadastrados\n"
+				+ "10-Editar Funcionários Cadastrados\n"
+				+ "11-Excluir Funcionários Cadastrados\n"
+				+ "12-Cadastrar Funcinários\n"
+				+ "13-Simular Compra\n"
+				+ "14-Desconectar-se\n"
+				+ "15-Sair\n"
+				);
 		
+		UsuarioEstabelecimento estabelecimento = new UsuarioEstabelecimento();
+		opcao = Integer.parseInt(opcaoString);
+		switch (opcao){
+			case 1:
+				//Verificar Mesas
+				break;
+			case 2:
+				//Atualizar Estoque
+				break;
+			case 3:
+				//Cadastrar Produto
+				break;
+			case 4:
+				//Excluir Produto
+				break;
+			case 5:
+				//Editar Produto
+				break;
+			case 6:
+				//Ver Produto
+				estabelecimento.verCatalogo(idEstabelecimento);
+				break;
+			case 7:
+				//Verificar Faturamento
+				break;
+			case 8:
+				//Impulsionar Estabelecimento
+				break;
+			case 9:
+				//Ver Funcionários Cadastrados
+				break;
+			case 10:
+				//Editar Funcionários Cadastrados
+				break;
+			case 11:
+				//Excluir Funcionários Cadastrados
+				break;
+			case 12:
+				//Cadastrar Funcinários
+				break;
+			case 13:
+				//Simular Compra
+				break;
+			case 14:
+				fazerLogin();
+				break;
+			case 15:
+				JOptionPane.showMessageDialog(null, 
+						"Obrigado por usar o CARAMBOLA!"
+					+ "\nESPERAMOS SEU RETORNO EM BREVE!");
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Opção invalida, por favor tente novamente!");
+				}
+		} while (opcao != 15);
 	}
 	
 	private static void menuUsuarioCliente(int idUsuario) throws SQLException {
