@@ -158,7 +158,7 @@ public class Carambola {
 				+ "1-Buscar Estabelecimento\n"
 				+ "2-Ver Informações da Conta\n"
 				+ "3-Cadastrar Forma de Pagamento\n"
-				+ "4-Ver Forma de Pagamento Cadastrada\n"
+				+ "4-Ver Formas de Pagamento Cadastradas\n"
 				+ "5-Excluir Forma de Pagamento\n"
 				+ "6-Desconectar-se\n"
 				+ "7-Sair\n"
@@ -169,7 +169,7 @@ public class Carambola {
 		opcao = Integer.parseInt(opcaoString);
 		switch (opcao){
 		case 1:
-			usuario.buscarEstabelecimento();
+			usuario.buscarEstabelecimento(); //Falta apenas a parte de comprar produtos
 			break;
 		case 2:
 			usuario.verInformacoesDaConta(idUsuario);
@@ -181,7 +181,8 @@ public class Carambola {
 			formaDePagamento.verFormaDePagamento(idUsuario);
 			break;
 		case 5:
-			formaDePagamento.excluirFormaDePagamento(idUsuario); //Não implementado ainda
+			formaDePagamento.excluirFormaDePagamento(idUsuario);
+			break;
 		case 6:
 			fazerLogin();
 			break;

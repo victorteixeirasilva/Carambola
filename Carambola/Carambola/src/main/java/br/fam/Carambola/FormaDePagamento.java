@@ -100,12 +100,13 @@ public class FormaDePagamento {
 		switch (escolha) {
 			case JOptionPane.YES_OPTION:
 				conn.insert("DELETE FROM TB_FORMAS_PAGAMENTO WHERE PAG_IDPAG = "+idFormaDePagamento+";");
+				JOptionPane.showMessageDialog(null, "Forma de pagamento excluída com sucesso!");
 				break;
 			case JOptionPane.NO_OPTION:
-				JOptionPane.showMessageDialog(null, idFormaDePagamentoString);
-				break;
+				JOptionPane.showMessageDialog(null, "Forma de pagamento não foi excluída!");
+				return;
 			case JOptionPane.CANCEL_OPTION:
-				break;
+				return;
 		 
 		}
 	}
