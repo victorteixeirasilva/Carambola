@@ -66,8 +66,12 @@ public class UsuarioEstabelecimento  {
 		}
 	}
 	
-	public void cadastrarProduto() {
-		
+	
+	
+	public void cadastrarProduto(int idEstabelecimento) throws SQLException {
+		Catalogo catalogo = new Catalogo();
+		catalogo.verCategorias(idEstabelecimento);
+		//conn.insert("INSERT INTO TB_PRODUTOS(PRO_IDPROD, PRO_IDCATE, PRO_DESC, PRO_VALOR, PRO_TEMESTOQUE) VALUES (505, 12, 'produto teste', 10.00, TRUE);");
 	}
 	
 	public void editarProdutos() {
