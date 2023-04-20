@@ -36,7 +36,7 @@ public class UsuarioEstabelecimento  {
 	}
 
 	private void cadastrarNovaMesa(int idEstabelecimento) throws SQLException {
-		int opcao = JOptionPane.showConfirmDialog(null, "Não existem mesas nem comandas em seu estabelecimento!\n\n" + "Deseja criar uma nova mesa ou comanda?\n\n");
+		int opcao = JOptionPane.showConfirmDialog(null, "Deseja criar uma nova mesa ou comanda?\n\n");
 		if(opcao == JOptionPane.YES_OPTION) {
 			String numeroMesaComandaString = JOptionPane.showInputDialog("Informe o número da mesa ou comanda que deseja cadastrar!\n\n" + "OBS: Lembrando que esse número é apenas para" + "\n melhorar a logistica em seu estabelecimento");
 			int numeroMesaComanda = Integer.parseInt(numeroMesaComandaString);
@@ -60,6 +60,7 @@ public class UsuarioEstabelecimento  {
 				return;
 			}
 		} else {
+			JOptionPane.showMessageDialog(null, "Não existem mesas nem comandas em seu estabelecimento!\n\n");
 			cadastrarNovaMesa(idEstabelecimento);
 			return;
 		}
