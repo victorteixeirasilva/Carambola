@@ -28,8 +28,68 @@ public class ConnectionDb {
 	String senha = "";// Senha padrao
 	Formatador formatador = new Formatador();
 	
-	public void mostrarMesasDisponiveis() {
+	public void mostrarMesasDisponiveis(int idEstabelecimento) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
 		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa o comando de insert
+		String sql = "SELECT MES_IDUSUEST, MES_NUMERO, MES_DISPONIVEL FROM TB_MESA_COMANDA WHERE MES_DISPONIVEL = TRUE AND MES_IDUSUEST = "+idEstabelecimento+";";
+        ResultSet row = statement.executeQuery(sql);
+        System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
+        
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	int numeroMesa = row.getInt("MES_NUMERO");
+        	JOptionPane.showMessageDialog(null,   "\nNúmero da mesa ou da comanda: "+numeroMesa
+        			+ "\nMESA OU COMANDA DISPONIVEL!");
+        }
+	}
+	
+	public boolean verificarSeExisteMesas(int idEstabelecimento) throws SQLException {
+		boolean resultado = false;
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		String sql = "SELECT (MES_IDUSUEST) FROM TB_MESA_COMANDA WHERE MES_IDUSUEST = "+idEstabelecimento+";";
+        ResultSet row = statement.executeQuery(sql);
+		
+        int idEstabelecimentoBd = 0;
+        while(row.next()) {
+        	idEstabelecimentoBd = row.getInt("MES_IDUSUEST");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+        
+        if(idEstabelecimentoBd == idEstabelecimento) {
+        	resultado = true;
+        } else {
+        	resultado = false;
+        }
+        		
+		return resultado;
 	}
 	
 	public void verDetalhesFormaPagamentoPorId(int idFormaPagamento) throws SQLException {
@@ -784,7 +844,6 @@ public class ConnectionDb {
         conexao.close();
         statement.close();
 	}
-	
 	/**
 	 * 
 	 * @param id1

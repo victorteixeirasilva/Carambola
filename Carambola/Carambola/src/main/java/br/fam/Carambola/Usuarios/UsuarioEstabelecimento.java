@@ -2,6 +2,8 @@ package br.fam.Carambola.Usuarios;
 
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import br.fam.Carambola.Catalogo;
 import br.fam.Carambola.Categoria;
 import br.fam.Carambola.Endereco;
@@ -33,8 +35,34 @@ public class UsuarioEstabelecimento  {
 		
 	}
 
-	public void verificarMesas() {
-		
+	private void cadastrarNovaMesa(int idEstabelecimento) throws SQLException {
+		int opcao = JOptionPane.showConfirmDialog(null, "Não existem mesas nem comandas em seu estabelecimento!\n\n" + "Deseja criar uma nova mesa ou comanda?\n\n");
+		if(opcao == JOptionPane.YES_OPTION) {
+			String numeroMesaComandaString = JOptionPane.showInputDialog("Informe o número da mesa ou comanda que deseja cadastrar!\n\n" + "OBS: Lembrando que esse número é apenas para" + "\n melhorar a logistica em seu estabelecimento");
+			int numeroMesaComanda = Integer.parseInt(numeroMesaComandaString);
+			conn.insert("INSERT INTO TB_MESA_COMANDA(MES_IDMES,MES_IDUSUEST,MES_NUMERO,MES_DISPONIVEL) VALUES (NEXT VALUE FOR SQ_MES_IDMES, "+idEstabelecimento+", "+numeroMesaComanda+", TRUE);");
+			JOptionPane.showMessageDialog(null, "Nova Mesa ou Comanda Cadastrada corretamente!");
+		} else if (opcao == JOptionPane.NO_OPTION) {
+			JOptionPane.showMessageDialog(null, "Nenhuma mesa ou comanda cadastrada no seu estabelecimento!");
+			return;
+		}
+	}
+	
+	public void verificarMesas(int idEstabelecimento) throws SQLException {
+		if(conn.verificarSeExisteMesas(idEstabelecimento)) {
+			String nomeEstabelecimento = conn.getNomeBdEstabelecimento(idEstabelecimento);
+			JOptionPane.showMessageDialog(null, "As mesas ou comandas presentes no seu estabelecimento são!" + "\nNome Estabelecimento: "+nomeEstabelecimento);
+			conn.mostrarMesasDisponiveis(idEstabelecimento);
+			int opcao1 = JOptionPane.showConfirmDialog(null, "Deseja Cadastrar uma nova mesa ou comanda?");
+			if(opcao1 == JOptionPane.YES_OPTION) {
+				cadastrarNovaMesa(idEstabelecimento);
+			} else {
+				return;
+			}
+		} else {
+			cadastrarNovaMesa(idEstabelecimento);
+			return;
+		}
 	}
 	
 	public void cadastrarProduto() {

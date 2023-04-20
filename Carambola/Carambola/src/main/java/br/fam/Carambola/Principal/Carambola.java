@@ -173,6 +173,7 @@ public class Carambola {
 		switch (opcao){
 			case 1:
 				//Verificar Mesas
+				estabelecimento.verificarMesas(idEstabelecimento);
 				break;
 			case 2:
 				//Atualizar Estoque

@@ -1,28 +1,33 @@
 package br.fam.Carambola;
 
-import br.fam.Carambola.Usuarios.UsuarioEstabelecimento;
+import java.sql.SQLException;
+
+import br.fam.Carambola.Db.ConnectionDb;
 
 public class MesaComanda {
-	private Pedido pedidos;
 	private int numeroMesa;
-	private UsuarioEstabelecimento estabelecimento;
-	public Pedido getPedidos() {
-		return pedidos;
+	private boolean estaDisponivel;
+	private ConnectionDb conn = new ConnectionDb();
+	
+	
+	public MesaComanda(int numeroMesa, int idUsuarioEstabelecimento) throws SQLException {
+		this.numeroMesa = numeroMesa;
+		conn.insert("");
 	}
-	public void setPedidos(Pedido pedidos) {
-		this.pedidos = pedidos;
-	}
+	
 	public int getNumeroMesa() {
 		return numeroMesa;
 	}
 	public void setNumeroMesa(int numeroMesa) {
 		this.numeroMesa = numeroMesa;
 	}
-	public UsuarioEstabelecimento getEstabelecimento() {
-		return estabelecimento;
+
+	public boolean isEstaDisponivel() {
+		return estaDisponivel;
 	}
-	public void setEstabelecimento(UsuarioEstabelecimento estabelecimento) {
-		this.estabelecimento = estabelecimento;
+
+	public void setEstaDisponivel(boolean estaDisponivel) {
+		this.estaDisponivel = estaDisponivel;
 	}
 	
 	
