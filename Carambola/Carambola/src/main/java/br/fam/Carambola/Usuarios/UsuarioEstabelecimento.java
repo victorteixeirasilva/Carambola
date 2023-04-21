@@ -152,11 +152,11 @@ public class UsuarioEstabelecimento  {
 				+ "(YES), altera o status para True"
 				+ "(NO), altera o status para False");
 		if(opcao == JOptionPane.YES_OPTION) {
-			conn.insert("");//comando para alterar para True
+			conn.insert("UPDATE TB_PRODUTOS SET PRO_TEMESTOQUE  = 'TRUE' WHERE PRO_IDPROD  = "+idProduto+";");//comando para alterar para True
 			JOptionPane.showMessageDialog(null, "Disponibilidade do produto alterada para disponível");
 			conn.verProdutoDetalhadoTrueFalse(idProduto);
 		} else if(opcao == JOptionPane.NO_OPTION) {
-			conn.insert("");//comando para alterar false
+			conn.insert("UPDATE TB_PRODUTOS SET PRO_TEMESTOQUE  = 'FALSE' WHERE PRO_IDPROD  = "+idProduto+";");//comando para alterar false
 			JOptionPane.showMessageDialog(null, "Disponibilidade do produto alterada para indisponível");
 			conn.verProdutoDetalhadoTrueFalse(idProduto);
 		} else {

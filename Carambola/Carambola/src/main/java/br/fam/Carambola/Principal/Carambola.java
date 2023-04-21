@@ -153,16 +153,16 @@ public class Carambola {
 				"Olá "+nomeEstabelecimentoBd+" \n"
 				+ "\nBem vindo ao menu do CARAMBOLA!\n"
 				+ "\nEscolha uma das opões abaixo:\n\n"
-				+ "1-Verificar Mesas\n"
-				+ "2-Atualizar Estoque\n"
-				+ "3-Cadastrar Categorias\n"
-				+ "4-Ver Categorias\n"
-				+ "5-Editar Categorias\n"
-				+ "6-Excluir Categorias\n"
-				+ "7-Cadastrar Produto\n"
+				+ "1-Verificar Mesas\n"//ok
+				+ "2-Atualizar Estoque\n"//ok
+				+ "3-Cadastrar Categorias\n"//ok
+				+ "4-Ver Categorias\n"//ok
+				+ "5-Editar Categorias\n"//ok
+				+ "6-Excluir Categorias\n"//ok
+				+ "7-Cadastrar Produto\n"//ok
 				+ "8-Excluir Produto\n"
 				+ "9-Editar Produto\n"
-				+ "10-Ver Produtos\n"
+				+ "10-Ver Produtos\n"//ok
 				+ "11-Verificar Faturamento\n"
 				+ "12-Impulsionar Estabelecimento\n"
 				+ "13-Ver Funcionários Cadastrados\n"
