@@ -97,8 +97,12 @@ public class UsuarioEstabelecimento  {
 		
 	}
 	
-	public void verProdutos() {
-		
+	public void verProdutos(int idEstabelecimento) throws SQLException {
+		JOptionPane.showMessageDialog(null, "As categorias desse estabelecimento são:  ");
+		conn.queryVerTodasAsCategoriasDeUmCatalogo(idEstabelecimento);
+		String idCategoriaString = JOptionPane.showInputDialog("Informe o Id da Categoria que deseja ver os produtos: ");
+		int idCategoria = Integer.parseInt(idCategoriaString);
+		conn.queryVerProdutosDeUmaCategoria(idCategoria);
 	}
 	
 	public void excluirProdutos() {
@@ -133,8 +137,8 @@ public class UsuarioEstabelecimento  {
 		
 	}
 	
-	public void atualizarEstoque() {
-		
+	public void atualizarEstoque(int idEstabelecimento) {
+		JOptionPane.showMessageDialog(null, "Selecione um produto e categoria pelo id");
 	}
 	
 	public void verCatalogo(int idEstabelecimento) throws SQLException {

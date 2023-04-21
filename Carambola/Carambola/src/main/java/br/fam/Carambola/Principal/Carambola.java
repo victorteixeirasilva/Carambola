@@ -184,6 +184,7 @@ public class Carambola {
 				break;
 			case 2:
 				//Atualizar Estoque
+				estabelecimento.atualizarEstoque(idEstabelecimento);
 				break;
 			case 3:
 				//Cadastrar Categorias

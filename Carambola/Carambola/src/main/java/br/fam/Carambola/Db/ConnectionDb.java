@@ -823,7 +823,7 @@ public class ConnectionDb {
 		java.sql.Statement statement = conexao.createStatement();
 		
 		//executa o comando de insert
-		String sql = "SELECT * FROM TB_PRODUTOS PRO JOIN TB_CATEGORIAS CATE ON PRO.PRO_IDCATE = CATE.CATE_IDCATE WHERE CATE.CATE_IDCATE = '"+idCategoria+"';";
+		String sql = "SELECT * FROM TB_PRODUTOS PRO JOIN TB_CATEGORIAS CATE ON PRO.PRO_IDCATE = CATE.CATE_IDCATE WHERE CATE.CATE_IDCATE = '"+idCategoria+"' AND PRO_TEMESTOQUE = TRUE;";
         ResultSet row = statement.executeQuery(sql);
         System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
         
