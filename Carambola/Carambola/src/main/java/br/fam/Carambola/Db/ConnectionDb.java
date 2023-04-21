@@ -28,6 +28,84 @@ public class ConnectionDb {
 	String senha = "";// Senha padrao
 	Formatador formatador = new Formatador();
 	
+	public void verProdutoDetalhadoTrueFalse(int idProduto) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(url, usuario, senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa o comando de insert
+		String sql = "SELECT * FROM TB_PRODUTOS PRO JOIN TB_CATEGORIAS CATE ON PRO.PRO_IDCATE = CATE.CATE_IDCATE WHERE  PRO.PRO_IDPROD = "+idProduto+";";
+        ResultSet row = statement.executeQuery(sql);
+        System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
+        
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	int id = row.getInt("PRO_IDPROD");
+        	String nome = row.getString("PRO_DESC");
+        	String categoria = row.getString("CATE_DESCCATE");
+        	Double valor = row.getDouble("PRO_VALOR");
+        	boolean disponivel = row.getBoolean("PRO_TEMESTOQUE");
+        	JOptionPane.showMessageDialog(null,   "\nID: " + id 
+        										+ "\nNome: " + nome
+        										+ "\nCategoria: " + categoria
+        										+ "\nValor: " + Formatador.doubleToString(valor)
+        										+ "\nDisponível: "+disponivel);
+        	//System.out.println("ID: " + id + ", Nome: " + nome + ", Categoria: " + categoria + ", Valor: " + valor);
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+	}
+	
+	public void verProdutosDeUmaCategoriaTrueFalse(int idCategoria) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(url, usuario, senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa o comando de insert
+		String sql = "SELECT * FROM TB_PRODUTOS PRO JOIN TB_CATEGORIAS CATE ON PRO.PRO_IDCATE = CATE.CATE_IDCATE WHERE CATE.CATE_IDCATE = '"+idCategoria+"';";
+        ResultSet row = statement.executeQuery(sql);
+        System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
+        
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	int id = row.getInt("PRO_IDPROD");
+        	String nome = row.getString("PRO_DESC");
+        	String categoria = row.getString("CATE_DESCCATE");
+        	Double valor = row.getDouble("PRO_VALOR");
+        	boolean disponivel = row.getBoolean("PRO_TEMESTOQUE");
+        	JOptionPane.showMessageDialog(null,   "\nID: " + id 
+        										+ "\nNome: " + nome
+        										+ "\nCategoria: " + categoria
+        										+ "\nValor: " + Formatador.doubleToString(valor)
+        										+ "\nDisponível: "+disponivel);
+        	//System.out.println("ID: " + id + ", Nome: " + nome + ", Categoria: " + categoria + ", Valor: " + valor);
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+	}
+	
 	public void mostrarMesasDisponiveis(int idEstabelecimento) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {

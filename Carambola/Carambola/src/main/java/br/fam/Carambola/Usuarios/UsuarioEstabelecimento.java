@@ -137,8 +137,32 @@ public class UsuarioEstabelecimento  {
 		
 	}
 	
-	public void atualizarEstoque(int idEstabelecimento) {
-		JOptionPane.showMessageDialog(null, "Selecione um produto e categoria pelo id");
+	public void atualizarEstoque(int idEstabelecimento) throws SQLException {
+		JOptionPane.showMessageDialog(null, "Selecione um produto dentro de uma categoria pelo id");
+		conn.queryVerTodasAsCategoriasDeUmCatalogo(idEstabelecimento);
+		String idCategoriaString = JOptionPane.showInputDialog("Informe o nome da categoria que deseja ver os produtos:");
+		int idCategoria = Integer.parseInt(idCategoriaString);
+		conn.verProdutosDeUmaCategoriaTrueFalse(idCategoria);
+		String idProdutoString = JOptionPane.showInputDialog("Informe o Id do produto que deseja atualizar o estoque:");
+		int idProduto = Integer.parseInt(idProdutoString);
+		conn.verProdutoDetalhadoTrueFalse(idProduto);
+		int opcao = JOptionPane.showConfirmDialog(null, 
+				  "Conforme o produto visto anteriormente!\n\n"
+				+ "Este produto está com estoque e está disponível para venda?\n\n"
+				+ "(YES), altera o status para True"
+				+ "(NO), altera o status para False");
+		if(opcao == JOptionPane.YES_OPTION) {
+			conn.insert("");//comando para alterar para True
+			JOptionPane.showMessageDialog(null, "Disponibilidade do produto alterada para disponível");
+			conn.verProdutoDetalhadoTrueFalse(idProduto);
+		} else if(opcao == JOptionPane.NO_OPTION) {
+			conn.insert("");//comando para alterar false
+			JOptionPane.showMessageDialog(null, "Disponibilidade do produto alterada para indisponível");
+			conn.verProdutoDetalhadoTrueFalse(idProduto);
+		} else {
+			JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita!");
+			return;
+		}
 	}
 	
 	public void verCatalogo(int idEstabelecimento) throws SQLException {
