@@ -71,7 +71,26 @@ public class UsuarioEstabelecimento  {
 	public void cadastrarProduto(int idEstabelecimento) throws SQLException {
 		Catalogo catalogo = new Catalogo();
 		catalogo.verCategorias(idEstabelecimento);
-		//conn.insert("INSERT INTO TB_PRODUTOS(PRO_IDPROD, PRO_IDCATE, PRO_DESC, PRO_VALOR, PRO_TEMESTOQUE) VALUES (505, 12, 'produto teste', 10.00, TRUE);");
+		String idCategoriaString = JOptionPane.showInputDialog("Informe o Id da categoria cujo qual deseja cadastrar seu produto:\n\n");
+		int idCategoria = Integer.parseInt(idCategoriaString);
+		if(idEstabelecimento == conn.queryIdCatalogoComIdCategoria(idCategoria)) {
+			String nomeProduto = JOptionPane.showInputDialog("Informe o Nome do produto:");
+			String precoProdutoString = JOptionPane.showInputDialog("Informe o valor unitario do produto:");
+			Double precoProduto = Double.parseDouble(precoProdutoString);
+			int opcao = JOptionPane.showConfirmDialog(null, "Esse produto tem estoque? e está disponivel para venda?");
+			boolean disponivel;
+			if(opcao == JOptionPane.YES_OPTION) {
+				disponivel = true;
+			} else if (opcao == JOptionPane.CANCEL_OPTION) {
+				JOptionPane.showMessageDialog(null, "Produto não foi cadastrado!");
+				return;
+			} else {
+				disponivel = false;				
+			}
+			conn.insert("INSERT INTO TB_PRODUTOS(PRO_IDPROD, PRO_IDCATE, PRO_DESC, PRO_VALOR, PRO_TEMESTOQUE) VALUES (NEXT VALUE FOR SQ_PRO_IDPROD, "+idCategoria+", '"+nomeProduto+"', "+precoProduto+", "+disponivel+");");
+		} else {
+			JOptionPane.showMessageDialog(null, "Você não possui categoria com esse id");
+		}
 	}
 	
 	public void editarProdutos() {

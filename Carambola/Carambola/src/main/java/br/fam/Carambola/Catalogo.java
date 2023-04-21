@@ -65,14 +65,11 @@ public class Catalogo {
 					JOptionPane.showMessageDialog(null, "Informação original foi mantida!");
 					//System.out.println("Informação original foi mantida!");
 				} else {
-					//System.out.println("Opção Inválida");
 				}
+				//System.out.println("Opção Inválida");
 			} else {			
 				JOptionPane.showMessageDialog(null, "Informações editadas são iguais as informações originais!");
-				//System.out.println("Informações editadas são iguais as informações originais!");
-			}
-			
-			//entrada.close();
+			}			
 		} else {	
 		JOptionPane.showMessageDialog(null, "Você não possui categoria com esse id");
 		}
