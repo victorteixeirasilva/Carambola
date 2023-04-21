@@ -146,7 +146,7 @@ public class UsuarioCliente{
 		switch (opcao) {
 			case JOptionPane.YES_OPTION:
 				JOptionPane.showMessageDialog(null, "Mesas disponíveis no estabelecimento:");
-				conn.mostrarMesasDisponiveis();
+				conn.mostrarMesasDisponiveis(idEstabelecimento);
 				reservarMesa();
 				break;
 			case JOptionPane.NO_OPTION:				
