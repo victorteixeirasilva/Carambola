@@ -152,7 +152,9 @@ public class Carambola {
 		String opcaoString = JOptionPane.showInputDialog(
 				"Olá "+nomeEstabelecimentoBd+" \n"
 				+ "\nBem vindo ao menu do CARAMBOLA!\n"
+				
 				+ "\nEscolha uma das opões abaixo:\n\n"
+				
 				+ "1-Verificar Mesas\n"//ok
 				+ "2-Atualizar Estoque\n"//ok
 				+ "3-Cadastrar Categorias\n"//ok
@@ -160,8 +162,8 @@ public class Carambola {
 				+ "5-Editar Categorias\n"//ok
 				+ "6-Excluir Categorias\n"//ok
 				+ "7-Cadastrar Produto\n"//ok
-				+ "8-Excluir Produto\n"
-				+ "9-Editar Produto\n"
+				+ "8-Excluir Produto\n"//ok
+				+ "9-Editar Produto\n"//ok
 				+ "10-Ver Produtos\n"//ok
 				+ "11-Verificar Faturamento\n"
 				+ "12-Impulsionar Estabelecimento\n"
@@ -207,12 +209,16 @@ public class Carambola {
 				estabelecimento.cadastrarProduto(idEstabelecimento);
 				break;
 			case 8:
+				//Excluir Produto
+				estabelecimento.excluirProdutos(idEstabelecimento);
 				break;
 			case 9:
+				//Editar Produtos
+				estabelecimento.editarProdutos(idEstabelecimento);
 				break;
 			case 10:
 				//Ver Produto
-				estabelecimento.verCatalogo(idEstabelecimento);
+				estabelecimento.verProdutos(idEstabelecimento);
 				break;
 			case 11:
 				break;

@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import br.fam.Carambola.Catalogo;
 import br.fam.Carambola.Categoria;
 import br.fam.Carambola.Endereco;
+import br.fam.Carambola.Formatador;
 import br.fam.Carambola.Db.ConnectionDb;
 
 public class UsuarioEstabelecimento  {
@@ -93,11 +94,74 @@ public class UsuarioEstabelecimento  {
 		}
 	}
 	
-	public void editarProdutos() {
+	public void editarProdutos(int idEstabelecimento) throws SQLException {
 		//Mostrar todos os Produtos cadastrados
+		JOptionPane.showMessageDialog(null, "Selecione um produto dentro de uma categoria pelo id");
+		verProdutos(idEstabelecimento);
 		//Escolher Produto para edição
+		String input = JOptionPane.showInputDialog("Informe o Id do produto que deseja editar:");
+		int idProduto = Integer.parseInt(input);
 		//Mostrar detalhes do Produto escolhido e numerar as opções
-		//escolher a informação para ser editada
+		//if(idEstabelecimento == conn.queryIdEstabelecimentoComIdProduto(idProduto)) {//Verifica se o id do catalogo é igual o id do estabelecimento informado
+			int idProdutoBd = conn.getIdProdutoBd(idProduto);
+			String nomeProdutoBd = conn.getNomeProdutoBd(idProdutoBd);
+			Double valorBd = conn.getValorProdutoBd(idProdutoBd);
+			//escolher a informação para ser editada
+			String escolhaString = JOptionPane.showInputDialog(
+					  "Detalhes do produto informado para edição:\n"
+					+ "\nId do Produto: "+idProdutoBd
+					+ "\n1-Nome do Produto: "+nomeProdutoBd
+					+ "\n2-Valor do Produto: "+Formatador.doubleToString(valorBd)
+					+ "\n\nEscolha a informação cuja qual você deseja editar: ");
+			int escolha = Integer.parseInt(escolhaString);
+			int opcao;
+			switch(escolha){
+				case 1:
+					String novoNome = JOptionPane.showInputDialog(
+							  "Nome atual do produto: "+nomeProdutoBd
+							+ "\n\nInforme o novo nome do produto: ");
+					if(novoNome != nomeProdutoBd) {
+						//Altera nome
+						opcao = JOptionPane.showConfirmDialog(null, "O nome do produto será alterado para: "+novoNome
+								+ "\n\nTem certeza que deseja fazer essa alteração?");
+						if(opcao == JOptionPane.YES_OPTION) {
+							conn.insert("UPDATE TB_PRODUTOS SET PRO_DESC = '"+novoNome+"' WHERE PRO_IDPROD = "+idProduto+";");
+							JOptionPane.showMessageDialog(null, "Nome do produto foi alterado corretamente para: "+novoNome);
+						} else {
+							JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita!");
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Nome informado é igual ao nome original, nenhuma alteração foi feita!");
+					}
+					break;
+				case 2:
+					String novoValorString = JOptionPane.showInputDialog(
+							  "Valor atual do produto: "+Formatador.doubleToString(valorBd)
+							+ "\n\nInforme o novo valor do produto: ");
+					Double novoValor = Double.parseDouble(novoValorString);
+					if(novoValor != valorBd) {
+						//Altera valor
+						opcao = JOptionPane.showConfirmDialog(null, "O valor do produto será alterado para: "+Formatador.doubleToString(novoValor)
+								+ "\n\nTem certeza que deseja fazer essa alteração?");
+						if(opcao == JOptionPane.YES_OPTION) {
+							conn.insert("UPDATE TB_PRODUTOS SET PRO_VALOR = "+novoValor+" WHERE PRO_IDPROD = "+idProduto+";");
+							JOptionPane.showMessageDialog(null, "Valor do produto foi alterado corretamente para: "+Formatador.doubleToString(novoValor));
+						} else {
+							JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita!");
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Valor informado é igual ao valor original, nenhuma alteração foi feita!");
+					}
+					break;
+				default:
+					JOptionPane.showMessageDialog(null, "Opção Invalida!");
+					editarProdutos(idEstabelecimento);
+					break;
+			}
+			
+		//} else {	
+		//JOptionPane.showMessageDialog(null, "Você não possui Produtos com esse id");
+		//}
 	}
 	
 	public void verProdutos(int idEstabelecimento) throws SQLException {
@@ -105,14 +169,30 @@ public class UsuarioEstabelecimento  {
 		conn.queryVerTodasAsCategoriasDeUmCatalogo(idEstabelecimento);
 		String idCategoriaString = JOptionPane.showInputDialog("Informe o Id da Categoria que deseja ver os produtos: ");
 		int idCategoria = Integer.parseInt(idCategoriaString);
-		conn.queryVerProdutosDeUmaCategoria(idCategoria);
+		conn.verProdutosDeUmaCategoriaTrueFalse(idCategoria);
 	}
 	
-	public void excluirProdutos() {
+	public void excluirProdutos(int idEstabelecimento) throws SQLException {
 		//Mostrar todos os produtos cadastrados
+		JOptionPane.showMessageDialog(null, "Selecione um produto dentro de uma categoria pelo id");
+		conn.queryVerTodasAsCategoriasDeUmCatalogo(idEstabelecimento);
+		String idCategoriaString = JOptionPane.showInputDialog("Informe o nome da categoria que deseja ver os produtos:");
+		int idCategoria = Integer.parseInt(idCategoriaString);
+		conn.verProdutosDeUmaCategoriaTrueFalse(idCategoria);
 		//Escolher o Produto que deseja excluir
-		//Excluir Produto escolhido
-		//Informar que o Produto foi excluido corretamente
+		String idProdutoString = JOptionPane.showInputDialog("Informe o Id do produto que deseja excluir:");
+		int idProduto = Integer.parseInt(idProdutoString);
+		conn.verProdutoDetalhadoTrueFalse(idProduto);
+		//Excluir Produto escolhido]
+		int opcao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse produto?\n\n");
+		if(opcao == JOptionPane.YES_OPTION) {
+			conn.insert("DELETE FROM TB_PRODUTOS WHERE PRO_IDPROD = "+idProduto+";");
+			//Informar que o Produto foi excluido corretamente
+			JOptionPane.showMessageDialog(null, "O produto foi excluido corretamente!");
+		} else {
+			JOptionPane.showMessageDialog(null, "Produto não foi excluido!");
+			return;
+		}
 	}
 	
 	public void cadastrarFuncionario() {

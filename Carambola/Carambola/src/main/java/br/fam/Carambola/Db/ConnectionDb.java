@@ -28,6 +28,96 @@ public class ConnectionDb {
 	String senha = "";// Senha padrao
 	Formatador formatador = new Formatador();
 	
+	public Double getValorProdutoBd(int idProduto) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		ResultSet row = statement.executeQuery("SELECT * FROM TB_PRODUTOS WHERE PRO_IDPROD = "+idProduto+";");
+				
+		Double valorProdutoBd = 0.0;
+		//Mostra o resultado na tela]
+		while(row.next()) {
+			valorProdutoBd = row.getDouble("PRO_VALOR");
+		}
+		
+		//Fecha Statemente e Conexão
+		conexao.close();
+		statement.close();
+		
+		return valorProdutoBd;
+	}
+	
+	public String getNomeProdutoBd(int idProduto) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		ResultSet row = statement.executeQuery("SELECT * FROM TB_PRODUTOS WHERE PRO_IDPROD = "+idProduto+";");
+				
+		String nomeProdutoBd = "";
+		//Mostra o resultado na tela]
+		while(row.next()) {
+			nomeProdutoBd = row.getString("PRO_DESC");
+		}
+		
+		//Fecha Statemente e Conexão
+		conexao.close();
+		statement.close();
+		
+		return nomeProdutoBd;
+	}
+	
+	public int getIdProdutoBd(int idProduto) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		ResultSet row = statement.executeQuery("SELECT * FROM TB_PRODUTOS WHERE PRO_IDPROD = "+idProduto+";");
+				
+		int idProdutoBd = 0;
+		//Mostra o resultado na tela]
+		while(row.next()) {
+			idProdutoBd = row.getInt("PRO_IDPROD");
+		}
+		
+		//Fecha Statemente e Conexão
+		conexao.close();
+		statement.close();
+		
+		return idProdutoBd;
+	}
+	
 	public void verProdutoDetalhadoTrueFalse(int idProduto) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
@@ -1057,5 +1147,35 @@ public class ConnectionDb {
         return idCatalogo;
 	}
 	
+	public int queryIdEstabelecimentoComIdProduto(int idProduto) throws SQLException {
+		int idEstabelecimento = 0;
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa o comando de insert
+		String sql = "SELECT * FROM TB_PRODUTOS PRO JOIN TB_CATEGORIAS CATE ON CATE.CATE_IDCATE = PRO.PRO_IDCATE WHERE CATE.CATE_IDCAT = "+idEstabelecimento+";";
+        ResultSet row = statement.executeQuery(sql);
+        
+        
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	idEstabelecimento = row.getInt("CATE_IDCAT");
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+        return idEstabelecimento;
+	}
 	
 }
