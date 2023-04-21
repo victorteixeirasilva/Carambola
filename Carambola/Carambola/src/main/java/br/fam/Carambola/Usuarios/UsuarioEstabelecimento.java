@@ -94,7 +94,10 @@ public class UsuarioEstabelecimento  {
 	}
 	
 	public void editarProdutos() {
-		
+		//Mostrar todos os Produtos cadastrados
+		//Escolher Produto para edição
+		//Mostrar detalhes do Produto escolhido e numerar as opções
+		//escolher a informação para ser editada
 	}
 	
 	public void verProdutos(int idEstabelecimento) throws SQLException {
@@ -106,35 +109,46 @@ public class UsuarioEstabelecimento  {
 	}
 	
 	public void excluirProdutos() {
-		
+		//Mostrar todos os produtos cadastrados
+		//Escolher o Produto que deseja excluir
+		//Excluir Produto escolhido
+		//Informar que o Produto foi excluido corretamente
 	}
 	
 	public void cadastrarFuncionario() {
-		
+		//Pedir Informações para cadastrar funcionario
+		//Cadastrar Funcionário
+		//Informar que o funcionário foi cadastrado corretamente
 	}
 	
 	public void excluirFuncionarios() {
-		
+		//Mostrar todos os funcionários cadastrados
+		//Escolher o funcionário que deseja excluir
+		//Excluir Funcionário escolhido
+		//Informar que o funcionário foi excluido corretamente
 	}
 	
 	public void verFuncionarios() {
-		
+		//Mostrar todos os funcionários cadastrados
 	}
 	
 	public void editarFuncionarios() {
-		
+		//Mostrar todos os funcionarios cadastrados
+		//Escolher Funcionario para edição
+		//Mostrar detalhes do funcionário escolhido e numerar as opções
+		//escolher a informação para ser editada
 	}
 	
 	public void simularCompra() {
-		
+		//Simulação de compra para o estabelecimento
 	}
 	
 	public void impulsionarEstabelecimento() {
-		
+		//Implementação futura
 	}
 	
 	public void verificarFaturamento() {
-		
+		//Pegas todos os valores totais de pedidos feitos em determinado periodo e somar
 	}
 	
 	public void atualizarEstoque(int idEstabelecimento) throws SQLException {
