@@ -1,33 +1,18 @@
 package br.fam.Carambola;
 
-import br.fam.Carambola.Usuarios.UsuarioCliente;
-
 public class Pedido {
-	private UsuarioCliente usuarioCliente;
-	private MesaComanda mesaComanda;
-	private ItensPedido produtos;
+	private int idUsuarioCliente;
+	private int idPedido;
+	private int idMesa;
 	private float taxaDesconto, taxa10porcento;
-	private FormaDePagamento formaDePagamento;
+	private int idFormaDePagamento;
 	private Double valorTotalDoPedido;
 	private String status;
-	public UsuarioCliente getUsuarioCliente() {
-		return usuarioCliente;
+	
+	public Pedido() {
+		
 	}
-	public void setUsuarioCliente(UsuarioCliente usuarioCliente) {
-		this.usuarioCliente = usuarioCliente;
-	}
-	public MesaComanda getMesaComanda() {
-		return mesaComanda;
-	}
-	public void setMesaComanda(MesaComanda mesaComanda) {
-		this.mesaComanda = mesaComanda;
-	}
-	public ItensPedido getProdutos() {
-		return produtos;
-	}
-	public void setProdutos(ItensPedido produtos) {
-		this.produtos = produtos;
-	}
+	
 	public float getTaxaDesconto() {
 		return taxaDesconto;
 	}
@@ -40,12 +25,6 @@ public class Pedido {
 	public void setTaxa10porcento(float taxa10porcento) {
 		this.taxa10porcento = taxa10porcento;
 	}
-	public FormaDePagamento getFormaDePagamento() {
-		return formaDePagamento;
-	}
-	public void setFormaDePagamento(FormaDePagamento formaDePagamento) {
-		this.formaDePagamento = formaDePagamento;
-	}
 	public Double getValorTotalDoPedido() {
 		return valorTotalDoPedido;
 	}
@@ -57,6 +36,32 @@ public class Pedido {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public int getIdFormaDePagamento() {
+		return idFormaDePagamento;
+	}
+	public void setIdFormaDePagamento(int idFormaDePagamento) {
+		this.idFormaDePagamento = idFormaDePagamento;
+	}
+	public int getIdPedido() {
+		return idPedido;
+	}
+	public void setIdPedido(int idPedido) {
+		this.idPedido = idPedido;
+	}
+	public int getIdUsuarioCliente() {
+		return idUsuarioCliente;
+	}
+	public void setIdUsuarioCliente(int idUsuarioCliente) {
+		this.idUsuarioCliente = idUsuarioCliente;
+	}
+
+	public int getIdMesa() {
+		return idMesa;
+	}
+
+	public void setIdMesa(int idMesa) {
+		this.idMesa = idMesa;
 	}
 	
 	
