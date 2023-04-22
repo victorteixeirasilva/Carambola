@@ -228,7 +228,10 @@ public class UsuarioCliente{
 				conn.insert("UPDATE TB_MESA_COMANDA SET MES_DISPONIVEL = FALSE WHERE MES_NUMERO = "+mesaReservada+" AND MES_IDUSUEST = "+idEstabelecimento+";");
 				//Codigo para verificar se a mesa foi reservada corretamente, se sim informar ao usuario
 				JOptionPane.showMessageDialog(null, "Seu pedido será entregue na mesa número "+mesaReservada);
-				
+				//Mostrar detalhes dos pedido
+				Double valorTotalPedido = conn.getValorPedidoBd(idPedido);
+				String itensPedido = conn.getItensQuantidadePedido(idPedido);
+				String statusPedido;
 			} else {
 				JOptionPane.showMessageDialog(null, "Não existe mesas disponíveis nesse estabelecimento!");
 			}

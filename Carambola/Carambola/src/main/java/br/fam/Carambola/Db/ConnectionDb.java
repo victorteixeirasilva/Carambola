@@ -30,6 +30,136 @@ public class ConnectionDb {
 	String senha = "";// Senha padrao
 	Formatador formatador = new Formatador();
 	
+	public String getDataPedido(int idPedido) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		ResultSet row = statement.executeQuery("SELECT * FROM TB_PEDIDOS WHERE COM_IDCOM = "+idPedido+";");
+		
+		String status = "";
+		//Mostra o resultado na tela]
+		while(row.next()) {
+		status = row.getString("COM_STATUS");
+		}
+		
+		//Fecha Statemente e Conexão
+		conexao.close();
+		statement.close();
+		
+		return status;
+		
+	}
+	
+	public String getStatusPedido(int idPedido) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		ResultSet row = statement.executeQuery("SELECT * FROM TB_PEDIDOS WHERE COM_IDCOM = "+idPedido+";");
+		
+		String status = "";
+		//Mostra o resultado na tela]
+		while(row.next()) {
+		status = row.getString("COM_STATUS");
+		}
+		
+		//Fecha Statemente e Conexão
+		conexao.close();
+		statement.close();
+		
+		return status;
+		
+	}
+	
+	public String getItensQuantidadePedido(int idPedido) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		ResultSet row = statement.executeQuery("SELECT ITE.ITE_CODPROD,PRO.PRO_DESC,ITE.ITE_QTDITENS FROM TB_ITENSPEDIDO ITE JOIN TB_PRODUTOS PRO ON PRO.PRO_IDPROD = ITE.ITE_CODPROD WHERE ITE.ITE_IDCOM = "+idPedido+";");
+		
+		String lista = "Lista de produtos e quantidade dentro do pedido\n";
+		//Mostra o resultado na tela]
+		while(row.next()) {
+		String	nomeProduto = row.getString("PRO_DESC");
+		int idProduto = row.getInt("ITE_CODPROD");
+		int qtdProduto = row.getInt("ITE_QTDITENS");
+		
+		lista +=  "\nCódigo do produto: "+idProduto
+				+ "\nNome do Produto: "+nomeProduto
+				+ "\nQuantidade comprada: "+qtdProduto
+				+ "\n";
+		}
+		
+		//Fecha Statemente e Conexão
+		conexao.close();
+		statement.close();
+		
+		return lista;
+		
+	}
+	
+	public Double getValorPedidoBd(int idPedido) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa a query
+		ResultSet row = statement.executeQuery("SELECT SUM(ITE_VALOR) as valorTotal FROM TB_ITENSPEDIDO WHERE ITE_IDCOM = "+idPedido+" GROUP BY ITE_IDCOM;");
+				
+		Double valorPedidoBd = 0.0;
+		//Mostra o resultado na tela]
+		while(row.next()) {
+			valorPedidoBd = row.getDouble("valorTotal");
+		}
+		
+		//Fecha Statemente e Conexão
+		conexao.close();
+		statement.close();
+		
+		return valorPedidoBd;
+	}
+	
 	public int insertPedido(String comandoSQL, int idUsuario, LocalDate dataAtual) throws SQLException{ // metodo de inserir novo registo
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
