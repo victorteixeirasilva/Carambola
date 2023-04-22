@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+
 import javax.swing.JOptionPane;
 import br.fam.Carambola.Formatador;
 /**
@@ -27,6 +29,39 @@ public class ConnectionDb {
 	String usuario = "sa"; //Usuario padrão
 	String senha = "";// Senha padrao
 	Formatador formatador = new Formatador();
+	
+	public int insertPedido(String comandoSQL, int idUsuario, LocalDate dataAtual) throws SQLException{ // metodo de inserir novo registo
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
+			System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(url, usuario, senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa o comando de insert
+		String sql = comandoSQL;
+		int row = statement.executeUpdate(sql);
+        System.out.println(row + " Registo foi cadastrado corretamente!");
+
+		ResultSet row2 = statement.executeQuery("SELECT * FROM TB_PEDIDOS WHERE COM_IDUSU =  "+idUsuario+" AND COM_DATA = '"+dataAtual+"' AND COM_STATUS = 'EM ANDAMENTO';");
+        
+		int idPedido = 0;
+		while(row2.next()) {
+			idPedido = row2.getInt("COM_IDCOM");
+		}
+		
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+        
+        return idPedido;
+	}
 	
 	public Double getValorProdutoBd(int idProduto) throws SQLException {
 		//Testa a conexão no Banco de dados

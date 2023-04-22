@@ -271,7 +271,7 @@ public class Carambola {
 		opcao = Integer.parseInt(opcaoString);
 		switch (opcao){
 		case 1:
-			usuario.buscarEstabelecimento(); //Falta apenas a parte de comprar produtos
+			usuario.buscarEstabelecimento(idUsuario); //Falta apenas a parte de comprar produtos
 			break;
 		case 2:
 			usuario.verInformacoesDaConta(idUsuario);

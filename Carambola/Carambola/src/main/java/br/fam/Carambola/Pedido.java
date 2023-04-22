@@ -9,9 +9,6 @@ public class Pedido {
 	private Double valorTotalDoPedido;
 	private String status;
 	
-	public Pedido() {
-		
-	}
 	
 	public float getTaxaDesconto() {
 		return taxaDesconto;
