@@ -165,15 +165,15 @@ public class Carambola {
 				+ "8-Excluir Produto\n"//ok
 				+ "9-Editar Produto\n"//ok
 				+ "10-Ver Produtos\n"//ok
-				+ "11-Verificar Faturamento\n"
-				+ "12-Impulsionar Estabelecimento\n"
-				+ "13-Ver Funcionários Cadastrados\n"
-				+ "14-Editar Funcionários Cadastrados\n"
-				+ "15-Excluir Funcionários Cadastrados\n"
-				+ "16-Cadastrar Funcinários\n"
+				+ "11-Verificar Faturamento\n"//Implementacão Futura
+				+ "12-Impulsionar Estabelecimento\n"//Implementacão Futura
+				+ "13-Ver Funcionários Cadastrados\n"//Implementacão Futura
+				+ "14-Editar Funcionários Cadastrados\n"//Implementacão Futura
+				+ "15-Excluir Funcionários Cadastrados\n"//Implementacão Futura
+				+ "16-Cadastrar Funcinários\n"//Implementacão Futura
 				+ "17-Simular Compra\n"
-				+ "18-Desconectar-se\n"
-				+ "19-Sair\n"
+				+ "18-Desconectar-se\n"//ok
+				+ "19-Sair\n"//ok
 				);
 		
 		UsuarioEstabelecimento estabelecimento = new UsuarioEstabelecimento();
@@ -257,13 +257,13 @@ public class Carambola {
 				"Olá "+nomeClienteBd+" \n"
 				+ "\nBem vindo ao menu do CARAMBOLA!\n"
 				+ "\nEscolha uma das opões abaixo:\n\n"
-				+ "1-Buscar Estabelecimento\n"
-				+ "2-Ver Informações da Conta\n"
-				+ "3-Cadastrar Forma de Pagamento\n"
-				+ "4-Ver Formas de Pagamento Cadastradas\n"
-				+ "5-Excluir Forma de Pagamento\n"
-				+ "6-Desconectar-se\n"
-				+ "7-Sair\n"
+				+ "1-Buscar Estabelecimento\n"//ok
+				+ "2-Ver Informações da Conta\n"//ok
+				+ "3-Cadastrar Forma de Pagamento\n"//ok
+				+ "4-Ver Formas de Pagamento Cadastradas\n"//ok
+				+ "5-Excluir Forma de Pagamento\n"//ok
+				+ "6-Desconectar-se\n"//ok
+				+ "7-Sair\n"//ok
 				);
 		
 		UsuarioCliente usuario = new UsuarioCliente();
