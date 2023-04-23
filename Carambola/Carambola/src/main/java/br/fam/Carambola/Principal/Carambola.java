@@ -257,7 +257,7 @@ public class Carambola {
 				"Olá "+nomeClienteBd+" \n"
 				+ "\nBem vindo ao menu do CARAMBOLA!\n"
 				+ "\nEscolha uma das opões abaixo:\n\n"
-				+ "1-Buscar Estabelecimento\n"//ok
+				+ "1-Buscar Estabelecimento\n"
 				+ "2-Ver Informações da Conta\n"//ok
 				+ "3-Cadastrar Forma de Pagamento\n"//ok
 				+ "4-Ver Formas de Pagamento Cadastradas\n"//ok

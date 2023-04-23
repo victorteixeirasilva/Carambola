@@ -9,6 +9,7 @@ import br.fam.Carambola.Catalogo;
 import br.fam.Carambola.Categoria;
 import br.fam.Carambola.Endereco;
 import br.fam.Carambola.FormaDePagamento;
+import br.fam.Carambola.Formatador;
 import br.fam.Carambola.Db.ConnectionDb;
 
 public class UsuarioCliente{
@@ -189,14 +190,17 @@ public class UsuarioCliente{
 		int opcao = JOptionPane.showConfirmDialog(null, "Itens adicionado ao seu carrinho:"
 				+ "\nDeseja continuar comprado precione (YES)"
 				+ "\nDeseja finalizar seu pedido precione (NO)"
-				+ "\nPara remover esses produtos do seu carrinho (CANCEL)");
+				+ "\nPara remover esses produtos do seu carrinho e cancelar o pedido (CANCEL)");
 		Double valorTotalQtd = conn.getValorProdutoBd(idProduto)*quantidade;
 		conn.insert("INSERT INTO TB_ITENSPEDIDO(ITE_IDCOM,ITE_CODPROD,ITE_QTDITENS,ITE_VALOR) VALUES("+idPedido+","+idProduto+","+quantidade+","+valorTotalQtd+");");
 		switch(opcao) {
 			case JOptionPane.YES_OPTION:
 				continuarComprando(idEstabelecimento, idUsuario, idPedido);
 				break;
-			case JOptionPane.NO_OPTION:	
+			case JOptionPane.NO_OPTION:
+				return;
+			case JOptionPane.CANCEL_OPTION:
+				break;
 		}
 	}
 	
@@ -208,7 +212,7 @@ public class UsuarioCliente{
 		int opcao = JOptionPane.showConfirmDialog(null, "Itens adicionado ao seu carrinho:"
 				+ "\nDeseja continuar comprado precione (YES)"
 				+ "\nDeseja finalizar seu pedido precione (NO)"
-				+ "\nPara remover esses produtos do seu carrinho (CANCEL)");
+				+ "\nPara remover esses produtos do seu carrinho e cancelar o pedido(CANCEL)");
 		LocalDate dataAtual = LocalDate.now();
 		int idPedido = conn.insertPedido("INSERT INTO TB_PEDIDOS(COM_IDCOM,COM_IDUSU,COM_DATA,COM_STATUS) VALUES (NEXT VALUE FOR SQ_COM_IDCOM,"+idUsuario+",'"+dataAtual+"','EM ANDAMENTO');", idUsuario, dataAtual);
 		Double valorTotalQtd = conn.getValorProdutoBd(idProduto)*quantidade;
@@ -218,33 +222,51 @@ public class UsuarioCliente{
 			
 			continuarComprando(idEstabelecimento, idUsuario, idPedido);
 			
-			if(conn.verificarSeExisteMesas(idEstabelecimento)) {
-				String nomeEstabelecimento = conn.getNomeBdEstabelecimento(idEstabelecimento);
-				//JOptionPane.showMessageDialog(null, "As mesas ou comandas presentes no seu estabelecimento são!" + "\nNome Estabelecimento: "+nomeEstabelecimento);
-				conn.mostrarMesasDisponiveis(idEstabelecimento);
-				String mesaReservadaString = JOptionPane.showInputDialog("Informe o número da mesa que deseja receber seu pedido:");
-				int mesaReservada = Integer.parseInt(mesaReservadaString);
-				//Codigo para mudar o status de disponivel da mesa para false
-				conn.insert("UPDATE TB_MESA_COMANDA SET MES_DISPONIVEL = FALSE WHERE MES_NUMERO = "+mesaReservada+" AND MES_IDUSUEST = "+idEstabelecimento+";");
-				//Codigo para verificar se a mesa foi reservada corretamente, se sim informar ao usuario
-				JOptionPane.showMessageDialog(null, "Seu pedido será entregue na mesa número "+mesaReservada);
-				//Mostrar detalhes dos pedido
-				Double valorTotalPedido = conn.getValorPedidoBd(idPedido);
-				String itensPedido = conn.getItensQuantidadePedido(idPedido);
-				String statusPedido;
-			} else {
-				JOptionPane.showMessageDialog(null, "Não existe mesas disponíveis nesse estabelecimento!");
-			}
+			finalizarCompra(idEstabelecimento, idPedido);
 			break;
 		
 		case JOptionPane.NO_OPTION:
 			//Precisa inserir itens de pedido, pedido, em comanda ou mesa
-			
 			conn.insert("INSERT INTO TB_ITENSPEDIDO(ITE_IDCOM,ITE_CODPROD,ITE_QTDITENS,ITE_VALOR) VALUES("+idPedido+","+idProduto+","+quantidade+","+valorTotalQtd+");");
+			
+			finalizarCompra(idEstabelecimento, idPedido);
+			
 			break;
 		case JOptionPane.CANCEL_OPTION:
 			JOptionPane.showMessageDialog(null, "Produtos retirados do seu carrinho!");
+			conn.insert("UPDATE TB_PEDIDOS SET COM_STATUS  = 'CANCELADO' WHERE COM_IDCOM = "+idPedido+";");//Alterar o Status desse pedido para CANCELADO
 			break;
+		}
+	}
+	
+	public void finalizarCompra(int idEstabelecimento, int idPedido) throws SQLException {
+		if(conn.verificarSeExisteMesas(idEstabelecimento)) {
+			conn.mostrarMesasDisponiveis(idEstabelecimento);
+			String mesaReservadaString = JOptionPane.showInputDialog("Informe o número da mesa que deseja receber seu pedido:");
+			int mesaReservada = Integer.parseInt(mesaReservadaString);
+			//Codigo para mudar o status de disponivel da mesa para false
+			conn.insert("UPDATE TB_MESA_COMANDA SET MES_DISPONIVEL = FALSE WHERE MES_NUMERO = "+mesaReservada+" AND MES_IDUSUEST = "+idEstabelecimento+";");
+			//Codigo para verificar se a mesa foi reservada corretamente, se sim informar ao usuario
+			JOptionPane.showMessageDialog(null, "Seu pedido será entregue na mesa número "+mesaReservada);
+			//Mostrar detalhes dos pedido
+			Double valorTotalPedido = conn.getValorPedidoBd(idPedido);
+			conn.insert("UPDATE TB_PEDIDOS SET COM_VALORPEDIDO = "+valorTotalPedido+" WHERE COM_IDCOM = "+idPedido+";");//SQL para colocar o valor total do pedido no pedido
+			String itensPedido = conn.getItensQuantidadePedido(idPedido);
+			String statusPedido = conn.getStatusPedido(idPedido);
+			JOptionPane.showMessageDialog(null, 
+					"Detalhes do pedido!\n\n"
+					+ "Número do pedido: "+idPedido
+					+ "\nValor total do Pedido: "+Formatador.doubleToString(valorTotalPedido)
+					+ "\nIntens do pedido: \n"+itensPedido
+					+ "\nStatus do pedido: "+statusPedido
+					+ "\n\nDigite ok assim que terminar de consumir seu pedido para liberar a mesa e fazer o pagamento!");
+			//Código para escolher a forma de pagamento e fazer o pagamento
+			//Informar que o pedido foi pago e liberara  mesa para uso
+			conn.insert("UPDATE TB_MESA_COMANDA SET MES_DISPONIVEL = TRUE WHERE MES_NUMERO = "+mesaReservada+" AND MES_IDUSUEST = "+idEstabelecimento+";");
+			conn.insert("UPDATE TB_PEDIDOS SET COM_STATUS  = 'FINALIZADO' WHERE COM_IDCOM = "+idPedido+";");
+			JOptionPane.showMessageDialog(null, "Pedido pago de acordo com a sua forma de pagamento cadastrada, e mesa liberada para o próximo!");
+		} else {
+			JOptionPane.showMessageDialog(null, "Não existe mesas disponíveis nesse estabelecimento!");
 		}
 	}
 
