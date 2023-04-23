@@ -34,7 +34,7 @@ public class Catalogo {
 	
 	public void verCategorias(int idEstabelecimento) throws SQLException {
 		JOptionPane.showMessageDialog(null, "As categorias desse estabelecimento são:  ");
-		conn.queryVerTodasAsCategoriasDeUmCatalogo(idEstabelecimento);
+		JOptionPane.showMessageDialog(null, conn.queryVerTodasAsCategoriasDeUmCatalogo(idEstabelecimento));
 		
 	}
 	

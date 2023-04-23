@@ -165,13 +165,13 @@ public class Carambola {
 				+ "8-Excluir Produto\n"//ok
 				+ "9-Editar Produto\n"//ok
 				+ "10-Ver Produtos\n"//ok
-				+ "11-Verificar Faturamento\n"//Implementacão Futura
+				+ "11-Verificar Faturamento\n"//ok
 				+ "12-Impulsionar Estabelecimento\n"//Implementacão Futura
 				+ "13-Ver Funcionários Cadastrados\n"//Implementacão Futura
 				+ "14-Editar Funcionários Cadastrados\n"//Implementacão Futura
 				+ "15-Excluir Funcionários Cadastrados\n"//Implementacão Futura
 				+ "16-Cadastrar Funcinários\n"//Implementacão Futura
-				+ "17-Simular Compra\n"
+				+ "17-Simular Compra\n"//Implementação Futura
 				+ "18-Desconectar-se\n"//ok
 				+ "19-Sair\n"//ok
 				);
@@ -225,16 +225,22 @@ public class Carambola {
 				estabelecimento.verificarFaturamento(idEstabelecimento);
 				break;
 			case 12:
+				JOptionPane.showMessageDialog(null, "Essa função ainda está em implementação!");
 				break;
 			case 13:
+				JOptionPane.showMessageDialog(null, "Essa função ainda está em implementação!");
 				break;
 			case 14:
+				JOptionPane.showMessageDialog(null, "Essa função ainda está em implementação!");
 				break;
 			case 15:
+				JOptionPane.showMessageDialog(null, "Essa função ainda está em implementação!");
 				break;
 			case 16:
+				JOptionPane.showMessageDialog(null, "Essa função ainda está em implementação!");
 				break;
 			case 17:
+				JOptionPane.showMessageDialog(null, "Essa função ainda está em implementação!");
 				break;
 			case 18:
 				menu();

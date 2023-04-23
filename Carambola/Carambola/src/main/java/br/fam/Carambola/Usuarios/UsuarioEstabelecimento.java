@@ -53,7 +53,7 @@ public class UsuarioEstabelecimento  {
 		if(conn.verificarSeExisteMesas(idEstabelecimento)) {
 			String nomeEstabelecimento = conn.getNomeBdEstabelecimento(idEstabelecimento);
 			JOptionPane.showMessageDialog(null, "As mesas ou comandas presentes no seu estabelecimento são!" + "\nNome Estabelecimento: "+nomeEstabelecimento);
-			conn.mostrarMesasDisponiveis(idEstabelecimento);
+			JOptionPane.showMessageDialog(null, conn.mostrarMesasDisponiveis(idEstabelecimento));
 			int opcao1 = JOptionPane.showConfirmDialog(null, "Deseja Cadastrar uma nova mesa ou comanda?");
 			if(opcao1 == JOptionPane.YES_OPTION) {
 				cadastrarNovaMesa(idEstabelecimento);
@@ -166,23 +166,24 @@ public class UsuarioEstabelecimento  {
 	
 	public void verProdutos(int idEstabelecimento) throws SQLException {
 		JOptionPane.showMessageDialog(null, "As categorias desse estabelecimento são:  ");
-		conn.queryVerTodasAsCategoriasDeUmCatalogo(idEstabelecimento);
+		JOptionPane.showMessageDialog(null, conn.queryVerTodasAsCategoriasDeUmCatalogo(idEstabelecimento));
 		String idCategoriaString = JOptionPane.showInputDialog("Informe o Id da Categoria que deseja ver os produtos: ");
 		int idCategoria = Integer.parseInt(idCategoriaString);
-		conn.verProdutosDeUmaCategoriaTrueFalse(idCategoria);
+		JOptionPane.showMessageDialog(null, conn.verProdutosDeUmaCategoriaTrueFalse(idCategoria));
 	}
 	
 	public void excluirProdutos(int idEstabelecimento) throws SQLException {
 		//Mostrar todos os produtos cadastrados
 		JOptionPane.showMessageDialog(null, "Selecione um produto dentro de uma categoria pelo id");
-		conn.queryVerTodasAsCategoriasDeUmCatalogo(idEstabelecimento);
+		JOptionPane.showMessageDialog(null, conn.queryVerTodasAsCategoriasDeUmCatalogo(idEstabelecimento));
 		String idCategoriaString = JOptionPane.showInputDialog("Informe o nome da categoria que deseja ver os produtos:");
 		int idCategoria = Integer.parseInt(idCategoriaString);
-		conn.verProdutosDeUmaCategoriaTrueFalse(idCategoria);
+		JOptionPane.showMessageDialog(null, conn.verProdutosDeUmaCategoriaTrueFalse(idCategoria));
+		//conn.verProdutosDeUmaCategoriaTrueFalse(idCategoria);
 		//Escolher o Produto que deseja excluir
 		String idProdutoString = JOptionPane.showInputDialog("Informe o Id do produto que deseja excluir:");
 		int idProduto = Integer.parseInt(idProdutoString);
-		conn.verProdutoDetalhadoTrueFalse(idProduto);
+		JOptionPane.showMessageDialog(null, conn.verProdutoDetalhadoTrueFalse(idProduto));
 		//Excluir Produto escolhido]
 		int opcao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse produto?\n\n");
 		if(opcao == JOptionPane.YES_OPTION) {
@@ -237,13 +238,13 @@ public class UsuarioEstabelecimento  {
 	
 	public void atualizarEstoque(int idEstabelecimento) throws SQLException {
 		JOptionPane.showMessageDialog(null, "Selecione um produto dentro de uma categoria pelo id");
-		conn.queryVerTodasAsCategoriasDeUmCatalogo(idEstabelecimento);
+		JOptionPane.showMessageDialog(null, conn.queryVerTodasAsCategoriasDeUmCatalogo(idEstabelecimento));
 		String idCategoriaString = JOptionPane.showInputDialog("Informe o nome da categoria que deseja ver os produtos:");
 		int idCategoria = Integer.parseInt(idCategoriaString);
-		conn.verProdutosDeUmaCategoriaTrueFalse(idCategoria);
+		JOptionPane.showMessageDialog(null, conn.verProdutosDeUmaCategoriaTrueFalse(idCategoria));//conn.verProdutosDeUmaCategoriaTrueFalse(idCategoria);
 		String idProdutoString = JOptionPane.showInputDialog("Informe o Id do produto que deseja atualizar o estoque:");
 		int idProduto = Integer.parseInt(idProdutoString);
-		conn.verProdutoDetalhadoTrueFalse(idProduto);
+		JOptionPane.showMessageDialog(null, conn.verProdutoDetalhadoTrueFalse(idProduto));//conn.verProdutoDetalhadoTrueFalse(idProduto);
 		int opcao = JOptionPane.showConfirmDialog(null, 
 				  "Conforme o produto visto anteriormente!\n\n"
 				+ "Este produto está com estoque e está disponível para venda?\n\n"
@@ -252,11 +253,11 @@ public class UsuarioEstabelecimento  {
 		if(opcao == JOptionPane.YES_OPTION) {
 			conn.insert("UPDATE TB_PRODUTOS SET PRO_TEMESTOQUE  = 'TRUE' WHERE PRO_IDPROD  = "+idProduto+";");//comando para alterar para True
 			JOptionPane.showMessageDialog(null, "Disponibilidade do produto alterada para disponível");
-			conn.verProdutoDetalhadoTrueFalse(idProduto);
+			JOptionPane.showMessageDialog(null, conn.verProdutoDetalhadoTrueFalse(idProduto));//conn.verProdutoDetalhadoTrueFalse(idProduto);
 		} else if(opcao == JOptionPane.NO_OPTION) {
 			conn.insert("UPDATE TB_PRODUTOS SET PRO_TEMESTOQUE  = 'FALSE' WHERE PRO_IDPROD  = "+idProduto+";");//comando para alterar false
 			JOptionPane.showMessageDialog(null, "Disponibilidade do produto alterada para indisponível");
-			conn.verProdutoDetalhadoTrueFalse(idProduto);
+			JOptionPane.showMessageDialog(null, conn.verProdutoDetalhadoTrueFalse(idProduto));//conn.verProdutoDetalhadoTrueFalse(idProduto);
 		} else {
 			JOptionPane.showMessageDialog(null, "Nenhuma alteração foi feita!");
 			return;

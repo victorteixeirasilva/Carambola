@@ -82,17 +82,17 @@ public class ConnectionDb {
 		//executa a query
 		ResultSet row = statement.executeQuery("SELECT * FROM TB_PEDIDOS WHERE COM_IDCOM = "+idPedido+";");
 		
-		String status = "";
+		String data = "";
 		//Mostra o resultado na tela]
 		while(row.next()) {
-		status = row.getString("COM_STATUS");
+		data = row.getString("COM_DATA");
 		}
 		
 		//Fecha Statemente e Conexão
 		conexao.close();
 		statement.close();
 		
-		return status;
+		return data;
 		
 	}
 	
@@ -318,7 +318,7 @@ public class ConnectionDb {
 		return idProdutoBd;
 	}
 	
-	public void verProdutoDetalhadoTrueFalse(int idProduto) throws SQLException {
+	public String verProdutoDetalhadoTrueFalse(int idProduto) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
 			//System.out.println("Conexão bem-sucedida!");
@@ -338,26 +338,26 @@ public class ConnectionDb {
         System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
         
         //Mostra o resultado na tela]
+        String retorno = "PRODUTOS!\n";
         while(row.next()) {
         	int id = row.getInt("PRO_IDPROD");
         	String nome = row.getString("PRO_DESC");
         	String categoria = row.getString("CATE_DESCCATE");
         	Double valor = row.getDouble("PRO_VALOR");
         	boolean disponivel = row.getBoolean("PRO_TEMESTOQUE");
-        	JOptionPane.showMessageDialog(null,   "\nID: " + id 
-        										+ "\nNome: " + nome
-        										+ "\nCategoria: " + categoria
-        										+ "\nValor: " + Formatador.doubleToString(valor)
-        										+ "\nDisponível: "+disponivel);
+        	retorno += "\nID: " + id + "\nNome: " + nome + "\nCategoria: " + categoria + "\nValor: " + Formatador.doubleToString(valor) + "\nDisponível: "+disponivel+"\n";
+        	//JOptionPane.showMessageDialog(null,   "\nID: " + id + "\nNome: " + nome + "\nCategoria: " + categoria + "\nValor: " + Formatador.doubleToString(valor) + "\nDisponível: "+disponivel);
         	//System.out.println("ID: " + id + ", Nome: " + nome + ", Categoria: " + categoria + ", Valor: " + valor);
         }
         
         //Fecha Statemente e Conexão
         conexao.close();
         statement.close();
+        
+        return retorno;
 	}
 	
-	public void verProdutosDeUmaCategoriaTrueFalse(int idCategoria) throws SQLException {
+	public String verProdutosDeUmaCategoriaTrueFalse(int idCategoria) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
 			//System.out.println("Conexão bem-sucedida!");
@@ -377,26 +377,26 @@ public class ConnectionDb {
         System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
         
         //Mostra o resultado na tela]
+        String retorno = "PRODUTOS!\n";
         while(row.next()) {
         	int id = row.getInt("PRO_IDPROD");
         	String nome = row.getString("PRO_DESC");
         	String categoria = row.getString("CATE_DESCCATE");
         	Double valor = row.getDouble("PRO_VALOR");
         	boolean disponivel = row.getBoolean("PRO_TEMESTOQUE");
-        	JOptionPane.showMessageDialog(null,   "\nID: " + id 
-        										+ "\nNome: " + nome
-        										+ "\nCategoria: " + categoria
-        										+ "\nValor: " + Formatador.doubleToString(valor)
-        										+ "\nDisponível: "+disponivel);
+        	retorno += "\nID: " + id + "\nNome: " + nome + "\nCategoria: " + categoria + "\nValor: " + Formatador.doubleToString(valor) + "\nDisponível: "+disponivel+"\n";
+        	//JOptionPane.showMessageDialog(null,   "\nID: " + id + "\nNome: " + nome + "\nCategoria: " + categoria + "\nValor: " + Formatador.doubleToString(valor) + "\nDisponível: "+disponivel);
         	//System.out.println("ID: " + id + ", Nome: " + nome + ", Categoria: " + categoria + ", Valor: " + valor);
         }
         
         //Fecha Statemente e Conexão
         conexao.close();
         statement.close();
+        
+        return retorno;
 	}
 	
-	public void mostrarMesasDisponiveis(int idEstabelecimento) throws SQLException {
+	public String mostrarMesasDisponiveis(int idEstabelecimento) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
 			//System.out.println("Conexão bem-sucedida!");
@@ -415,12 +415,15 @@ public class ConnectionDb {
         ResultSet row = statement.executeQuery(sql);
         System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
         
+        String retorno = "MESAS DISPONÍVEIS!\n";
         //Mostra o resultado na tela]
         while(row.next()) {
         	int numeroMesa = row.getInt("MES_NUMERO");
-        	JOptionPane.showMessageDialog(null,   "\nNúmero da mesa ou da comanda: "+numeroMesa
-        			+ "\nMESA OU COMANDA DISPONIVEL!");
+        	retorno += "\nNúmero da mesa ou da comanda: "+numeroMesa+"\nMESA OU COMANDA DISPONIVEL!\n";
+        	//JOptionPane.showMessageDialog(null,   "\nNúmero da mesa ou da comanda: "+numeroMesa+"\nMESA OU COMANDA DISPONIVEL!");
         }
+        
+        return retorno;
 	}
 	
 	public boolean verificarSeExisteMesas(int idEstabelecimento) throws SQLException {
@@ -460,7 +463,7 @@ public class ConnectionDb {
 		return resultado;
 	}
 	
-	public void verDetalhesFormaPagamentoPorId(int idFormaPagamento) throws SQLException {
+	public String verDetalhesFormaPagamentoPorId(int idFormaPagamento) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
 			//System.out.println("Conexão bem-sucedida!");
@@ -479,7 +482,8 @@ public class ConnectionDb {
         ResultSet row = statement.executeQuery(sql);
         System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
         
-        //Mostra o resultado na tela]
+        //Mostra o resultado na tela
+        String retorno = "DETALHES DAS FORMAS DE PAGAMENTO CADASTRADAS!\n\n";
         while(row.next()) {
         	int idFormaDePagamento = row.getInt("PAG_IDPAG");
         	String numeroCartao = row.getString("PAG_NUMERO");
@@ -487,20 +491,14 @@ public class ConnectionDb {
         	String nomeTitular = row.getString("PAG_NOME");
         	String codigoSeguranca = row.getString("PAG_CODSEG");
         	String dataVencimento = row.getString("PAG_DATAVENCI");
-        	JOptionPane.showMessageDialog(null, 
-  				"DETALHES DAS FORMAS DE PAGAMENTO CADASTRADAS!\n\n"
-  				+ "\nId Forma de Pagamento: "+idFormaDePagamento
-  				+ "\nNúmero do Cartão: "+numeroCartao
-  				+ "\nBandeira do Cartão: "+bandeiraCartao
-  				+ "\nNome do Titular do Cartão: "+nomeTitular
-  				+ "\nCódigo de Segurança: "+codigoSeguranca
-  				+ "\nData de Vencimento: "+dataVencimento.substring(0,7)
-  				+ "\n");
+        	retorno += "\nId Forma de Pagamento: "+idFormaDePagamento+ "\nNúmero do Cartão: "+numeroCartao + "\nBandeira do Cartão: "+bandeiraCartao+ "\nNome do Titular do Cartão: "+nomeTitular + "\nCódigo de Segurança: "+codigoSeguranca + "\nData de Vencimento: "+dataVencimento.substring(0,7) + "\n";
+        	//JOptionPane.showMessageDialog(null, "\nId Forma de Pagamento: "+idFormaDePagamento+ "\nNúmero do Cartão: "+numeroCartao + "\nBandeira do Cartão: "+bandeiraCartao+ "\nNome do Titular do Cartão: "+nomeTitular + "\nCódigo de Segurança: "+codigoSeguranca + "\nData de Vencimento: "+dataVencimento.substring(0,7) + "\n");
         }
+        return retorno;
         	
         }
 	
-	public void verDetalhesFormaPagamento(int idUsuario) throws SQLException {
+	public String verDetalhesFormaPagamento(int idUsuario) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
 			//System.out.println("Conexão bem-sucedida!");
@@ -520,6 +518,7 @@ public class ConnectionDb {
         System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
         
         //Mostra o resultado na tela]
+        String retorno = "DETALHES DAS FORMAS DE PAGAMENTO CADASTRADAS!\n\n";
         while(row.next()) {
         	int idFormaDePagamento = row.getInt("PAG_IDPAG");
         	String numeroCartao = row.getString("PAG_NUMERO");
@@ -527,17 +526,10 @@ public class ConnectionDb {
         	String nomeTitular = row.getString("PAG_NOME");
         	String codigoSeguranca = row.getString("PAG_CODSEG");
         	String dataVencimento = row.getString("PAG_DATAVENCI");
-        	JOptionPane.showMessageDialog(null, 
-  				"DETALHES DAS FORMAS DE PAGAMENTO CADASTRADAS!\n\n"
-  				+ "\nId Forma de Pagamento: "+idFormaDePagamento
-  				+ "\nNúmero do Cartão: "+numeroCartao
-  				+ "\nBandeira do Cartão: "+bandeiraCartao
-  				+ "\nNome do Titular do Cartão: "+nomeTitular
-  				+ "\nCódigo de Segurança: "+codigoSeguranca
-  				+ "\nData de Vencimento: "+dataVencimento.substring(0,7)
-  				+ "\n");
-        	
+        	retorno += "\nId Forma de Pagamento: "+idFormaDePagamento + "\nNúmero do Cartão: "+numeroCartao + "\nBandeira do Cartão: "+bandeiraCartao + "\nNome do Titular do Cartão: "+nomeTitular + "\nCódigo de Segurança: "+codigoSeguranca + "\nData de Vencimento: "+dataVencimento.substring(0,7) + "\n";
+        	//JOptionPane.showMessageDialog(null, "DETALHES DAS FORMAS DE PAGAMENTO CADASTRADAS!\n\n" + "\nId Forma de Pagamento: "+idFormaDePagamento + "\nNúmero do Cartão: "+numeroCartao + "\nBandeira do Cartão: "+bandeiraCartao + "\nNome do Titular do Cartão: "+nomeTitular + "\nCódigo de Segurança: "+codigoSeguranca + "\nData de Vencimento: "+dataVencimento.substring(0,7) + "\n");
         }
+        return retorno;
 	}
 	
 	public String getSenhaUsuarioCliente(int idUsuario) throws SQLException {
@@ -732,7 +724,7 @@ public class ConnectionDb {
         return idCategoria;
 	}
 	
-	public void queryVerTodosOsEstabelecimentos() throws SQLException {
+	public String queryVerTodosOsEstabelecimentos() throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
 			//System.out.println("Conexão bem-sucedida!");
@@ -752,12 +744,14 @@ public class ConnectionDb {
         System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
         
         //Mostra o resultado na tela]
+        String returno = "Estabelecimentos!:\n";
         while(row.next()) {
         	int idEstabelecimento = row.getInt("USUEST_IDUSUEST");
         	String nomeEstabelecimento = row.getString("USUEST_NOME");
-        	JOptionPane.showMessageDialog(null,   "\nId do Estabelecimento: " + idEstabelecimento
-        										+ "\nNome do Estabelecimento: " + nomeEstabelecimento);
+        	returno += "\nId do Estabelecimento: " + idEstabelecimento + "\nNome do Estabelecimento: " + nomeEstabelecimento+"\n";
+        	//JOptionPane.showMessageDialog(null,   "\nId do Estabelecimento: " + idEstabelecimento + "\nNome do Estabelecimento: " + nomeEstabelecimento+"\n");
         }
+        return returno;
 	}
 	
 	public String getNomeBdEstabelecimento(int idEstabelecimento) throws SQLException {
@@ -1131,7 +1125,7 @@ public class ConnectionDb {
 	 * 2.Esse metodo também tem como retorno a mensagem "Consulta feita corretamente no Banco de dados", caso o comando sql execute sem problema e faça consulta no banco de dados.
 	 * 3.O terceiro retorno possivel é a mensagem "Ocorreu um erro ao conectar", que retorna sempre que o projeto tem dificuldade em se conectar com o banco
 	 */
-	public void queryVerTodasAsCategoriasDeUmCatalogo(int idCatalogo) throws SQLException {
+	public String queryVerTodasAsCategoriasDeUmCatalogo(int idCatalogo) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
 			//System.out.println("Conexão bem-sucedida!");
@@ -1151,17 +1145,21 @@ public class ConnectionDb {
         System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
         
         //Mostra o resultado na tela]
+        String retorno = "CATEGORIAS!\n\n";
         while(row.next()) {
         	int id = row.getInt("CATE_IDCATE");
         	String nomeCategoria = row.getString("CATE_DESCCATE");
-        	JOptionPane.showMessageDialog(null,   "\nId da Categoria: " + id
-        										+ "\nNome da Categoria: " + nomeCategoria);
+        	retorno += "\nId da Categoria: " + id + "\nNome da Categoria: " + nomeCategoria + "\n";
+        	//JOptionPane.showMessageDialog(null,   "\nId da Categoria: " + id
+        	//									+ "\nNome da Categoria: " + nomeCategoria);
         	//System.out.println("Id da Categoria: " + id + ", Id do Catalogo: " + idCatalogo + ", Nome da Categoria: " + nomeCategoria);
         }
         
         //Fecha Statemente e Conexão
         conexao.close();
         statement.close();
+        
+        return retorno;
 	}
 	/**
 	 * 

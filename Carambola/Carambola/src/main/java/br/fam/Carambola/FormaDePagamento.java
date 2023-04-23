@@ -92,10 +92,10 @@ public class FormaDePagamento {
 	
 	public void excluirFormaDePagamento(int idUsuario) throws SQLException {
 		JOptionPane.showMessageDialog(null, "AS FORMAS DE PAGAMENTO CADASTRADAS SÃO:");
-		conn.verDetalhesFormaPagamento(idUsuario);
+		JOptionPane.showMessageDialog(null, conn.verDetalhesFormaPagamento(idUsuario));
 		String idFormaDePagamentoString = JOptionPane.showInputDialog("\n\nInforme o Id da forma de pagamento que deseja excluir:\n\n");
 		int idFormaDePagamento = Integer.parseInt(idFormaDePagamentoString);
-		conn.verDetalhesFormaPagamentoPorId(idFormaDePagamento);
+		JOptionPane.showMessageDialog(null, conn.verDetalhesFormaPagamentoPorId(idFormaDePagamento));
 		int escolha = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir essa forma de pagamento?\n(OBS: Essa ação não é reversivel!)");
 		switch (escolha) {
 			case JOptionPane.YES_OPTION:
@@ -112,7 +112,7 @@ public class FormaDePagamento {
 	}
 	
 	public void verFormaDePagamento(int idUsuario) throws SQLException {
-		conn.verDetalhesFormaPagamento(idUsuario);
+		JOptionPane.showMessageDialog(null, conn.verDetalhesFormaPagamento(idUsuario));
 	}
 	
 	public void cadastrarFormaDePagamento(int idUsuario) throws SQLException {
