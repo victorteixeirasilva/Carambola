@@ -140,7 +140,7 @@ public class UsuarioCliente{
 	}
 	
 	public void buscarEstabelecimento(int idUsuario) throws SQLException {
-		conn.queryVerTodosOsEstabelecimentos();
+		JOptionPane.showMessageDialog(null, conn.queryVerTodosOsEstabelecimentos());
 		String idEstabelecimentoString = JOptionPane.showInputDialog("Digite o Id do estabelecimento que deseja: ");
 		int idEstabelecimento = Integer.parseInt(idEstabelecimentoString);
 		if(idEstabelecimento == JOptionPane.CANCEL_OPTION) {
@@ -160,7 +160,7 @@ public class UsuarioCliente{
 		switch (opcao) {
 			case JOptionPane.YES_OPTION:
 				JOptionPane.showMessageDialog(null, "Mesas disponíveis no estabelecimento:");
-				conn.mostrarMesasDisponiveis(idEstabelecimento);
+				JOptionPane.showMessageDialog(null, conn.mostrarMesasDisponiveis(idEstabelecimento));
 				reservarMesa(idEstabelecimento, idUsuario);
 				break;
 			case JOptionPane.NO_OPTION:				
@@ -239,7 +239,7 @@ public class UsuarioCliente{
 	
 	public void finalizarCompra(int idEstabelecimento, int idPedido) throws SQLException {
 		if(conn.verificarSeExisteMesas(idEstabelecimento)) {
-			conn.mostrarMesasDisponiveis(idEstabelecimento);
+			JOptionPane.showMessageDialog(null, conn.mostrarMesasDisponiveis(idEstabelecimento));
 			String mesaReservadaString = JOptionPane.showInputDialog("Informe o número da mesa que deseja receber seu pedido:");
 			int mesaReservada = Integer.parseInt(mesaReservadaString);
 			//Codigo para mudar o status de disponivel da mesa para false

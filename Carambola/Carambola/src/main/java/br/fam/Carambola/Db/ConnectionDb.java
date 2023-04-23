@@ -463,7 +463,7 @@ public class ConnectionDb {
 		return resultado;
 	}
 	
-	public void verDetalhesFormaPagamentoPorId(int idFormaPagamento) throws SQLException {
+	public String verDetalhesFormaPagamentoPorId(int idFormaPagamento) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
 			//System.out.println("Conexão bem-sucedida!");
@@ -482,7 +482,8 @@ public class ConnectionDb {
         ResultSet row = statement.executeQuery(sql);
         System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
         
-        //Mostra o resultado na tela]
+        //Mostra o resultado na tela
+        String retorno = "DETALHES DAS FORMAS DE PAGAMENTO CADASTRADAS!\n\n";
         while(row.next()) {
         	int idFormaDePagamento = row.getInt("PAG_IDPAG");
         	String numeroCartao = row.getString("PAG_NUMERO");
@@ -490,20 +491,14 @@ public class ConnectionDb {
         	String nomeTitular = row.getString("PAG_NOME");
         	String codigoSeguranca = row.getString("PAG_CODSEG");
         	String dataVencimento = row.getString("PAG_DATAVENCI");
-        	JOptionPane.showMessageDialog(null, 
-  				"DETALHES DAS FORMAS DE PAGAMENTO CADASTRADAS!\n\n"
-  				+ "\nId Forma de Pagamento: "+idFormaDePagamento
-  				+ "\nNúmero do Cartão: "+numeroCartao
-  				+ "\nBandeira do Cartão: "+bandeiraCartao
-  				+ "\nNome do Titular do Cartão: "+nomeTitular
-  				+ "\nCódigo de Segurança: "+codigoSeguranca
-  				+ "\nData de Vencimento: "+dataVencimento.substring(0,7)
-  				+ "\n");
+        	retorno += "\nId Forma de Pagamento: "+idFormaDePagamento+ "\nNúmero do Cartão: "+numeroCartao + "\nBandeira do Cartão: "+bandeiraCartao+ "\nNome do Titular do Cartão: "+nomeTitular + "\nCódigo de Segurança: "+codigoSeguranca + "\nData de Vencimento: "+dataVencimento.substring(0,7) + "\n";
+        	//JOptionPane.showMessageDialog(null, "\nId Forma de Pagamento: "+idFormaDePagamento+ "\nNúmero do Cartão: "+numeroCartao + "\nBandeira do Cartão: "+bandeiraCartao+ "\nNome do Titular do Cartão: "+nomeTitular + "\nCódigo de Segurança: "+codigoSeguranca + "\nData de Vencimento: "+dataVencimento.substring(0,7) + "\n");
         }
+        return retorno;
         	
         }
 	
-	public void verDetalhesFormaPagamento(int idUsuario) throws SQLException {
+	public String verDetalhesFormaPagamento(int idUsuario) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
 			//System.out.println("Conexão bem-sucedida!");
@@ -523,6 +518,7 @@ public class ConnectionDb {
         System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
         
         //Mostra o resultado na tela]
+        String retorno = "DETALHES DAS FORMAS DE PAGAMENTO CADASTRADAS!\n\n";
         while(row.next()) {
         	int idFormaDePagamento = row.getInt("PAG_IDPAG");
         	String numeroCartao = row.getString("PAG_NUMERO");
@@ -530,17 +526,10 @@ public class ConnectionDb {
         	String nomeTitular = row.getString("PAG_NOME");
         	String codigoSeguranca = row.getString("PAG_CODSEG");
         	String dataVencimento = row.getString("PAG_DATAVENCI");
-        	JOptionPane.showMessageDialog(null, 
-  				"DETALHES DAS FORMAS DE PAGAMENTO CADASTRADAS!\n\n"
-  				+ "\nId Forma de Pagamento: "+idFormaDePagamento
-  				+ "\nNúmero do Cartão: "+numeroCartao
-  				+ "\nBandeira do Cartão: "+bandeiraCartao
-  				+ "\nNome do Titular do Cartão: "+nomeTitular
-  				+ "\nCódigo de Segurança: "+codigoSeguranca
-  				+ "\nData de Vencimento: "+dataVencimento.substring(0,7)
-  				+ "\n");
-        	
+        	retorno += "\nId Forma de Pagamento: "+idFormaDePagamento + "\nNúmero do Cartão: "+numeroCartao + "\nBandeira do Cartão: "+bandeiraCartao + "\nNome do Titular do Cartão: "+nomeTitular + "\nCódigo de Segurança: "+codigoSeguranca + "\nData de Vencimento: "+dataVencimento.substring(0,7) + "\n";
+        	//JOptionPane.showMessageDialog(null, "DETALHES DAS FORMAS DE PAGAMENTO CADASTRADAS!\n\n" + "\nId Forma de Pagamento: "+idFormaDePagamento + "\nNúmero do Cartão: "+numeroCartao + "\nBandeira do Cartão: "+bandeiraCartao + "\nNome do Titular do Cartão: "+nomeTitular + "\nCódigo de Segurança: "+codigoSeguranca + "\nData de Vencimento: "+dataVencimento.substring(0,7) + "\n");
         }
+        return retorno;
 	}
 	
 	public String getSenhaUsuarioCliente(int idUsuario) throws SQLException {
@@ -735,7 +724,7 @@ public class ConnectionDb {
         return idCategoria;
 	}
 	
-	public void queryVerTodosOsEstabelecimentos() throws SQLException {
+	public String queryVerTodosOsEstabelecimentos() throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
 			//System.out.println("Conexão bem-sucedida!");
@@ -755,12 +744,14 @@ public class ConnectionDb {
         System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
         
         //Mostra o resultado na tela]
+        String returno = "Estabelecimentos!:\n";
         while(row.next()) {
         	int idEstabelecimento = row.getInt("USUEST_IDUSUEST");
         	String nomeEstabelecimento = row.getString("USUEST_NOME");
-        	JOptionPane.showMessageDialog(null,   "\nId do Estabelecimento: " + idEstabelecimento
-        										+ "\nNome do Estabelecimento: " + nomeEstabelecimento);
+        	returno += "\nId do Estabelecimento: " + idEstabelecimento + "\nNome do Estabelecimento: " + nomeEstabelecimento+"\n";
+        	//JOptionPane.showMessageDialog(null,   "\nId do Estabelecimento: " + idEstabelecimento + "\nNome do Estabelecimento: " + nomeEstabelecimento+"\n");
         }
+        return returno;
 	}
 	
 	public String getNomeBdEstabelecimento(int idEstabelecimento) throws SQLException {

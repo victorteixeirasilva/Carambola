@@ -225,16 +225,22 @@ public class Carambola {
 				estabelecimento.verificarFaturamento(idEstabelecimento);
 				break;
 			case 12:
+				JOptionPane.showMessageDialog(null, "Essa função ainda está em implementação!");
 				break;
 			case 13:
+				JOptionPane.showMessageDialog(null, "Essa função ainda está em implementação!");
 				break;
 			case 14:
+				JOptionPane.showMessageDialog(null, "Essa função ainda está em implementação!");
 				break;
 			case 15:
+				JOptionPane.showMessageDialog(null, "Essa função ainda está em implementação!");
 				break;
 			case 16:
+				JOptionPane.showMessageDialog(null, "Essa função ainda está em implementação!");
 				break;
 			case 17:
+				JOptionPane.showMessageDialog(null, "Essa função ainda está em implementação!");
 				break;
 			case 18:
 				menu();
