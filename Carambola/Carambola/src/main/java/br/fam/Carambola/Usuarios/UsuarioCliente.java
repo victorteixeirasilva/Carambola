@@ -120,8 +120,6 @@ public class UsuarioCliente{
 
 	private void reservarMesa(int idEstabelecimento, int idUsuario) throws SQLException {
 		if(conn.verificarSeExisteMesas(idEstabelecimento)) {
-			String nomeEstabelecimento = conn.getNomeBdEstabelecimento(idEstabelecimento);
-			//JOptionPane.showMessageDialog(null, "As mesas ou comandas presentes no seu estabelecimento são!" + "\nNome Estabelecimento: "+nomeEstabelecimento);
 			conn.mostrarMesasDisponiveis(idEstabelecimento);
 			String mesaReservadaString = JOptionPane.showInputDialog("Informe o número da mesa que deseja reservar:");
 			int mesaReservada = Integer.parseInt(mesaReservadaString);
@@ -214,7 +212,7 @@ public class UsuarioCliente{
 				+ "\nDeseja finalizar seu pedido precione (NO)"
 				+ "\nPara remover esses produtos do seu carrinho e cancelar o pedido(CANCEL)");
 		LocalDate dataAtual = LocalDate.now();
-		int idPedido = conn.insertPedido("INSERT INTO TB_PEDIDOS(COM_IDCOM,COM_IDUSU,COM_DATA,COM_STATUS) VALUES (NEXT VALUE FOR SQ_COM_IDCOM,"+idUsuario+",'"+dataAtual+"','EM ANDAMENTO');", idUsuario, dataAtual);
+		int idPedido = conn.insertPedido("INSERT INTO TB_PEDIDOS(COM_IDCOM,COM_IDUSU,COM_DATA,COM_STATUS,COM_IDEST) VALUES (NEXT VALUE FOR SQ_COM_IDCOM,"+idUsuario+",'"+dataAtual+"','EM ANDAMENTO',"+idEstabelecimento+");", idUsuario, dataAtual);
 		Double valorTotalQtd = conn.getValorProdutoBd(idProduto)*quantidade;
 		switch (opcao) {
 		case JOptionPane.YES_OPTION:

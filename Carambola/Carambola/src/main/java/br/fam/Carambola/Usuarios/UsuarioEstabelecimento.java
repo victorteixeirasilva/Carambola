@@ -227,8 +227,12 @@ public class UsuarioEstabelecimento  {
 		//Implementação futura
 	}
 	
-	public void verificarFaturamento() {
+	public void verificarFaturamento(int idEstabelecimento) throws SQLException {
 		//Pegas todos os valores totais de pedidos feitos em determinado periodo e somar
+		String dataInicial = JOptionPane.showInputDialog("Informe a data inicial que deseja verificar o faturamento: " + "\n\nlembre de informar a data dessa forma ANO-MÊS-DIA por exemplo (a data 2003-08-23 seria a data 23 de agosto do ano de 2023)");
+		String dataFinal = JOptionPane.showInputDialog("Informe a data final que deseja verificar o faturamento: " + "\n\nlembre de informar a data dessa forma ANO-MÊS-DIA por exemplo (a data 2003-08-23 seria a data 23 de agosto do ano de 2023)");
+		conn.verificarFaturamento(idEstabelecimento, dataInicial, dataFinal);
+	
 	}
 	
 	public void atualizarEstoque(int idEstabelecimento) throws SQLException {

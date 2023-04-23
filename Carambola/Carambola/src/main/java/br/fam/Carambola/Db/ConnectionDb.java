@@ -30,6 +30,41 @@ public class ConnectionDb {
 	String senha = "";// Senha padrao
 	Formatador formatador = new Formatador();
 	
+	public void verificarFaturamento(int idEstabelecimento, String dataInicial, String dataFinal) throws SQLException {
+		//Testa a conexão no Banco de dados
+		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
+			//System.out.println("Conexão bem-sucedida!");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um erro ao conectar: " + e.getMessage());
+		}
+		
+		//Após testar se conecta de fato
+		Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha);
+		
+		//Cria um statement para receber comandos
+		java.sql.Statement statement = conexao.createStatement();
+		
+		//executa o comando de insert
+		String sql = "SELECT SUM(COM_VALORPEDIDO) AS COM_VALORPEDIDO FROM TB_PEDIDOS WHERE COM_STATUS = 'FINALIZADO' AND COM_IDEST = "+idEstabelecimento+" AND COM_DATA BETWEEN '"+dataInicial+"' AND '"+dataFinal+"';";
+        ResultSet row = statement.executeQuery(sql);
+        System.out.println(row + " Consulta feita corretamente no Banco de Dados!");
+        
+        //Mostra o resultado na tela]
+        while(row.next()) {
+        	Double valor = row.getDouble("COM_VALORPEDIDO");
+        	JOptionPane.showMessageDialog(null,   "\nFATURAMENTO!\n\n"
+        			+ "Data inicial: "+dataInicial
+        			+ "\nData final: "+dataFinal
+        			+"\n\nDurante esse periodo mensionado anteriormente o seu estabelecimento teve um faturamento de:"
+        			+ "\nFaturamento: "+Formatador.doubleToString(valor));
+        	//System.out.println("ID: " + id + ", Nome: " + nome + ", Categoria: " + categoria + ", Valor: " + valor);
+        }
+        
+        //Fecha Statemente e Conexão
+        conexao.close();
+        statement.close();
+	}
+	
 	public String getDataPedido(int idPedido) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {

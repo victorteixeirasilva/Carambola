@@ -221,6 +221,8 @@ public class Carambola {
 				estabelecimento.verProdutos(idEstabelecimento);
 				break;
 			case 11:
+				//Verificar Faturamento
+				estabelecimento.verificarFaturamento(idEstabelecimento);
 				break;
 			case 12:
 				break;
@@ -257,7 +259,7 @@ public class Carambola {
 				"Olá "+nomeClienteBd+" \n"
 				+ "\nBem vindo ao menu do CARAMBOLA!\n"
 				+ "\nEscolha uma das opões abaixo:\n\n"
-				+ "1-Buscar Estabelecimento\n"
+				+ "1-Buscar Estabelecimento\n"//ok
 				+ "2-Ver Informações da Conta\n"//ok
 				+ "3-Cadastrar Forma de Pagamento\n"//ok
 				+ "4-Ver Formas de Pagamento Cadastradas\n"//ok
@@ -271,7 +273,7 @@ public class Carambola {
 		opcao = Integer.parseInt(opcaoString);
 		switch (opcao){
 		case 1:
-			usuario.buscarEstabelecimento(idUsuario); //Falta apenas a parte de comprar produtos
+			usuario.buscarEstabelecimento(idUsuario);
 			break;
 		case 2:
 			usuario.verInformacoesDaConta(idUsuario);
