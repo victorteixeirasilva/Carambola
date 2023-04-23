@@ -1,6 +1,7 @@
 package br.fam.Carambola.Usuarios;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 
@@ -8,6 +9,7 @@ import br.fam.Carambola.Catalogo;
 import br.fam.Carambola.Categoria;
 import br.fam.Carambola.Endereco;
 import br.fam.Carambola.FormaDePagamento;
+import br.fam.Carambola.Formatador;
 import br.fam.Carambola.Db.ConnectionDb;
 
 public class UsuarioCliente{
@@ -116,26 +118,38 @@ public class UsuarioCliente{
 	
 	}
 
-	private void reservarMesa() {
-		String mesaReservadaString = JOptionPane.showInputDialog("Informe o número da mesa que deseja reservar:");
-		int mesaReservada = Integer.parseInt(mesaReservadaString);
-		//Codigo para mudar o status de disponivel da mesa para false
-		
-		//Codigo para verificar se a mesa foi reservada corretamente, se sim informar ao usuario
+	private void reservarMesa(int idEstabelecimento, int idUsuario) throws SQLException {
+		if(conn.verificarSeExisteMesas(idEstabelecimento)) {
+			conn.mostrarMesasDisponiveis(idEstabelecimento);
+			String mesaReservadaString = JOptionPane.showInputDialog("Informe o número da mesa que deseja reservar:");
+			int mesaReservada = Integer.parseInt(mesaReservadaString);
+			//Codigo para mudar o status de disponivel da mesa para false
+			conn.insert("UPDATE TB_MESA_COMANDA SET MES_DISPONIVEL = FALSE WHERE MES_NUMERO = "+mesaReservada+" AND MES_IDUSUEST = "+idEstabelecimento+";");
+			//Codigo para verificar se a mesa foi reservada corretamente, se sim informar ao usuario
+			JOptionPane.showMessageDialog(null, "Mesa número "+mesaReservada+" foi reservada corretamente!");
+			//Mostrar o catalogo
+			Catalogo catalogo = new Catalogo();
+			catalogo.verCategorias(idEstabelecimento);
+			Categoria categoria = new Categoria();
+			categoria.verProdutosDaCategoria();
+			comprarProdutos(idEstabelecimento, idUsuario);
+		} else {
+			JOptionPane.showMessageDialog(null, "Não existe mesas disponíveis nesse estabelecimento!");
+		}
 		
 	}
 	
-	public void buscarEstabelecimento() throws SQLException {
+	public void buscarEstabelecimento(int idUsuario) throws SQLException {
 		conn.queryVerTodosOsEstabelecimentos();
 		String idEstabelecimentoString = JOptionPane.showInputDialog("Digite o Id do estabelecimento que deseja: ");
 		int idEstabelecimento = Integer.parseInt(idEstabelecimentoString);
 		if(idEstabelecimento == JOptionPane.CANCEL_OPTION) {
-			buscarEstabelecimento();
+			buscarEstabelecimento(idUsuario);
 		}
-		escolherEstabelecimento(idEstabelecimento);
+		escolherEstabelecimento(idEstabelecimento, idUsuario);
 	}
 	
-	private void escolherEstabelecimento(int idEstabelecimento) throws SQLException {
+	private void escolherEstabelecimento(int idEstabelecimento, int idUsuario) throws SQLException {
 		String nomeEstabelecimento = conn.getNomeBdEstabelecimento(idEstabelecimento);
 		JOptionPane.showMessageDialog(null, "Bem Vindo ao estabelecimento "+nomeEstabelecimento);
 		int opcao = JOptionPane.showConfirmDialog(null, "Deseja reservar uma mesa no estabelecimento?"
@@ -146,22 +160,27 @@ public class UsuarioCliente{
 		switch (opcao) {
 			case JOptionPane.YES_OPTION:
 				JOptionPane.showMessageDialog(null, "Mesas disponíveis no estabelecimento:");
-				conn.mostrarMesasDisponiveis();
-				reservarMesa();
+				conn.mostrarMesasDisponiveis(idEstabelecimento);
+				reservarMesa(idEstabelecimento, idUsuario);
 				break;
 			case JOptionPane.NO_OPTION:				
 				Catalogo catalogo = new Catalogo();
 				catalogo.verCategorias(idEstabelecimento);
 				Categoria categoria = new Categoria();
 				categoria.verProdutosDaCategoria();
-				comprarProdutos(idEstabelecimento);
+				comprarProdutos(idEstabelecimento, idUsuario);
 				break;
 			case JOptionPane.CANCEL_OPTION:
 				break;
 		}
 	}
 	
-	public void comprarProdutos(int idEstabelecimento) throws SQLException {
+	public void continuarComprando(int idEstabelecimento, int idUsuario, int idPedido) throws SQLException {
+		Catalogo catalogo = new Catalogo();
+		catalogo.verCategorias(idEstabelecimento);
+		Categoria categoria = new Categoria();
+		categoria.verProdutosDaCategoria();
+		
 		String idProdutoString = JOptionPane.showInputDialog("Digite o id do produto que deseja comprar:");
 		int idProduto = Integer.parseInt(idProdutoString);
 		String quantidadeString = JOptionPane.showInputDialog("Digite a quantidade que deseja comprar:");
@@ -169,24 +188,83 @@ public class UsuarioCliente{
 		int opcao = JOptionPane.showConfirmDialog(null, "Itens adicionado ao seu carrinho:"
 				+ "\nDeseja continuar comprado precione (YES)"
 				+ "\nDeseja finalizar seu pedido precione (NO)"
-				+ "\nPara remover esses produtos do seu carrinho (CANCEL)");
+				+ "\nPara remover esses produtos do seu carrinho e cancelar o pedido (CANCEL)");
+		Double valorTotalQtd = conn.getValorProdutoBd(idProduto)*quantidade;
+		conn.insert("INSERT INTO TB_ITENSPEDIDO(ITE_IDCOM,ITE_CODPROD,ITE_QTDITENS,ITE_VALOR) VALUES("+idPedido+","+idProduto+","+quantidade+","+valorTotalQtd+");");
+		switch(opcao) {
+			case JOptionPane.YES_OPTION:
+				continuarComprando(idEstabelecimento, idUsuario, idPedido);
+				break;
+			case JOptionPane.NO_OPTION:
+				return;
+			case JOptionPane.CANCEL_OPTION:
+				break;
+		}
+	}
+	
+	public void comprarProdutos(int idEstabelecimento, int idUsuario) throws SQLException {
+		String idProdutoString = JOptionPane.showInputDialog("Digite o id do produto que deseja comprar:");
+		int idProduto = Integer.parseInt(idProdutoString);
+		String quantidadeString = JOptionPane.showInputDialog("Digite a quantidade que deseja comprar:");
+		int quantidade = Integer.parseInt(quantidadeString);
+		int opcao = JOptionPane.showConfirmDialog(null, "Itens adicionado ao seu carrinho:"
+				+ "\nDeseja continuar comprado precione (YES)"
+				+ "\nDeseja finalizar seu pedido precione (NO)"
+				+ "\nPara remover esses produtos do seu carrinho e cancelar o pedido(CANCEL)");
+		LocalDate dataAtual = LocalDate.now();
+		int idPedido = conn.insertPedido("INSERT INTO TB_PEDIDOS(COM_IDCOM,COM_IDUSU,COM_DATA,COM_STATUS,COM_IDEST) VALUES (NEXT VALUE FOR SQ_COM_IDCOM,"+idUsuario+",'"+dataAtual+"','EM ANDAMENTO',"+idEstabelecimento+");", idUsuario, dataAtual);
+		Double valorTotalQtd = conn.getValorProdutoBd(idProduto)*quantidade;
 		switch (opcao) {
 		case JOptionPane.YES_OPTION:
-			conn.insert("");
-			Catalogo catalogo = new Catalogo();
-			catalogo.verCategorias(idEstabelecimento);
-			Categoria categoria = new Categoria();
-			categoria.verProdutosDaCategoria();
-			comprarProdutos(idEstabelecimento);
-			//Falta perguntar ao usuário o número da mesa em que ele está
+			conn.insert("INSERT INTO TB_ITENSPEDIDO(ITE_IDCOM,ITE_CODPROD,ITE_QTDITENS,ITE_VALOR) VALUES("+idPedido+","+idProduto+","+quantidade+","+valorTotalQtd+");");
+			
+			continuarComprando(idEstabelecimento, idUsuario, idPedido);
+			
+			finalizarCompra(idEstabelecimento, idPedido);
 			break;
+		
 		case JOptionPane.NO_OPTION:
 			//Precisa inserir itens de pedido, pedido, em comanda ou mesa
-			conn.insert("");
+			conn.insert("INSERT INTO TB_ITENSPEDIDO(ITE_IDCOM,ITE_CODPROD,ITE_QTDITENS,ITE_VALOR) VALUES("+idPedido+","+idProduto+","+quantidade+","+valorTotalQtd+");");
+			
+			finalizarCompra(idEstabelecimento, idPedido);
+			
 			break;
 		case JOptionPane.CANCEL_OPTION:
 			JOptionPane.showMessageDialog(null, "Produtos retirados do seu carrinho!");
+			conn.insert("UPDATE TB_PEDIDOS SET COM_STATUS  = 'CANCELADO' WHERE COM_IDCOM = "+idPedido+";");//Alterar o Status desse pedido para CANCELADO
 			break;
+		}
+	}
+	
+	public void finalizarCompra(int idEstabelecimento, int idPedido) throws SQLException {
+		if(conn.verificarSeExisteMesas(idEstabelecimento)) {
+			conn.mostrarMesasDisponiveis(idEstabelecimento);
+			String mesaReservadaString = JOptionPane.showInputDialog("Informe o número da mesa que deseja receber seu pedido:");
+			int mesaReservada = Integer.parseInt(mesaReservadaString);
+			//Codigo para mudar o status de disponivel da mesa para false
+			conn.insert("UPDATE TB_MESA_COMANDA SET MES_DISPONIVEL = FALSE WHERE MES_NUMERO = "+mesaReservada+" AND MES_IDUSUEST = "+idEstabelecimento+";");
+			//Codigo para verificar se a mesa foi reservada corretamente, se sim informar ao usuario
+			JOptionPane.showMessageDialog(null, "Seu pedido será entregue na mesa número "+mesaReservada);
+			//Mostrar detalhes dos pedido
+			Double valorTotalPedido = conn.getValorPedidoBd(idPedido);
+			conn.insert("UPDATE TB_PEDIDOS SET COM_VALORPEDIDO = "+valorTotalPedido+" WHERE COM_IDCOM = "+idPedido+";");//SQL para colocar o valor total do pedido no pedido
+			String itensPedido = conn.getItensQuantidadePedido(idPedido);
+			String statusPedido = conn.getStatusPedido(idPedido);
+			JOptionPane.showMessageDialog(null, 
+					"Detalhes do pedido!\n\n"
+					+ "Número do pedido: "+idPedido
+					+ "\nValor total do Pedido: "+Formatador.doubleToString(valorTotalPedido)
+					+ "\nIntens do pedido: \n"+itensPedido
+					+ "\nStatus do pedido: "+statusPedido
+					+ "\n\nDigite ok assim que terminar de consumir seu pedido para liberar a mesa e fazer o pagamento!");
+			//Código para escolher a forma de pagamento e fazer o pagamento
+			//Informar que o pedido foi pago e liberara  mesa para uso
+			conn.insert("UPDATE TB_MESA_COMANDA SET MES_DISPONIVEL = TRUE WHERE MES_NUMERO = "+mesaReservada+" AND MES_IDUSUEST = "+idEstabelecimento+";");
+			conn.insert("UPDATE TB_PEDIDOS SET COM_STATUS  = 'FINALIZADO' WHERE COM_IDCOM = "+idPedido+";");
+			JOptionPane.showMessageDialog(null, "Pedido pago de acordo com a sua forma de pagamento cadastrada, e mesa liberada para o próximo!");
+		} else {
+			JOptionPane.showMessageDialog(null, "Não existe mesas disponíveis nesse estabelecimento!");
 		}
 	}
 

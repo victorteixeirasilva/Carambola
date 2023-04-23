@@ -17,7 +17,7 @@ public class Catalogo {
 		
 	}
 	
-	public Catalogo(UsuarioEstabelecimento estabelecimento) throws SQLException {
+	public Catalogo(UsuarioEstabelecimento estabelecimento, int idEstabelecimento) throws SQLException {
 		super();
 		this.estabelecimento = estabelecimento;
 		this.nome = estabelecimento.getNome();
@@ -38,10 +38,11 @@ public class Catalogo {
 		
 	}
 	
-	public void editarCategorias() throws SQLException {
+	public void editarCategorias(int idEstabelecimento) throws SQLException {
+		verCategorias(idEstabelecimento);
 		String input = JOptionPane.showInputDialog("Informe o Id da categoria que deseja editar:");
 		int idCategoria = Integer.parseInt(input);
-		if(this.id == conn.queryIdCatalogoComIdCategoria(idCategoria)) {//Verifica se o id do catalogo é igual o id do catalogo do id de categoria informado
+		if(idEstabelecimento == conn.queryIdCatalogoComIdCategoria(idCategoria)) {//Verifica se o id do catalogo é igual o id do catalogo do id de categoria informado
 			
 			String nomeAtual = conn.queryGetCategoriaBd(idCategoria);	
 			JOptionPane.showMessageDialog(null, "Nome atual da categoria: "+nomeAtual);
@@ -64,26 +65,23 @@ public class Catalogo {
 					JOptionPane.showMessageDialog(null, "Informação original foi mantida!");
 					//System.out.println("Informação original foi mantida!");
 				} else {
-					//System.out.println("Opção Inválida");
 				}
+				//System.out.println("Opção Inválida");
 			} else {			
 				JOptionPane.showMessageDialog(null, "Informações editadas são iguais as informações originais!");
-				//System.out.println("Informações editadas são iguais as informações originais!");
-			}
-			
-			//entrada.close();
-		} else {
-			
+			}			
+		} else {	
 		JOptionPane.showMessageDialog(null, "Você não possui categoria com esse id");
 		}
 		
 	}
 	
-	public void excluirCategorias() throws SQLException {
+	public void excluirCategorias(int idEstabelecimento) throws SQLException {
+		verCategorias(idEstabelecimento);
 		String input = JOptionPane.showInputDialog("Informe o Id da categoria que deseja Excluir:");
 		int idCategoria = Integer.parseInt(input);
 		
-		if(this.id == conn.queryIdCatalogoComIdCategoria(idCategoria)) {//Verifica se o id do catalogo é igual o id do catalogo do id de categoria informado
+		if(idEstabelecimento == conn.queryIdCatalogoComIdCategoria(idCategoria)) {//Verifica se o id do catalogo é igual o id do catalogo do id de categoria informado
 			String nomeAtual = conn.queryGetCategoriaBd(idCategoria);
 			JOptionPane.showMessageDialog(null, "Nome atual da categoria: "+nomeAtual);
 			int escolha = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir essa categoria?");

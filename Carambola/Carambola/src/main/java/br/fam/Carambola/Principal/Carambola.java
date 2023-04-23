@@ -113,8 +113,10 @@ public class Carambola {
 		Endereco endereco = new Endereco(rua, bairro, referencia, cep, numero, usuarioEstabelecimento);
 		usuarioEstabelecimento.setEndereco(endereco);
 		
-		//
-		Catalogo catalogo = new Catalogo(usuarioEstabelecimento);
+		ConnectionDb conn = new ConnectionDb();
+		int idEstabelecimento = conn.buscarIdUsuario(email, senha);
+		
+		Catalogo catalogo = new Catalogo(usuarioEstabelecimento, idEstabelecimento);
 		JOptionPane.showInputDialog("Cadastro finalizado com sucesso!");
 		catalogo.getEstabelecimento();
 	}
@@ -142,8 +144,110 @@ public class Carambola {
 		
 	}
 	
-	private static void menuEstabelecimento(int idEstabelecimento) {
+	private static void menuEstabelecimento(int idEstabelecimento) throws SQLException {
+		ConnectionDb conn = new ConnectionDb();
+		int opcao;
+		do {
+		String nomeEstabelecimentoBd = conn.getNomeBdEstabelecimento(idEstabelecimento); 
+		String opcaoString = JOptionPane.showInputDialog(
+				"Olá "+nomeEstabelecimentoBd+" \n"
+				+ "\nBem vindo ao menu do CARAMBOLA!\n"
+				
+				+ "\nEscolha uma das opões abaixo:\n\n"
+				
+				+ "1-Verificar Mesas\n"//ok
+				+ "2-Atualizar Estoque\n"//ok
+				+ "3-Cadastrar Categorias\n"//ok
+				+ "4-Ver Categorias\n"//ok
+				+ "5-Editar Categorias\n"//ok
+				+ "6-Excluir Categorias\n"//ok
+				+ "7-Cadastrar Produto\n"//ok
+				+ "8-Excluir Produto\n"//ok
+				+ "9-Editar Produto\n"//ok
+				+ "10-Ver Produtos\n"//ok
+				+ "11-Verificar Faturamento\n"//Implementacão Futura
+				+ "12-Impulsionar Estabelecimento\n"//Implementacão Futura
+				+ "13-Ver Funcionários Cadastrados\n"//Implementacão Futura
+				+ "14-Editar Funcionários Cadastrados\n"//Implementacão Futura
+				+ "15-Excluir Funcionários Cadastrados\n"//Implementacão Futura
+				+ "16-Cadastrar Funcinários\n"//Implementacão Futura
+				+ "17-Simular Compra\n"
+				+ "18-Desconectar-se\n"//ok
+				+ "19-Sair\n"//ok
+				);
 		
+		UsuarioEstabelecimento estabelecimento = new UsuarioEstabelecimento();
+		Catalogo catalogo = new Catalogo();
+		opcao = Integer.parseInt(opcaoString);
+		switch (opcao){
+			case 1:
+				//Verificar Mesas
+				estabelecimento.verificarMesas(idEstabelecimento);
+				break;
+			case 2:
+				//Atualizar Estoque
+				estabelecimento.atualizarEstoque(idEstabelecimento);
+				break;
+			case 3:
+				//Cadastrar Categorias
+				catalogo.cadastrarCategorias(idEstabelecimento);
+				break;
+			case 4:
+				//Ver Categorias
+				catalogo.verCategorias(idEstabelecimento);
+				break;
+			case 5:
+				//Editar Categorias
+				catalogo.editarCategorias(idEstabelecimento);
+				break;
+			case 6:
+				//Excluir Categorias
+				catalogo.excluirCategorias(idEstabelecimento);
+				break;
+			case 7:
+				//Cadastrar Produto
+				estabelecimento.cadastrarProduto(idEstabelecimento);
+				break;
+			case 8:
+				//Excluir Produto
+				estabelecimento.excluirProdutos(idEstabelecimento);
+				break;
+			case 9:
+				//Editar Produtos
+				estabelecimento.editarProdutos(idEstabelecimento);
+				break;
+			case 10:
+				//Ver Produto
+				estabelecimento.verProdutos(idEstabelecimento);
+				break;
+			case 11:
+				//Verificar Faturamento
+				estabelecimento.verificarFaturamento(idEstabelecimento);
+				break;
+			case 12:
+				break;
+			case 13:
+				break;
+			case 14:
+				break;
+			case 15:
+				break;
+			case 16:
+				break;
+			case 17:
+				break;
+			case 18:
+				menu();
+				break;
+			case 19:
+				JOptionPane.showMessageDialog(null, 
+						"Obrigado por usar o CARAMBOLA!"
+					+ "\nESPERAMOS SEU RETORNO EM BREVE!");
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Opção invalida, por favor tente novamente!");
+				}
+		} while (opcao != 19);
 	}
 	
 	private static void menuUsuarioCliente(int idUsuario) throws SQLException {
@@ -155,40 +259,38 @@ public class Carambola {
 				"Olá "+nomeClienteBd+" \n"
 				+ "\nBem vindo ao menu do CARAMBOLA!\n"
 				+ "\nEscolha uma das opões abaixo:\n\n"
-				+ "1-Buscar Estabelecimento\n"
-				+ "2-Ver Informações da Conta\n"
-				+ "3-Cadastrar Forma de Pagamento\n"
-				+ "4-Ver Forma de Pagamento Cadastrada\n"
-				+ "5-Editar Forma de Pagamento\n"
-				+ "6-Excluir Forma de Pagamento\n"
-				+ "7-Desconectar-se\n"
-				+ "8-Sair\n"
+				+ "1-Buscar Estabelecimento\n"//ok
+				+ "2-Ver Informações da Conta\n"//ok
+				+ "3-Cadastrar Forma de Pagamento\n"//ok
+				+ "4-Ver Formas de Pagamento Cadastradas\n"//ok
+				+ "5-Excluir Forma de Pagamento\n"//ok
+				+ "6-Desconectar-se\n"//ok
+				+ "7-Sair\n"//ok
 				);
 		
 		UsuarioCliente usuario = new UsuarioCliente();
+		FormaDePagamento formaDePagamento = new FormaDePagamento();
 		opcao = Integer.parseInt(opcaoString);
 		switch (opcao){
 		case 1:
-			usuario.buscarEstabelecimento();
+			usuario.buscarEstabelecimento(idUsuario);
 			break;
 		case 2:
 			usuario.verInformacoesDaConta(idUsuario);
 			break;
 		case 3:
-			FormaDePagamento formaDePagamento = new FormaDePagamento();
-			formaDePagamento.cadastrarFormaDePagamento();//Não implementado ainda
+			formaDePagamento.cadastrarFormaDePagamento(idUsuario);
 			break;
 		case 4:
-			usuario.getFormaDePagamento().verFormaDePagamento(); //Não implementado ainda
+			formaDePagamento.verFormaDePagamento(idUsuario);
 			break;
 		case 5:
-			usuario.getFormaDePagamento().editarFomraDePagamento(); //Não implementado ainda
-		case 6:
-			usuario.getFormaDePagamento().excluirFormaDePagamento(); //Não implementado ainda
-		case 7:
-			fazerLogin();
+			formaDePagamento.excluirFormaDePagamento(idUsuario);
 			break;
-		case 8:
+		case 6:
+			menu();
+			break;
+		case 7:
 			JOptionPane.showMessageDialog(null, 
 					"Obrigado por usar o CARAMBOLA!"
 				+ "\nESPERAMOS SEU RETORNO EM BREVE!");

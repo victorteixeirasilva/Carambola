@@ -9,7 +9,6 @@ public class Usuario {
 	private long telefone;
 	private String email;
 	private String senha;
-	private static int count = 1000;
 	private ConnectionDb conn = new ConnectionDb();
 	
 	
@@ -19,10 +18,6 @@ public class Usuario {
 		this.senha = senha;
 		conn.insert("INSERT INTO TB_USUARIOS(USU_IDUSU,USU_TEL,USU_EMAIL,USU_SENHA) VALUES (NEXT VALUE FOR SQ_USU_IDUSU,"+this.telefone+",'"+this.email+"','"+this.senha+"');");
 		id = conn.buscarIdUsuario(email, senha);
-	}
-
-	public void identificarNoSistema() {
-		
 	}
 
 	public long getTelefone() {
@@ -43,14 +38,6 @@ public class Usuario {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public static int getCount() {
-		return count;
-	}
-
-	public static void setCount(int count) {
-		Usuario.count = count;
 	}	
 	
 }

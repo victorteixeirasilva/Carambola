@@ -1,23 +1,34 @@
  package br.fam.Carambola;
 
+import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
+
+import br.fam.Carambola.Db.ConnectionDb;
 
 public class FormaDePagamento {
 	private int codigoDeSeguranca, dataVencimento;
 	private String numeroDoCartao, nomeDoTitular, bandeiraCartao;
+	private ConnectionDb conn = new ConnectionDb();
 	
 	private String checkBandeiraCartao(String numero1IdEmissor, String numero2IdEmissor) {
 		if(numero2IdEmissor.equals("37")) {
+			setBandeiraCartao("AMERICAN EXPRESS");
 			return "AMERICAN EXPRESS";
 		} else if (numero2IdEmissor.equals("35")) {
+			setBandeiraCartao("JCB");
 			return "JCB";
 		} else if (numero1IdEmissor.equals("4")) {
+			setBandeiraCartao("VISA");
 			return "VISA";
 		} else if (numero1IdEmissor.equals("5")) {
+			setBandeiraCartao("MASTER CARD");
 			return "MASTER CARD";
 		} else if (numero1IdEmissor.equals("6")) {
+			setBandeiraCartao("DISCOVER");
 			return "DISCOVER";
 		} else {
+			setBandeiraCartao("Bandeira desconhecida");
 			return "Bandeira desconhecida";
 		}
 	}
@@ -79,28 +90,49 @@ public class FormaDePagamento {
 		}
 	}
 	
-	public void excluirFormaDePagamento() {
-		
+	public void excluirFormaDePagamento(int idUsuario) throws SQLException {
+		JOptionPane.showMessageDialog(null, "AS FORMAS DE PAGAMENTO CADASTRADAS SÃO:");
+		conn.verDetalhesFormaPagamento(idUsuario);
+		String idFormaDePagamentoString = JOptionPane.showInputDialog("\n\nInforme o Id da forma de pagamento que deseja excluir:\n\n");
+		int idFormaDePagamento = Integer.parseInt(idFormaDePagamentoString);
+		conn.verDetalhesFormaPagamentoPorId(idFormaDePagamento);
+		int escolha = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir essa forma de pagamento?\n(OBS: Essa ação não é reversivel!)");
+		switch (escolha) {
+			case JOptionPane.YES_OPTION:
+				conn.insert("DELETE FROM TB_FORMAS_PAGAMENTO WHERE PAG_IDPAG = "+idFormaDePagamento+";");
+				JOptionPane.showMessageDialog(null, "Forma de pagamento excluída com sucesso!");
+				break;
+			case JOptionPane.NO_OPTION:
+				JOptionPane.showMessageDialog(null, "Forma de pagamento não foi excluída!");
+				return;
+			case JOptionPane.CANCEL_OPTION:
+				return;
+		 
+		}
 	}
 	
-	public void editarFomraDePagamento() {
-		
+	public void verFormaDePagamento(int idUsuario) throws SQLException {
+		conn.verDetalhesFormaPagamento(idUsuario);
 	}
 	
-	public void verFormaDePagamento() {
-		
-	}
-	
-	public void cadastrarFormaDePagamento() {
+	public void cadastrarFormaDePagamento(int idUsuario) throws SQLException {
 		String numeroCartao = JOptionPane.showInputDialog("Informe o número do seu cartão: ");
 		validarCartao(numeroCartao);
 		this.nomeDoTitular = JOptionPane.showInputDialog("Informe o nome completo do titular do cartão: ");
 		String codigoSegurancaString = JOptionPane.showInputDialog("Informe o código de segurança: ");
 		this.codigoDeSeguranca = Integer.parseInt(codigoSegurancaString);
 		String dataVencimentoString = JOptionPane.showInputDialog("Informe a data de vencimento do cartão: \n\nLembrese de pasar a data como Ano-Mês, exemplo (2030-08");
-		this.dataVencimento = Integer.parseInt(dataVencimentoString);
-		
-		
+		String bandeiraCartao = checkBandeiraCartao(numeroCartao.substring(0,1), numeroCartao.substring(0,2));
+		conn.insert("INSERT INTO TB_FORMAS_PAGAMENTO(PAG_IDPAG, PAG_IDUSU, PAG_NUMERO, PAG_NOME, PAG_BANDEIRA, PAG_CODSEG, PAG_DATAVENCI) VALUES (NEXT VALUE FOR SQ_PAG_IDPAG,"+idUsuario+",'"+numeroCartao+"', '"+nomeDoTitular+"', '"+bandeiraCartao+"', "+codigoDeSeguranca+", '"+dataVencimentoString+"-01');");
+		JOptionPane.showMessageDialog(null, 
+				  "FORMA DE PAGAMENTO CADASTRADA CORRETAMENTE:\n\n"
+				+ "DETALHES DA FORMA DE PAGAMENTO!\n\n"
+				+ "\nNúmero do Cartão: "+numeroCartao
+				+ "\nBandeira do Cartão: "+bandeiraCartao
+				+ "\nNome do Titular do Cartão: "+nomeDoTitular
+				+ "\nCódigo de Segurança: "+codigoSegurancaString
+				+ "\nData de Vencimento: "+dataVencimentoString
+				+ "\n");
 	}
 
 	public String getNumeroDoCartao() {
