@@ -48,11 +48,12 @@ public class User {
     private long cpf;
     @Column(name = "USU_HOUSE_NUMBER")
     private String houseNumber;
-    @Column(name = "USU_ADDRESS")
+//    @Column(name = "USU_ADDRESS")
     @ManyToOne
+    @JoinColumn(name = "USU_ADDRESS")
     private Address address;
-    @Column(name = "USU_FORM_OF_PAYMENT")
-    @OneToMany
+//    @Column(name = "USU_FORM_OF_PAYMENT")
+    @OneToOne
     private FormOfPayment formOfPayment;
     @Column(name = "USU_ASSESSMENT")
     private double Assessment;

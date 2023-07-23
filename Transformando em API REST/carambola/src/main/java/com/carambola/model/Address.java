@@ -1,5 +1,6 @@
 package com.carambola.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Component;
  * @author victorteixeirasilva 23/JULHO/2023
  *
  * @version 1.0
- * 
+ *
  * */
 @Data
 @NoArgsConstructor
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Component;
 public class Address {
 
     @Id
+    @Column(name = "ADR_CEP")
     private String cep;
     private String logradouro;
     private String complemento;
