@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 @Table(name = "TB_CART")
 public class Cart {
     @Id
+    @Column(name = "cart_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @OneToOne

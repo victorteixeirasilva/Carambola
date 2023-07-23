@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 @Table(name = "TB_FORM_OF_PAYMENT")
 public class FormOfPayment {
     @Id
+    @Column(name = "form_of_payment_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private int securityCode;

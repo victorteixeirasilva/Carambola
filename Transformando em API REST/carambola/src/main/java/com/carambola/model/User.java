@@ -30,35 +30,35 @@ import java.util.Date;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "USE_ID")
+    @Column(name = "USER_ID")
     private Long id;
-    @Column(name = "USU_TEL", unique = true, nullable = false)
+    @Column(name = "USER_TEL", unique = true, nullable = false)
     private long telephone;
     @Email
-    @Column(name = "USU_EMAIL", unique = true, nullable = false)
+    @Column(name = "USER_EMAIL", unique = true, nullable = false)
     private String email;
-    @Column(name = "USU_PASSWORD", nullable = false)
+    @Column(name = "USER_PASSWORD", nullable = false)
     private String password;
-    @Column(name = "USU_NAME")
+    @Column(name = "USER_NAME")
     private String name;
-    @Column(name = "USU_DATA_OF_BIRTH")
+    @Column(name = "USER_DATA_OF_BIRTH")
     private Date  dateOfBirth;
     @CPF
-    @Column(name = "USU_CPF")
+    @Column(name = "USER_CPF")
     private long cpf;
-    @Column(name = "USU_HOUSE_NUMBER")
+    @Column(name = "USER_HOUSE_NUMBER")
     private String houseNumber;
 //    @Column(name = "USU_ADDRESS")
     @ManyToOne
-    @JoinColumn(name = "USU_ADDRESS")
+    @JoinColumn(name = "USER_ADDRESS")
     private Address address;
 //    @Column(name = "USU_FORM_OF_PAYMENT")
     @OneToOne
     private FormOfPayment formOfPayment;
-    @Column(name = "USU_ASSESSMENT")
+    @Column(name = "USER_ASSESSMENT")
     private double Assessment;
     @CNPJ
-    @Column(name = "USU_CNPJ")
+    @Column(name = "USER_CNPJ")
     private Long cnpj;
 
 
