@@ -2,25 +2,31 @@ package com.carambola.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+
 /**
- * @author Victor Teixeira Silva 23/julho/2023
- * @version 1.0
- *
  * @description Classe responsavel por criar a entidade no user no banco de dados, dentro dessa classe estão agrupados
  * todos os atributos dos tipos de funcionários diferentes (cliente, estabelecimento, funcionario)
  * cujo quais vamos separar as permições por roles, e para separalos em cadastros por forms.
+ *
+ * @author victorteixeirasilva 23/julho/2023
+ * @version 1.0
+ *
  * */
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Component
 @Entity
 @Table(name = "TB_USER")
-@Component
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -59,3 +65,4 @@ public class User {
 
 
 }
+
