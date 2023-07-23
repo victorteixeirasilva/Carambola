@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * @description Classe responsavel por criar a entidade no user no banco de dados, dentro dessa classe estão agrupados
  * todos os atributos dos tipos de funcionários diferentes (cliente, estabelecimento, funcionario)
- * cujo quais vamos separar as permições por roles, e para separalos em cadastros por forms.
+ * cujo quais vamos separar as permições por roles, e para separar eles em cadastros por forms.
  *
  * @author victorteixeirasilva 23/julho/2023
  * @version 1.0
