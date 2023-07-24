@@ -1,13 +1,8 @@
 package com.carambola.service.Implementation;
 
-import com.carambola.model.Address;
 import com.carambola.model.User;
-import com.carambola.model.form.customer.CustomerForm;
-import com.carambola.model.form.customer.CustomerUpdateForm;
-import com.carambola.repository.AddressRepository;
 import com.carambola.repository.UserRepository;
 import com.carambola.service.UserService;
-import com.carambola.service.ViaCepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

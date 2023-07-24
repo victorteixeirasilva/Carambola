@@ -17,4 +17,5 @@ public class EmployeeUpdateForm {
     @Email(message = "'${validatedValue} é invalido!")
     private String email;
     private String password;
+    private long telephone;
 }

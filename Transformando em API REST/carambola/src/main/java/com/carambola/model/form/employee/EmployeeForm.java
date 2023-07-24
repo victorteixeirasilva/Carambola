@@ -20,4 +20,5 @@ public class EmployeeForm {
     @Email(message = "'${validatedValue} é invalido!")
     private String email;
     private String password;
+    private long telephone;
 }
