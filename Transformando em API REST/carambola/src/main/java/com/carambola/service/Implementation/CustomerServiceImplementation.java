@@ -9,9 +9,10 @@ import com.carambola.repository.UserRepository;
 import com.carambola.service.CustomerService;
 import com.carambola.service.ViaCepService;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 import java.util.Optional;
 
+@Service
 public class CustomerServiceImplementation implements CustomerService {
 
     @Autowired

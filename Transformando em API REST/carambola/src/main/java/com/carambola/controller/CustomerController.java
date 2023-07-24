@@ -3,7 +3,6 @@ package com.carambola.controller;
 import com.carambola.model.User;
 import com.carambola.model.form.customer.CustomerUpdateForm;
 import com.carambola.service.CustomerService;
-import com.carambola.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
