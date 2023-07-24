@@ -10,6 +10,8 @@ import com.carambola.service.ViaCepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * @Description Implementação da <b>Strategy</b> {@link  UserService}, a qual pode ser
  * injetada pelo Spring (via {@link org.springframework.beans.factory.annotation.Autowired}).
@@ -26,20 +28,18 @@ import org.springframework.stereotype.Service;
 public class UserServiceImplementation implements UserService {
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private AddressRepository addressRepository;
-
     @Autowired
     private ViaCepService viaCepService;
 
     @Override
-    public User SearchById(Long id) {
-        return null;
+    public Optional<User> SearchById(Long id) {
+        return userRepository.findById(id);
     }
 
     @Override
-    public Iterable<User> allUsers() {
+    public Iterable<User> fetchAll() {
        return userRepository.findAll();
     }
 

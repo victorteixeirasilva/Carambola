@@ -4,6 +4,8 @@ import com.carambola.model.User;
 import com.carambola.model.form.UserForm;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 
 /**
  * @description Interface que define o padrão <b>Strategy</b> no domínio do User. Com
@@ -20,9 +22,9 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserService {
 
-    public User SearchById(Long id);
+    public Optional<User> SearchById(Long id);
 
-    public Iterable<User> allUsers();
+    public Iterable<User> fetchAll();
 
     public void insert(UserForm userForm);
 
