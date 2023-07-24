@@ -34,6 +34,11 @@ public class UserServiceImplementation implements UserService {
     private ViaCepService viaCepService;
 
     @Override
+    public User SearchById(Long id) {
+        return null;
+    }
+
+    @Override
     public Iterable<User> allUsers() {
        return userRepository.findAll();
     }

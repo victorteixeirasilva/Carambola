@@ -20,6 +20,8 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserService {
 
+    public User SearchById(Long id);
+
     public Iterable<User> allUsers();
 
     public void insert(UserForm userForm);
