@@ -17,8 +17,8 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping("establishment")
-    public ResponseEntity<User>  showEstablishments(){
-        return null;
+    public Iterable<User>  showEstablishments(){
+        return customerService.showEstablishments();
     }
 
 

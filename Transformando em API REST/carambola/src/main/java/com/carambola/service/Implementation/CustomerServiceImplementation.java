@@ -6,6 +6,7 @@ import com.carambola.model.User;
 import com.carambola.model.form.customer.CustomerForm;
 import com.carambola.model.form.customer.CustomerUpdateForm;
 import com.carambola.repository.AddressRepository;
+import com.carambola.repository.CustomerRepository;
 import com.carambola.repository.UserRepository;
 import com.carambola.service.CustomerService;
 import com.carambola.service.ViaCepService;
@@ -22,6 +23,8 @@ public class CustomerServiceImplementation implements CustomerService {
     private AddressRepository addressRepository;
     @Autowired
     private ViaCepService viaCepService;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Override
     public void insert(CustomerForm customerForm) {
@@ -48,8 +51,8 @@ public class CustomerServiceImplementation implements CustomerService {
     }
 
     @Override
-    public User showEstablishments() {
-        return null;
+    public Iterable<User> showEstablishments() {
+        return customerRepository.showEstablishments();
     }
 
     @Override

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface CustomerService {
 
-    public User showEstablishments();
+    public Iterable<User> showEstablishments();
 
     public User update(Long id, CustomerUpdateForm customerUpdateForm);
 
