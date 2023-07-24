@@ -1,9 +1,10 @@
-package com.carambola.model.form;
+package com.carambola.model.form.customer;
 
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -12,8 +13,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-public class UserUpdateForm {
+public class CustomerForm {
     private String name;
+    @CPF(message = "'${validatedValue} é invalido!")
+    private String cpf;
     @Email(message = "'${validatedValue} é invalido!")
     private String email;
     private String password;
@@ -21,4 +24,5 @@ public class UserUpdateForm {
     private LocalDate dateOfBirth;
     private String cep;
     private String houseNumber;
+
 }

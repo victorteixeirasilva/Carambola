@@ -1,8 +1,8 @@
 package com.carambola.service;
 
 import com.carambola.model.User;
-import com.carambola.model.form.UserForm;
-import com.carambola.model.form.UserUpdateForm;
+import com.carambola.model.form.customer.CustomerForm;
+import com.carambola.model.form.customer.CustomerUpdateForm;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -24,13 +24,7 @@ import java.util.Optional;
 public interface UserService {
 
     public Optional<User> SearchById(Long id);
-
     public Iterable<User> fetchAll();
-
-    public void insert(UserForm userForm);
-
-    public User update(Long id, UserUpdateForm userUpdateForm);
-
     public String delete(Long id);
 
 
