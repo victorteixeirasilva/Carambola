@@ -107,7 +107,6 @@ public class CustomerServiceImplementation implements CustomerService {
             saveUserWithCep(user);
 
         }
-        System.out.println("------------ ERRO: Usuário não existe! -------------");
         return userBd.get();
     }
 
