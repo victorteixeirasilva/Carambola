@@ -1,17 +1,32 @@
 package com.carambola.service;
 
-import com.carambola.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.carambola.model.User;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+
+
+/**
+ * @description Interface que define o padrão <b>Strategy</b> no domínio do User. Com
+ * isso, se necessário, podemos ter multíplas implementações dessa mesma
+ * interface.
+ *
+ * @author victorteixeirasilva 24/julho/2023
+ *
+ * @version 1.0
+ *
+ *
+ * */
 
 @Component
-@Service
-public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+public interface UserService {
 
-    public String allUsers(){
-        return userRepository.findAll().toString();
-    }
+    public Iterable<User> allUsers();
+
+    public void insert(User user);
+
+    public void update(Long id, User user);
+
+    public void delete(Long id);
+
+
+
 }
