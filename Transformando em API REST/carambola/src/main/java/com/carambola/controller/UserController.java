@@ -2,6 +2,7 @@ package com.carambola.controller;
 
 import com.carambola.model.User;
 import com.carambola.model.form.UserForm;
+import com.carambola.model.form.UserUpdateForm;
 import com.carambola.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,16 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<Optional<User>> SearchById(@PathVariable Long id){
         return ResponseEntity.ok(userService.SearchById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> update(@PathVariable Long id, @Valid @RequestBody UserUpdateForm userUpdateForm){
+        return ResponseEntity.ok(userService.update(id, userUpdateForm));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id){
+        return ResponseEntity.ok(userService.delete(id));
     }
 
 

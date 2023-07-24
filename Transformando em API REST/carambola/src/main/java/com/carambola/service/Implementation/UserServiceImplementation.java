@@ -3,6 +3,7 @@ package com.carambola.service.Implementation;
 import com.carambola.model.Address;
 import com.carambola.model.User;
 import com.carambola.model.form.UserForm;
+import com.carambola.model.form.UserUpdateForm;
 import com.carambola.repository.AddressRepository;
 import com.carambola.repository.UserRepository;
 import com.carambola.service.UserService;
@@ -35,7 +36,12 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public Optional<User> SearchById(Long id) {
-        return userRepository.findById(id);
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()){
+            return user;
+        }
+        System.out.println("------------ ERRO: Usuário não existe! -------------");
+        return user;
     }
 
     @Override
@@ -63,13 +69,84 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public void update(Long id, User user) {
+    public User update(Long id, UserUpdateForm userUpdateForm) {
+        Optional<User> userBd = userRepository.findById(id);
+        if (userBd.isPresent()){
+            User user = new User();
 
+            //Id
+            user.setId(userBd.get().getId());
+
+            //Name
+            if((userBd.get().getName() == userUpdateForm.getName())||(userUpdateForm.getName()=="")){
+                user.setName(userBd.get().getName());
+            } else {
+                user.setName(userUpdateForm.getName());
+            }
+
+            //Email
+            if((userBd.get().getEmail() == userUpdateForm.getEmail())||(userUpdateForm.getEmail()=="")){
+                user.setEmail(userBd.get().getEmail());
+            } else {
+                user.setEmail(userUpdateForm.getEmail());
+            }
+
+            //Password
+            if((userBd.get().getPassword() == userUpdateForm.getPassword())||(userUpdateForm.getPassword()=="")){
+                user.setPassword(userBd.get().getPassword());
+            } else {
+                user.setPassword(userUpdateForm.getPassword());
+            }
+
+            //Telephone
+            if((userBd.get().getTelephone() == userUpdateForm.getTelephone())||(userUpdateForm.getTelephone()==0)){
+                user.setTelephone(userBd.get().getTelephone());
+            } else {
+                user.setTelephone(userUpdateForm.getTelephone());
+            }
+
+            //DateOfBirth
+            if((userBd.get().getDateOfBirth() == userUpdateForm.getDateOfBirth())||(userUpdateForm.getDateOfBirth()==null)){
+                user.setDateOfBirth(userBd.get().getDateOfBirth());
+            } else {
+                user.setDateOfBirth(userUpdateForm.getDateOfBirth());
+            }
+
+            //Cpf
+            user.setCpf(userBd.get().getCpf());
+
+            //Cep
+            if((userBd.get().getAddress().getCep() == userUpdateForm.getCep())||(userUpdateForm.getCep()=="")){
+                user.setAddress(userBd.get().getAddress());
+            } else {
+                Address address = new Address();
+                address.setCep(userUpdateForm.getCep());
+                user.setAddress(address);
+            }
+
+            //HouseNumber
+            if((userBd.get().getHouseNumber() == userUpdateForm.getHouseNumber())){
+                user.setHouseNumber(userBd.get().getHouseNumber());
+            } else {
+                user.setHouseNumber(userUpdateForm.getHouseNumber());
+            }
+
+            saveUserWithCep(user);
+
+        }
+        System.out.println("------------ ERRO: Usuário não existe! -------------");
+        return userBd.get();
     }
 
     @Override
-    public void delete(Long id) {
-
+    public String delete(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()){
+            userRepository.delete(user.get());
+            return "Usuário (ID:" + user.get().getId() + ", NAME:" + user.get().getName()
+                    + ", EMAIL:" + user.get().getEmail() + ". Foi deletado com sucesso!";
+        }
+        return "Esse usuário não pode ser deletado, pois não existe!";
     }
 
     private void saveUserWithCep(User user){

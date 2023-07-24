@@ -35,7 +35,6 @@ public class User {
     private Long id;
     @Column(name = "USER_TEL", unique = true, nullable = false)
     private long telephone;
-//    @Email
     @Column(name = "USER_EMAIL", unique = true, nullable = false)
     private String email;
     @Column(name = "USER_PASSWORD", nullable = false)
@@ -44,7 +43,6 @@ public class User {
     private String name;
     @Column(name = "USER_DATA_OF_BIRTH")
     private LocalDate dateOfBirth;
-//    @CPF
     @Column(name = "USER_CPF")
     private String cpf;
     @Column(name = "USER_HOUSE_NUMBER")
@@ -56,7 +54,6 @@ public class User {
     private FormOfPayment formOfPayment;
     @Column(name = "USER_ASSESSMENT")
     private double Assessment;
-//    @CNPJ
     @Column(name = "USER_CNPJ")
     private String cnpj;
 
