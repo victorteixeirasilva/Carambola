@@ -1,6 +1,7 @@
 package com.carambola.controller;
 
 import com.carambola.model.User;
+import com.carambola.model.form.UserForm;
 import com.carambola.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> insert(@Valid @RequestBody User user){
-        userService.insert(user);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserForm> insert(@Valid @RequestBody UserForm userForm){
+        userService.insert(userForm);
+        return ResponseEntity.ok(userForm);
     }
 
 

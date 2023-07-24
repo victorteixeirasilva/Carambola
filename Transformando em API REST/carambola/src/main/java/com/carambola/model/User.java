@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -34,7 +35,7 @@ public class User {
     private Long id;
     @Column(name = "USER_TEL", unique = true, nullable = false)
     private long telephone;
-    @Email
+//    @Email
     @Column(name = "USER_EMAIL", unique = true, nullable = false)
     private String email;
     @Column(name = "USER_PASSWORD", nullable = false)
@@ -42,24 +43,22 @@ public class User {
     @Column(name = "USER_NAME")
     private String name;
     @Column(name = "USER_DATA_OF_BIRTH")
-    private Date  dateOfBirth;
-    @CPF
+    private LocalDate dateOfBirth;
+//    @CPF
     @Column(name = "USER_CPF")
-    private long cpf;
+    private String cpf;
     @Column(name = "USER_HOUSE_NUMBER")
     private String houseNumber;
-//    @Column(name = "USU_ADDRESS")
     @ManyToOne
     @JoinColumn(name = "USER_ADDRESS")
     private Address address;
-//    @Column(name = "USU_FORM_OF_PAYMENT")
     @OneToOne
     private FormOfPayment formOfPayment;
     @Column(name = "USER_ASSESSMENT")
     private double Assessment;
-    @CNPJ
+//    @CNPJ
     @Column(name = "USER_CNPJ")
-    private Long cnpj;
+    private String cnpj;
 
 
 

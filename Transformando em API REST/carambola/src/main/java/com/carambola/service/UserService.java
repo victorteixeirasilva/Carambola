@@ -1,6 +1,7 @@
 package com.carambola.service;
 
 import com.carambola.model.User;
+import com.carambola.model.form.UserForm;
 import org.springframework.stereotype.Component;
 
 
@@ -21,7 +22,7 @@ public interface UserService {
 
     public Iterable<User> allUsers();
 
-    public void insert(User user);
+    public void insert(UserForm userForm);
 
     public void update(Long id, User user);
 

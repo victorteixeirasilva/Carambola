@@ -2,6 +2,7 @@ package com.carambola.service.Implementation;
 
 import com.carambola.model.Address;
 import com.carambola.model.User;
+import com.carambola.model.form.UserForm;
 import com.carambola.repository.AddressRepository;
 import com.carambola.repository.UserRepository;
 import com.carambola.service.UserService;
@@ -38,7 +39,21 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public void insert(User user) {
+    public void insert(UserForm userForm) {
+        User user = new User();
+
+        user.setName(userForm.getName());
+        user.setCpf(userForm.getCpf());
+        user.setEmail(userForm.getEmail());
+        user.setPassword(userForm.getPassword());
+        user.setTelephone(userForm.getTelephone());
+        user.setDateOfBirth(userForm.getDateOfBirth());
+        user.setHouseNumber(userForm.getHouseNumber());
+
+        Address address = new Address();
+        address.setCep(userForm.getCep());
+        user.setAddress(address);
+
         saveUserWithCep(user);
     }
 
