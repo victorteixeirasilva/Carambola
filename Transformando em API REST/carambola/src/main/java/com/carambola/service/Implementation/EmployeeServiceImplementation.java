@@ -1,6 +1,7 @@
 package com.carambola.service.Implementation;
 
 import com.carambola.model.Address;
+import com.carambola.model.Role;
 import com.carambola.model.User;
 import com.carambola.model.form.customer.CustomerUpdateForm;
 import com.carambola.model.form.employee.EmployeeForm;
@@ -82,6 +83,11 @@ public class EmployeeServiceImplementation implements EmployeeService {
         user.setEmail(employeeForm.getEmail());
         user.setPassword(employeeForm.getPassword());
         user.setTelephone(employeeForm.getTelephone());
+
+        Role role = new Role();
+        role.setId(2);
+
+        user.setRole(role);
 
         userRepository.save(user);
     }

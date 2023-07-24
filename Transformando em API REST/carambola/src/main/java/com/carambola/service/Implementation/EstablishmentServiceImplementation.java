@@ -1,6 +1,7 @@
 package com.carambola.service.Implementation;
 
 import com.carambola.model.Address;
+import com.carambola.model.Role;
 import com.carambola.model.User;
 import com.carambola.model.form.establishment.EstablishmentForm;
 import com.carambola.model.form.establishment.EstablishmentUpdateForm;
@@ -101,6 +102,11 @@ public class EstablishmentServiceImplementation implements EstablishmentService 
         Address address = new Address();
         address.setCep(establishmentForm.getCep());
         user.setAddress(address);
+
+        Role role = new Role();
+        role.setId(1);
+
+        user.setRole(role);
 
         saveUserWithCep(user);
     }

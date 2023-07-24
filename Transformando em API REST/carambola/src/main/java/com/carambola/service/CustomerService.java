@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public interface CustomerService {
 
+    public User showEstablishments();
+
     public User update(Long id, CustomerUpdateForm customerUpdateForm);
 
     public void insert(CustomerForm userForm);

@@ -16,6 +16,12 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    @GetMapping("establishment")
+    public ResponseEntity<User>  showEstablishments(){
+        return null;
+    }
+
+
     @PostMapping
     public ResponseEntity<CustomerForm> insert(@Valid @RequestBody CustomerForm customerForm){
         customerService.insert(customerForm);

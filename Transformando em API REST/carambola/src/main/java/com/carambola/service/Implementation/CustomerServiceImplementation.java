@@ -1,6 +1,7 @@
 package com.carambola.service.Implementation;
 
 import com.carambola.model.Address;
+import com.carambola.model.Role;
 import com.carambola.model.User;
 import com.carambola.model.form.customer.CustomerForm;
 import com.carambola.model.form.customer.CustomerUpdateForm;
@@ -38,7 +39,17 @@ public class CustomerServiceImplementation implements CustomerService {
         address.setCep(customerForm.getCep());
         user.setAddress(address);
 
+        Role role = new Role();
+        role.setId(3);
+
+        user.setRole(role);
+
         saveUserWithCep(user);
+    }
+
+    @Override
+    public User showEstablishments() {
+        return null;
     }
 
     @Override

@@ -56,7 +56,8 @@ public class User {
     private double Assessment;
     @Column(name = "USER_CNPJ")
     private String cnpj;
-
+    @ManyToOne
+    private Role role;
 
 
 
