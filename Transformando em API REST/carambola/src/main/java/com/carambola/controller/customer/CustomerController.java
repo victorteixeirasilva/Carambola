@@ -1,4 +1,4 @@
-package com.carambola.controller;
+package com.carambola.controller.customer;
 
 import com.carambola.model.User;
 import com.carambola.model.form.customer.CustomerUpdateForm;
