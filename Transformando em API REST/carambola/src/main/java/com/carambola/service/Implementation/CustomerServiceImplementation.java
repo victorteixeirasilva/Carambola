@@ -1,6 +1,7 @@
 package com.carambola.service.Implementation;
 
 import com.carambola.model.Address;
+import com.carambola.model.FormOfPayment;
 import com.carambola.model.Role;
 import com.carambola.model.User;
 import com.carambola.model.form.customer.CustomerForm;
@@ -117,6 +118,39 @@ public class CustomerServiceImplementation implements CustomerService {
             } else {
                 user.setHouseNumber(customerUpdateForm.getHouseNumber());
             }
+
+            saveUserWithCep(user);
+
+        }
+        return userBd.get();
+    }
+
+    @Override
+    public User insertFormOfPayment(Long id, FormOfPayment formOfPayment) {
+        Optional<User> userBd = userRepository.findById(id);
+        if (userBd.isPresent()){
+            User user = new User();
+
+            //Id
+            user.setId(userBd.get().getId());
+            //Name
+            user.setName(userBd.get().getName());
+            //Email
+            user.setEmail(userBd.get().getEmail());
+            //Password
+            user.setPassword(userBd.get().getPassword());
+            //Telephone
+            user.setTelephone(userBd.get().getTelephone());
+            //DateOfBirth
+            user.setDateOfBirth(userBd.get().getDateOfBirth());
+            //Cpf
+            user.setCpf(userBd.get().getCpf());
+            //Cep
+            user.setAddress(userBd.get().getAddress());
+            //HouseNumber
+            user.setHouseNumber(userBd.get().getHouseNumber());
+            //FormOfPayment
+            user.setFormOfPayment(formOfPayment);
 
             saveUserWithCep(user);
 

@@ -26,7 +26,7 @@ public class FormOfPayment {
     @Id
     @Column(name = "form_of_payment_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private int securityCode;
     private String cardNumber;
     private String cardHolderName;
@@ -93,7 +93,7 @@ public class FormOfPayment {
 
     }
 
-    private void validateCard(String cardNumber) {
+    public void validateCard(String cardNumber) {
         if((cardNumber.length() >= 13)&&(cardNumber.length() <= 16)) {
             boolean flag = cardValidityCheck(cardNumber);
 
