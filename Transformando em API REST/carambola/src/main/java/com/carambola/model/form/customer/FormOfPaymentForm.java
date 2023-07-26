@@ -1,4 +1,4 @@
-package com.carambola.model.form;
+package com.carambola.model.form.customer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

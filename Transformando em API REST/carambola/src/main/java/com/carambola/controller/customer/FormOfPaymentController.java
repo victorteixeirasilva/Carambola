@@ -1,7 +1,7 @@
 package com.carambola.controller.customer;
 
 import com.carambola.model.FormOfPayment;
-import com.carambola.model.form.FormOfPaymentForm;
+import com.carambola.model.form.customer.FormOfPaymentForm;
 import com.carambola.service.FormOfPaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

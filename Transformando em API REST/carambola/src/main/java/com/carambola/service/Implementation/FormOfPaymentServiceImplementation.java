@@ -2,7 +2,7 @@ package com.carambola.service.Implementation;
 
 
 import com.carambola.model.FormOfPayment;
-import com.carambola.model.form.FormOfPaymentForm;
+import com.carambola.model.form.customer.FormOfPaymentForm;
 import com.carambola.repository.FormOfPaymentRepository;
 import com.carambola.service.CustomerService;
 import com.carambola.service.FormOfPaymentService;
