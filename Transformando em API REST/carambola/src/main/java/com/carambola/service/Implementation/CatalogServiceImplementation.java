@@ -31,4 +31,9 @@ public class CatalogServiceImplementation implements CatalogService {
         catalogRepository.save(catalog);
         return catalog;
     }
+
+    @Override
+    public Iterable<Catalog> getCatalogs(Long id) {
+        return catalogRepository.findCatlogsByIdEstablishment(id);
+    }
 }

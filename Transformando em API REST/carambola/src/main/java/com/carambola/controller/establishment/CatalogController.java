@@ -20,4 +20,9 @@ public class CatalogController {
         return ResponseEntity.ok(catalog);
     }
 
+    @GetMapping("/{idEstablishment}")
+    public Iterable<Catalog> getCatalogs(@PathVariable Long idEstablishment){
+        return catalogService.getCatalogs(idEstablishment);
+    }
+
 }
