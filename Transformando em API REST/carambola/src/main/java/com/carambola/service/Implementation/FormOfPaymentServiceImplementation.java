@@ -57,14 +57,11 @@ public class FormOfPaymentServiceImplementation implements FormOfPaymentService 
         Optional<User> user = userRepository.findById(idUser);
         Optional<FormOfPayment> formOfPayment = formOfPaymentRepository.findById(user.get().getFormOfPayment().getId());
         if(formOfPayment.isPresent()){
-            if(user.isPresent()){
-                user.get().setFormOfPayment(null);
-                userRepository.save(user.get());
-                formOfPaymentRepository.delete(formOfPayment.get());
-                return "Forma de Pagamento (ID:" + formOfPayment.get().getId() + ", Númedo do Cartão:" + formOfPayment.get().getCardNumber()
-                        + ", Bandeira:" + formOfPayment.get().getCardFlag() + ", Nome do titular do cartão: " + formOfPayment.get().getCardHolderName() + ". Foi deletado com sucesso!";
-            }
-            return "Não existe esse usuário!";
+            user.get().setFormOfPayment(null);
+            userRepository.save(user.get());
+            formOfPaymentRepository.delete(formOfPayment.get());
+            return "Forma de Pagamento (ID:" + formOfPayment.get().getId() + ", Númedo do Cartão:" + formOfPayment.get().getCardNumber()
+                    + ", Bandeira:" + formOfPayment.get().getCardFlag() + ", Nome do titular do cartão: " + formOfPayment.get().getCardHolderName() + ". Foi deletado com sucesso!";
         }
         return "Essa forma de pagamento não pode ser deletado, pois não existe!";
     }

@@ -1,4 +1,4 @@
-package com.carambola.model.form.employee;
+package com.carambola.model.form.establishment.employee;
 
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;

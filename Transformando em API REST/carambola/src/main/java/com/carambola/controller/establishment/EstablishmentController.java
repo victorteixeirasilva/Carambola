@@ -1,4 +1,4 @@
-package com.carambola.controller;
+package com.carambola.controller.establishment;
 
 import com.carambola.model.User;
 import com.carambola.model.form.establishment.*;

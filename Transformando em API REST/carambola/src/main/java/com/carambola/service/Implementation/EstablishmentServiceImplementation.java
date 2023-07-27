@@ -93,7 +93,7 @@ public class EstablishmentServiceImplementation implements EstablishmentService 
         User user = new User();
 
         user.setName(establishmentForm.getName());
-        user.setCpf(establishmentForm.getCnpj());
+        user.setCnpj(establishmentForm.getCnpj());
         user.setEmail(establishmentForm.getEmail());
         user.setPassword(establishmentForm.getPassword());
         user.setTelephone(establishmentForm.getTelephone());
@@ -107,6 +107,7 @@ public class EstablishmentServiceImplementation implements EstablishmentService 
         role.setId(1);
 
         user.setRole(role);
+
 
         saveUserWithCep(user);
     }

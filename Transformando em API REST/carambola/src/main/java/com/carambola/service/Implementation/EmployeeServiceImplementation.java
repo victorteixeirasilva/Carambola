@@ -1,11 +1,9 @@
 package com.carambola.service.Implementation;
 
-import com.carambola.model.Address;
 import com.carambola.model.Role;
 import com.carambola.model.User;
-import com.carambola.model.form.customer.CustomerUpdateForm;
-import com.carambola.model.form.employee.EmployeeForm;
-import com.carambola.model.form.employee.EmployeeUpdateForm;
+import com.carambola.model.form.establishment.employee.EmployeeForm;
+import com.carambola.model.form.establishment.employee.EmployeeUpdateForm;
 import com.carambola.repository.AddressRepository;
 import com.carambola.repository.UserRepository;
 import com.carambola.service.EmployeeService;

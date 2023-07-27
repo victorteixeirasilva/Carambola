@@ -1,8 +1,8 @@
-package com.carambola.controller;
+package com.carambola.controller.establishment;
 
 import com.carambola.model.User;
-import com.carambola.model.form.employee.EmployeeForm;
-import com.carambola.model.form.employee.EmployeeUpdateForm;
+import com.carambola.model.form.establishment.employee.EmployeeForm;
+import com.carambola.model.form.establishment.employee.EmployeeUpdateForm;
 import com.carambola.service.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

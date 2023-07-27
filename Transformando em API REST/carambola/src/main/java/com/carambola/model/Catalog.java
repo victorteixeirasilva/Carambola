@@ -27,6 +27,8 @@ public class Catalog {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
+    @ManyToOne
+    private User user;
 
 
 
