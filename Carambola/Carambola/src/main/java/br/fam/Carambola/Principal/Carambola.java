@@ -132,7 +132,7 @@ public class Carambola {
 			} else if (conn.verificarSeCliente(idUsuario)){ //Se usuario for cadatrado e for do tipo cliente
 				menuUsuarioCliente(idUsuario);
 			} else if (conn.verificarSeFuncionario(idUsuario)){ //Se usuario for cadatrado e for do tipo funcionario
-				menuFuncionario(idUsuario);
+//				menuFuncionario(idUsuario);
 			}
 		} else {
 			JOptionPane.showInputDialog("Email ou senha invalidos\n \nClique ok para tentar novamente!");
@@ -140,9 +140,9 @@ public class Carambola {
 		}
 	}
 	
-	private static void menuFuncionario(int idUsuario) {
-		
-	}
+//	private static void menuFuncionario(int idUsuario) {
+//
+//	}
 	
 	private static void menuEstabelecimento(int idEstabelecimento) throws SQLException {
 		ConnectionDb conn = new ConnectionDb();

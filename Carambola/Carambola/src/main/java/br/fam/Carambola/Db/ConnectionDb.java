@@ -13,7 +13,7 @@ import br.fam.Carambola.Formatador;
  * 
  * @version 1.0
  * 
- * - Classe ConnectionDb está fora do Diagrama, Essa classe é responsavel por fazer a conexão com o banco de dados em H2 e fazer tantos os comandos DDL quanto os DML
+ * @see Classe ConnectionDb está fora do Diagrama, Essa classe é responsavel por fazer a conexão com o banco de dados em H2 e fazer tantos os comandos DDL quanto os DML
  * 
  * 
  */
@@ -30,6 +30,18 @@ public class ConnectionDb {
 	String senha = "";// Senha padrao
 	Formatador formatador = new Formatador();
 	
+	/**
+	 * 
+	 * @param idEstabelecimento - Parametro do tipo int que vai receber o id do estabelecimento
+	 * @param dataInicial - Parametro do tipo String que vai receber a data inicial que será usado para a consulta
+	 * @param dataFinal - Parametro do tipo String que vai receber a data final que será usada na consulta
+	 * 
+	 * @throws SQLException
+	 * 
+	 * @see Metodo responsavel por receber o id do estabelecimento e data inical e data final como parametro que será usado para executar a consulta para calcular o faturamento do periodo informado
+	 * 
+	 * @return Esse metodo não existe um valor de retorno, entretanto ele apresenta uma tela informando o faturamente do tempo informado
+	 */
 	public void verificarFaturamento(int idEstabelecimento, String dataInicial, String dataFinal) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
@@ -65,6 +77,16 @@ public class ConnectionDb {
         statement.close();
 	}
 	
+	/**
+	 * 
+	 * @param idPedido -  Parametro responsavel por receber o número do pedido.
+	 * 
+	 * @throws SQLException
+	 * 
+	 * @see Metodo responsavel por receber o id do pedido e retornar um valor do tipo String com a data do pedido informado como parametro.
+	 * 
+	 * @return Esse metodo retorna a data desse pedido.
+	 */
 	public String getDataPedido(int idPedido) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
@@ -96,6 +118,16 @@ public class ConnectionDb {
 		
 	}
 	
+	/**
+	 * 
+	 * @param idPedido -  Parametro responsavel por receber o número do pedido.
+	 * 
+	 * @throws SQLException
+	 * 
+	 * @see Metodo responsavel por receber o id do pedido e retornar um valor do tipo String com o status do pedido informado como parametro.
+	 * 
+	 * @return Esse metodo retorna o status desse pedido.
+	 */
 	public String getStatusPedido(int idPedido) throws SQLException {
 		//Testa a conexão no Banco de dados
 		try (Connection conexao = DriverManager.getConnection(this.url, this.usuario, this.senha)) {
