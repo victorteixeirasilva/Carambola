@@ -93,7 +93,7 @@ public class FormOfPayment {
 
     }
 
-    public void validateCard(String cardNumber) {
+    public boolean validateCard(String cardNumber) {
         if((cardNumber.length() >= 13)&&(cardNumber.length() <= 16)) {
             boolean flag = cardValidityCheck(cardNumber);
 
@@ -103,12 +103,16 @@ public class FormOfPayment {
                 System.out.println("Cartão Válido!"
                         + "\n\nNúmero do cartão: "+cardNumber
                         + "\n\nBandeira do cartão:"+this.cardFlag);
+                return true;
             } else {
                 System.out.println("Cartão Inválido!");
+                return false;
             }
         } else {
             System.out.println("Número de cartão inválido!");
+            return false;
         }
+
     }
 
 

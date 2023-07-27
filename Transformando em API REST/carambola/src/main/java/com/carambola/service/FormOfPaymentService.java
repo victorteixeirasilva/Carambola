@@ -13,6 +13,6 @@ public interface FormOfPaymentService {
 
     public Optional<FormOfPayment> SearchById(Long id);
 
-    public String delete(Long id);
+    public String delete(Long idUser);
 
 }

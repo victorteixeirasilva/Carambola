@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("user/customer/payment")
 public class FormOfPaymentController {
@@ -20,6 +22,15 @@ public class FormOfPaymentController {
         return ResponseEntity.ok(formOfPayment);
     }
 
+    @DeleteMapping("/{idUser}")
+    public String delete(@PathVariable Long idUser){
+        return formOfPaymentService.delete(idUser);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<FormOfPayment> searchById(@PathVariable Long id){
+        return formOfPaymentService.SearchById(id);
+    }
 
 
 
