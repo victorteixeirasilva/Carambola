@@ -45,7 +45,8 @@ public class FormOfPaymentServiceImplementation implements FormOfPaymentService 
 
     @Override
     public Optional<FormOfPayment> SearchById(Long id) {
-        Optional<FormOfPayment> formOfPayment = formOfPaymentRepository.findById(id);
+        Optional<User> user = userRepository.findById(id);
+        Optional<FormOfPayment> formOfPayment = formOfPaymentRepository.findById(user.get().getFormOfPayment().getId());
         if(formOfPayment.isPresent()){
             return formOfPayment;
         }

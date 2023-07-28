@@ -27,9 +27,9 @@ public class FormOfPaymentController {
         return formOfPaymentService.delete(idUser);
     }
 
-    @GetMapping("/{id}")
-    public Optional<FormOfPayment> searchById(@PathVariable Long id){
-        return formOfPaymentService.SearchById(id);
+    @GetMapping("/{idUser}")
+    public Optional<FormOfPayment> searchById(@PathVariable Long idUser){
+        return formOfPaymentService.SearchById(idUser);
     }
 
 
