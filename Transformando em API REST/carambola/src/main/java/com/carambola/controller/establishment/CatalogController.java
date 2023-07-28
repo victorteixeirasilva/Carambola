@@ -25,4 +25,10 @@ public class CatalogController {
         return catalogService.getCatalogs(idEstablishment);
     }
 
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id){
+        return catalogService.delete(id);
+    }
+
+
 }

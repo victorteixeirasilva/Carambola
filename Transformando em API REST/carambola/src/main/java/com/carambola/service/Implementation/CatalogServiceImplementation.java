@@ -36,4 +36,15 @@ public class CatalogServiceImplementation implements CatalogService {
     public Iterable<Catalog> getCatalogs(Long id) {
         return catalogRepository.findByUserId(id);
     }
+
+    @Override
+    public String delete(Long id) {
+        Optional<Catalog> catalog = catalogRepository.findById(id);
+        if(catalog.isPresent()){
+            catalogRepository.delete(catalog.get());
+            return "Catalogo (ID:" + catalog.get().getId() + ", Nome:" + catalog.get().getName() + "). Foi deletado com sucesso!";
+        } else {
+            return "Não é possível deletar esse catalogo pois ele não existe!";
+        }
+    }
 }

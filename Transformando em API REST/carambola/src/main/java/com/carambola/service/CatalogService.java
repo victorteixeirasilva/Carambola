@@ -10,4 +10,6 @@ public interface CatalogService {
     public Catalog insert(Long id, CatalogForm catalogForm);
 
     public Iterable<Catalog> getCatalogs(Long id);
+
+    public String delete(Long id);
 }
