@@ -12,4 +12,6 @@ public interface CatalogService {
     public Iterable<Catalog> getCatalogs(Long id);
 
     public String delete(Long id);
+
+    public Catalog update(Long id, CatalogForm catalogForm);
 }

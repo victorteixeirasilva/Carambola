@@ -47,4 +47,23 @@ public class CatalogServiceImplementation implements CatalogService {
             return "Não é possível deletar esse catalogo pois ele não existe!";
         }
     }
+
+    @Override
+    public Catalog update(Long id, CatalogForm catalogForm) {
+        Optional<Catalog> catalogBd = catalogRepository.findById(id);
+        Catalog catalog = new Catalog();
+        if(catalogBd.isPresent()){
+            if(catalogBd.get().getName()==catalogForm.getName()||catalogForm.getName()==""){
+                return catalogBd.get();
+            } else {
+                catalog.setName(catalogForm.getName());
+                catalog.setId(catalogBd.get().getId());
+                catalog.setUser(catalogBd.get().getUser());
+                catalogRepository.save(catalog);
+                return catalog;
+            }
+        } else {
+            return null;
+        }
+    }
 }

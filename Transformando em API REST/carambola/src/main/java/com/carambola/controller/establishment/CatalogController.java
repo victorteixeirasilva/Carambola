@@ -30,5 +30,10 @@ public class CatalogController {
         return catalogService.delete(id);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Catalog> update(@PathVariable Long id, @RequestBody CatalogForm catalogForm){
+        return ResponseEntity.ok(catalogService.update(id,catalogForm));
+    }
+
 
 }
