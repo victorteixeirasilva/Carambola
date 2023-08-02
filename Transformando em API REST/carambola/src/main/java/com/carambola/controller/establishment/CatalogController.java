@@ -34,7 +34,7 @@ public class CatalogController {
     public ResponseEntity<Catalog> update(@PathVariable Long id, @RequestBody CatalogForm catalogForm){
         return ResponseEntity.ok(catalogService.update(id,catalogForm));
     }
-    
+
 
 
 }
