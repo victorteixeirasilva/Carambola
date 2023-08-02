@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface CatalogRepository extends JpaRepository<Catalog, Long> {
 
     Iterable<Catalog> findByUserId(Long userId);
+
+    Catalog findById(Catalog catalog);
 }

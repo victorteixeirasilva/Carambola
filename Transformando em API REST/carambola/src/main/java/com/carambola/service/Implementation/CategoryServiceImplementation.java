@@ -1,7 +1,9 @@
 package com.carambola.service.Implementation;
 
+import com.carambola.model.Catalog;
 import com.carambola.model.Category;
 import com.carambola.model.form.establishment.CategoryForm;
+import com.carambola.repository.CatalogRepository;
 import com.carambola.repository.CategoryRepository;
 import com.carambola.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,31 @@ public class CategoryServiceImplementation implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private CatalogRepository catalogRepository;
+
     @Override
     public Category insert(CategoryForm categoryForm) {
         Category category = new Category();
         category.setName(categoryForm.getName());
+
+        Optional<Catalog> catalogBd = catalogRepository.findById(categoryForm.getIdCatalog());
+        if(catalogBd.isPresent()){
+            Catalog catalog = catalogBd.get();
+            category.setCatalog(catalog);
+        }
+
+        if(categoryForm.getIdParentCategory()==0){
+            Category parentCategory = categoryRepository.findCategoriesByCatalogIdAndName(category.getCatalog().getId());
+            category.setParentCategory(parentCategory);
+        } else {
+            Optional<Category> parentCategoryBd = categoryRepository.findById(categoryForm.getIdParentCategory());
+            if(parentCategoryBd.isPresent()){
+                Category parentCategory = parentCategoryBd.get();
+                category.setParentCategory(parentCategory);
+            }
+        }
+
         categoryRepository.save(category);
         return category;
     }

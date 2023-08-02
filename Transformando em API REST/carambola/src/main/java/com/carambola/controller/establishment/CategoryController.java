@@ -25,6 +25,11 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.insert(categoryForm));
     }
 
+    @PutMapping
+    public ResponseEntity<Category> update(@RequestBody Category category){
+        return null;
+    }
+
 
 
 

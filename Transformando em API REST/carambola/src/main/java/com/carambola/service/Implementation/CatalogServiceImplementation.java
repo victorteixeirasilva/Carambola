@@ -3,9 +3,11 @@ package com.carambola.service.Implementation;
 import com.carambola.model.Catalog;
 import com.carambola.model.User;
 import com.carambola.model.form.establishment.CatalogForm;
+import com.carambola.model.form.establishment.CategoryForm;
 import com.carambola.repository.CatalogRepository;
 import com.carambola.repository.UserRepository;
 import com.carambola.service.CatalogService;
+import com.carambola.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ public class CatalogServiceImplementation implements CatalogService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CategoryService categoryService;
     @Override
     public Catalog insert(Long id, CatalogForm catalogForm) {
         Catalog catalog = new Catalog();
@@ -29,6 +33,13 @@ public class CatalogServiceImplementation implements CatalogService {
         catalog.setUser(userBd.get());
 
         catalogRepository.save(catalog);
+
+        CategoryForm categoryForm = new CategoryForm();
+        categoryForm.setName("Todos os Produtos");
+        categoryForm.setIdCatalog(catalog.getId());
+        categoryForm.setIdParentCategory(0L);
+        categoryService.insert(categoryForm);
+
         return catalog;
     }
 
