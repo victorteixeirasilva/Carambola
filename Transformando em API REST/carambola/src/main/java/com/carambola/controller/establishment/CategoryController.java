@@ -25,9 +25,9 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.insert(categoryForm));
     }
 
-    @PutMapping
-    public ResponseEntity<Category> update(@RequestBody Category category){
-        return null;
+    @PutMapping("/{idCategory}")
+    public ResponseEntity<Category> update(@PathVariable Long idCategory, @RequestBody CategoryForm categoryForm){
+        return ResponseEntity.ok(categoryService.update(idCategory, categoryForm));
     }
 
 

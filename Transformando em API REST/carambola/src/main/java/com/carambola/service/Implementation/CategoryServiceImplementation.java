@@ -21,6 +21,37 @@ public class CategoryServiceImplementation implements CategoryService {
     private CatalogRepository catalogRepository;
 
     @Override
+    public Category update(Long idCategory, CategoryForm categoryForm) {
+        Category category = new Category();
+        Optional<Category> categoryBd = categoryRepository.findById(idCategory);
+
+        //Name
+        if(categoryBd.get().getName()!=categoryForm.getName()&&categoryForm.getName()!=""){
+            category.setName(categoryForm.getName());
+        } else {
+            category.setName(categoryBd.get().getName());
+        }
+
+        //Parent Category
+        if(categoryBd.get().getParentCategory().getId()!=categoryForm.getIdParentCategory()&&categoryForm.getIdParentCategory()!=0){
+            Optional<Category> parentCategory = categoryRepository.findById(categoryForm.getIdParentCategory());
+            category.setParentCategory(parentCategory.get());
+        } else {
+            category.setParentCategory(categoryBd.get().getParentCategory());
+        }
+
+        //Catalog
+        category.setCatalog(categoryBd.get().getCatalog());
+
+        //Id
+        category.setId(categoryBd.get().getId());
+
+        categoryRepository.save(category);
+
+        return category;
+    }
+
+    @Override
     public Category insert(CategoryForm categoryForm) {
         Category category = new Category();
         category.setName(categoryForm.getName());
