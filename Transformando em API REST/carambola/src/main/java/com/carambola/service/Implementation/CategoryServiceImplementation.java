@@ -21,6 +21,17 @@ public class CategoryServiceImplementation implements CategoryService {
     private CatalogRepository catalogRepository;
 
     @Override
+    public String delete(Long idCategory) {
+        Optional<Category> category = categoryRepository.findById(idCategory);
+        if(category.isPresent()){
+            categoryRepository.delete(category.get());
+            return "Categoria: (ID: " + category.get().getId() + ", Nome: " + category.get().getName() + "). Foi deletada com sucesso!";
+        } else {
+            return "Não é possível deletar essa categoria não existe!";
+        }
+    }
+
+    @Override
     public Category update(Long idCategory, CategoryForm categoryForm) {
         Category category = new Category();
         Optional<Category> categoryBd = categoryRepository.findById(idCategory);

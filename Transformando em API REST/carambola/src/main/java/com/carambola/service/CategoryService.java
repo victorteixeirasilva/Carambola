@@ -9,6 +9,8 @@ import java.util.Optional;
 @Component
 public interface CategoryService {
 
+    public String delete(Long idCategory);
+
     public Category update(Long idCategory, CategoryForm categoryForm);
 
     public Category insert(CategoryForm categoryForm);

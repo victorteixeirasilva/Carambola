@@ -30,6 +30,11 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.update(idCategory, categoryForm));
     }
 
+    @DeleteMapping("/{idCategory}")
+    public String delete(@PathVariable Long idCategory){
+        return categoryService.delete(idCategory);
+    }
+
 
 
 
