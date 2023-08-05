@@ -26,9 +26,11 @@ public class Catalog {
     @Column(name = "CATALOG_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private boolean active = true;
     private String name;
     @ManyToOne
     private User user;
+
 
 
 

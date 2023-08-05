@@ -1,16 +1,22 @@
 package com.carambola.service.Implementation;
 
+import com.carambola.exception.ResponseModel;
 import com.carambola.model.Catalog;
+import com.carambola.model.Category;
 import com.carambola.model.User;
 import com.carambola.model.form.establishment.CatalogForm;
 import com.carambola.model.form.establishment.CategoryForm;
 import com.carambola.repository.CatalogRepository;
+import com.carambola.repository.CategoryRepository;
 import com.carambola.repository.UserRepository;
 import com.carambola.service.CatalogService;
 import com.carambola.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +27,9 @@ public class CatalogServiceImplementation implements CatalogService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Autowired
     private CategoryService categoryService;
@@ -45,17 +54,25 @@ public class CatalogServiceImplementation implements CatalogService {
 
     @Override
     public Iterable<Catalog> getCatalogs(Long id) {
-        return catalogRepository.findByUserId(id);
+        return catalogRepository.findByUserIdAndActiveTrue(id);
     }
 
     @Override
-    public String delete(Long id) {
+    public ResponseEntity<Catalog> delete(Long id) {
         Optional<Catalog> catalog = catalogRepository.findById(id);
         if(catalog.isPresent()){
-            catalogRepository.delete(catalog.get());
-            return "Catalogo (ID:" + catalog.get().getId() + ", Nome:" + catalog.get().getName() + "). Foi deletado com sucesso!";
+            List<Category> category = (List<Category>) categoryRepository.findByCatalogId(id);
+            if(catalogRepository.hasCategories(id)){
+                var isPresentCategory = new ResponseModel(500, "Não é possível deletar pois existem categorias vinculadas!");
+                return new ResponseEntity(isPresentCategory, HttpStatus.INTERNAL_SERVER_ERROR);
+            } else {
+                catalog.get().setActive(false);
+                catalogRepository.save(catalog.get());
+                return  ResponseEntity.ok(catalog.get());
+            }
         } else {
-            return "Não é possível deletar esse catalogo pois ele não existe!";
+            ResponseModel notFound = new ResponseModel(404, "Não foi possível encontrar um catalogo com esse id!");
+            return new ResponseEntity(notFound, HttpStatus.NOT_FOUND);
         }
     }
 

@@ -16,4 +16,5 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     public Iterable<Category> findByCatalogId(Long idCatalog);
 
+
 }

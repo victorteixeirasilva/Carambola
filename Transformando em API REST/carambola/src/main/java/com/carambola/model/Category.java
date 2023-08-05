@@ -36,11 +36,7 @@ public class Category {
     @JoinColumn(name = "parent_category")
     private Category parentCategory;
     private String name;
-    // Relacionamento com as categorias filhas (exclusão em cascata)
-    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Category> childCategories = new ArrayList<>();
-
-
+    private boolean active = true;
 
 
 

@@ -4,6 +4,7 @@ import com.carambola.model.Catalog;
 import com.carambola.model.form.establishment.CatalogForm;
 import com.carambola.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +27,12 @@ public class CatalogController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id){
-        return catalogService.delete(id);
+    public ResponseEntity delete(@PathVariable Long id){
+        try {
+            return catalogService.delete(id);
+        } catch (Exception ex){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{id}")
