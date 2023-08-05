@@ -22,7 +22,7 @@ import java.util.Optional;
 @Component
 public interface UserService {
 
-    public Optional<User> SearchById(Long id);
+    public ResponseEntity SearchById(Long id);
     public Iterable<User> fetchAll();
     public ResponseEntity delete(Long id);
 

@@ -32,8 +32,12 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<User>> SearchById(@PathVariable Long id){
-        return ResponseEntity.ok(userService.SearchById(id));
+    public ResponseEntity SearchById(@PathVariable Long id){
+        try {
+            return userService.SearchById(id);
+        } catch (Exception ex){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/{id}")

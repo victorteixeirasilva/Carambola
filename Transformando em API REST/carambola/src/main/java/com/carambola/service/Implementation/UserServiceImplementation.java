@@ -1,6 +1,7 @@
 package com.carambola.service.Implementation;
 
 import com.carambola.exception.ResponseModel;
+import com.carambola.model.Catalog;
 import com.carambola.model.User;
 import com.carambola.repository.UserRepository;
 import com.carambola.service.UserService;
@@ -29,13 +30,14 @@ public class UserServiceImplementation implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public Optional<User> SearchById(Long id) {
-        Optional<User> user = userRepository.findById(id);
+    public ResponseEntity SearchById(Long id) {
+        Optional<User> user = userRepository.findByIdAndActiveTrue(id);
         if(user.isPresent()){
-            return user;
+            return ResponseEntity.ok(user.get());
+        } else {
+            ResponseModel responseModel = new ResponseModel(404, "Não é possível encontrar esse usuário!");
+            return new ResponseEntity(responseModel, HttpStatus.NOT_FOUND);
         }
-        System.out.println("------------ ERRO: Usuário não existe! -------------");
-        return user;
     }
 
     @Override
