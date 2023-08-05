@@ -1,6 +1,7 @@
 package com.carambola.service;
 
 import com.carambola.model.User;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -23,7 +24,7 @@ public interface UserService {
 
     public Optional<User> SearchById(Long id);
     public Iterable<User> fetchAll();
-    public String delete(Long id);
+    public ResponseEntity delete(Long id);
 
 
 

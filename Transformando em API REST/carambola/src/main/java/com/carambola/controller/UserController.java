@@ -3,6 +3,7 @@ package com.carambola.controller;
 import com.carambola.model.User;
 import com.carambola.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +37,12 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id){
-        return ResponseEntity.ok(userService.delete(id));
+    public ResponseEntity delete(@PathVariable Long id){
+        try {
+            return userService.delete(id);
+        } catch (Exception ex){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
