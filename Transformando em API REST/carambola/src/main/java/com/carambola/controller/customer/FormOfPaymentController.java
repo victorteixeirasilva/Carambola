@@ -23,12 +23,12 @@ public class FormOfPaymentController {
     }
 
     @DeleteMapping("/{idUser}")
-    public String delete(@PathVariable Long idUser){
+    public ResponseEntity delete(@PathVariable Long idUser){
         return formOfPaymentService.delete(idUser);
     }
 
     @GetMapping("/{idUser}")
-    public Optional<FormOfPayment> searchById(@PathVariable Long idUser){
+    public ResponseEntity searchById(@PathVariable Long idUser){
         return formOfPaymentService.SearchById(idUser);
     }
 
