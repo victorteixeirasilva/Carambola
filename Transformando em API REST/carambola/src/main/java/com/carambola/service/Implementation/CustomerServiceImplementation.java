@@ -1,5 +1,6 @@
 package com.carambola.service.Implementation;
 
+import com.carambola.exception.ResponseModel;
 import com.carambola.model.Address;
 import com.carambola.model.FormOfPayment;
 import com.carambola.model.Role;
@@ -12,7 +13,11 @@ import com.carambola.repository.UserRepository;
 import com.carambola.service.CustomerService;
 import com.carambola.service.ViaCepService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -52,12 +57,18 @@ public class CustomerServiceImplementation implements CustomerService {
     }
 
     @Override
-    public Iterable<User> showEstablishments() {
-        return customerRepository.showEstablishments();
+    public ResponseEntity showEstablishments() {
+         List<User> users = customerRepository.showEstablishments();
+         if (!users.isEmpty()){
+             return ResponseEntity.ok(users);
+         } else {
+             ResponseModel responseModel = new ResponseModel(404,"Não existem estabelicimentos cadastrados!");
+             return new ResponseEntity<>(responseModel,HttpStatus.NOT_FOUND);
+         }
     }
 
     @Override
-    public User update(Long id, CustomerUpdateForm customerUpdateForm) {
+    public ResponseEntity update(Long id, CustomerUpdateForm customerUpdateForm) {
         Optional<User> userBd = userRepository.findById(id);
         if (userBd.isPresent()){
             User user = new User();
@@ -120,9 +131,11 @@ public class CustomerServiceImplementation implements CustomerService {
             }
 
             saveUserWithCep(user);
-
+            return ResponseEntity.ok(user);
+        } else {
+            ResponseModel responseModel = new ResponseModel(404,"Não foi possível encontrar esse usuário!");
+            return new ResponseEntity(responseModel, HttpStatus.NOT_FOUND);
         }
-        return userBd.get();
     }
 
     @Override
