@@ -18,4 +18,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Catalog c WHERE c.user.id = :userId")
     boolean hasCatalog(Long userId);
 
+    @Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM User u WHERE u.formOfPayment.id != 0 AND u.id = :userId")
+    boolean hasFormOfPayment(Long userId);
+
+
 }

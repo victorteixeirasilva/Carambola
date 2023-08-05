@@ -53,6 +53,9 @@ public class UserServiceImplementation implements UserService {
             if(userRepository.hasCatalog(id)){
                 ResponseModel isPresentCatalog = new ResponseModel(500, "Não é possível deletar esse usuário pois existem catalogos vinculados!");
                 return new ResponseEntity(isPresentCatalog, HttpStatus.INTERNAL_SERVER_ERROR);
+            } else if(userRepository.hasFormOfPayment(id)){
+                ResponseModel isPresentFormOfPayment = new ResponseModel(500, "Não é possível deletar esse usuário pois existem formas de pagamento vinculadas!");
+                return new ResponseEntity(isPresentFormOfPayment, HttpStatus.INTERNAL_SERVER_ERROR);
             } else {
                 user.get().setActive(false);
                 userRepository.save(user.get());
