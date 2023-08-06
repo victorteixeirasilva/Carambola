@@ -23,7 +23,7 @@ import java.util.Optional;
 public interface UserService {
 
     public ResponseEntity SearchById(Long id);
-    public Iterable<User> fetchAll();
+    public ResponseEntity fetchAll();
     public ResponseEntity delete(Long id);
 
 

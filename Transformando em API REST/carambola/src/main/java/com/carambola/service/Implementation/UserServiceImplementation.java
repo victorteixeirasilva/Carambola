@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -41,8 +42,14 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public Iterable<User> fetchAll() {
-       return userRepository.findAll();
+    public ResponseEntity fetchAll() {
+        List<User> allUsers = userRepository.findAllAndActiveTrue();
+        if (!allUsers.isEmpty()){
+            return ResponseEntity.ok(allUsers);
+        } else {
+            ResponseModel responseModel = new ResponseModel(404, "Não foi possível encontrar nenhum usuário!");
+            return new ResponseEntity(responseModel, HttpStatus.NOT_FOUND);
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.carambola.controller;
 
+import com.carambola.exception.ResponseModel;
 import com.carambola.model.User;
 import com.carambola.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,13 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public Iterable<User> fetchAll(){
-        return userService.fetchAll();
+    public ResponseEntity fetchAll(){
+        try {
+            return userService.fetchAll();
+        } catch (Exception ex){
+            ResponseModel responseModel = new ResponseModel(404, "Não foi possível mostrar todos os usuários!");
+            return new ResponseEntity(responseModel, HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/{id}")

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -21,5 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM User u WHERE u.formOfPayment.id != 0 AND u.id = :userId")
     boolean hasFormOfPayment(Long userId);
 
+    @Query("SELECT u FROM User u WHERE u.active = true")
+    List<User> findAllAndActiveTrue();
 
 }
