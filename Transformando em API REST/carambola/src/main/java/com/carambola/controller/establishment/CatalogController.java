@@ -1,5 +1,6 @@
 package com.carambola.controller.establishment;
 
+import com.carambola.exception.ResponseModel;
 import com.carambola.model.Catalog;
 import com.carambola.model.form.establishment.CatalogForm;
 import com.carambola.service.CatalogService;
@@ -22,8 +23,13 @@ public class CatalogController {
     }
 
     @GetMapping("/{idEstablishment}")
-    public Iterable<Catalog> getCatalogs(@PathVariable Long idEstablishment){
-        return catalogService.getCatalogs(idEstablishment);
+    public ResponseEntity getCatalogs(@PathVariable Long idEstablishment){
+        try {
+            return catalogService.getCatalogs(idEstablishment);
+        } catch (Exception ex){
+            ResponseModel responseModel = new ResponseModel(500, "Não foi possível pegas os catalogos!");
+            return new ResponseEntity(responseModel, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/{id}")

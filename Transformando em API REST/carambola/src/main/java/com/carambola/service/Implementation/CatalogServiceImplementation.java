@@ -53,8 +53,20 @@ public class CatalogServiceImplementation implements CatalogService {
     }
 
     @Override
-    public Iterable<Catalog> getCatalogs(Long id) {
-        return catalogRepository.findByUserIdAndActiveTrue(id);
+    public ResponseEntity getCatalogs(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()){
+            List<Catalog> catalogs = (List<Catalog>) catalogRepository.findByUserIdAndActiveTrue(id);
+            if (!catalogs.isEmpty()){
+                return ResponseEntity.ok(catalogs);
+            } else {
+                ResponseModel notFoundCatalog = new ResponseModel(404, "Não foi possível localizar catalogos nesse estabelecimento!");
+                return new ResponseEntity(notFoundCatalog, HttpStatus.NOT_FOUND);
+            }
+        } else {
+            ResponseModel notFoundEstablishment = new ResponseModel(404, "Não foi possível encontrar o estabelecimento informado!");
+            return new ResponseEntity(notFoundEstablishment, HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
