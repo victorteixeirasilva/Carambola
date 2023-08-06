@@ -41,7 +41,7 @@ public class CustomerController {
         try {
             return customerService.update(id, customerUpdateForm);
         } catch (Exception ex){
-            ResponseModel responseModel = new ResponseModel(404,"Não existem estabelicimentos cadastrados!");
+            ResponseModel responseModel = new ResponseModel(404,"Erro ao atualizar esse usuário!");
             return new ResponseEntity(responseModel,HttpStatus.NOT_FOUND);
         }
     }

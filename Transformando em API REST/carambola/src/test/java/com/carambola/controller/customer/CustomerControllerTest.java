@@ -1,5 +1,6 @@
 package com.carambola.controller.customer;
 import com.carambola.exception.ResponseModel;
+import com.carambola.model.User;
 import com.carambola.model.form.customer.CustomerForm;
 import com.carambola.model.form.customer.CustomerUpdateForm;
 import com.carambola.service.CustomerService;
@@ -10,6 +11,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -25,8 +29,24 @@ public class CustomerControllerTest {
 
     @Test
     public void testShowEstablishmentsSuccess() {
+        // Mock de dados
+        List<User> userList = new ArrayList<>();
+
+        User user1 = new User();
+        user1.setId(1L);
+        user1.setName("Victor");
+        user1.setActive(true);
+
+        User user2 = new User();
+        user2.setId(2L);
+        user2.setName("Arthur");
+        user2.setActive(true);
+
+        userList.add(user1);
+        userList.add(user2);
+
         // Configurar comportamento simulado do serviço
-        ResponseEntity expectedResponse = ResponseEntity.ok("Lista de estabelecimentos");
+        ResponseEntity expectedResponse = ResponseEntity.ok(userList);
         when(customerService.showEstablishments()).thenReturn(expectedResponse);
 
         // Executar o método a ser testado
@@ -78,8 +98,12 @@ public class CustomerControllerTest {
         CustomerUpdateForm customerUpdateForm = new CustomerUpdateForm();
         customerUpdateForm.setName("Updated John");
 
+        User user = new User();
+        user.setId(customerId);
+        user.setName(customerUpdateForm.getName());
+
         // Configurar comportamento simulado do serviço
-        ResponseEntity expectedResponse = ResponseEntity.ok("Usuário atualizado com sucesso");
+        ResponseEntity expectedResponse = ResponseEntity.ok(user);
         when(customerService.update(customerId, customerUpdateForm)).thenReturn(expectedResponse);
 
         // Executar o método a ser testado
@@ -109,7 +133,7 @@ public class CustomerControllerTest {
         verify(customerService, times(1)).update(customerId, customerUpdateForm);
 
         // Verificar se a resposta de erro esperada foi retornada
-        ResponseModel expectedResponse = new ResponseModel(404, "Não existem estabelicimentos cadastrados!");
+        ResponseModel expectedResponse = new ResponseModel(404, "Erro ao atualizar esse usuário!");
         assertEquals(new ResponseEntity<>(expectedResponse, HttpStatus.NOT_FOUND), responseEntity);
     }
 }
