@@ -1,6 +1,5 @@
 package com.carambola.controller;
 
-import com.carambola.controller.UserController;
 import com.carambola.model.User;
 import com.carambola.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
@@ -66,4 +65,72 @@ public class UserControllerTest {
         // Verificar o resultado
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
+
+    @Test
+    public void testSearchByIdSuccess() {
+        // Configurar comportamento simulado do serviço
+        Long userId = 1L;
+        User userExpected = new User();
+        userExpected.setId(1L);
+        userExpected.setName("Victor");
+        userExpected.setActive(true);
+        ResponseEntity expectedResponse = ResponseEntity.ok(userExpected);
+        when(userService.SearchById(userId)).thenReturn(expectedResponse);
+
+        // Executar o método a ser testado
+        ResponseEntity responseEntity = userController.SearchById(userId);
+
+        // Verificar se o serviço foi chamado com o ID correto
+        verify(userService, times(1)).SearchById(userId);
+
+        // Verificar se a resposta esperada foi retornada
+        assertEquals(expectedResponse, responseEntity);
+    }
+
+    @Test
+    public void testSearchByIdException() {
+        // Configurar comportamento simulado do serviço para lançar uma exceção
+        Long userId = 1L;
+        when(userService.SearchById(userId)).thenThrow(new RuntimeException("Erro simulado"));
+
+        // Executar o método a ser testado
+        ResponseEntity responseEntity = userController.SearchById(userId);
+
+        // Verificar se a resposta de erro esperada foi retornada
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+    }
+
+    @Test
+    public void testDeleteSuccess() {
+        // Configurar comportamento simulado do serviço
+        Long userId = 1L;
+        ResponseEntity expectedResponse = ResponseEntity.ok("Usuário deletado com sucesso");
+        when(userService.delete(userId)).thenReturn(expectedResponse);
+
+        // Executar o método a ser testado
+        ResponseEntity responseEntity = userController.delete(userId);
+
+        // Verificar se o serviço foi chamado com o ID correto
+        verify(userService, times(1)).delete(userId);
+
+        // Verificar se a resposta esperada foi retornada
+        assertEquals(expectedResponse, responseEntity);
+    }
+
+    @Test
+    public void testDeleteError() {
+        // Configurar comportamento simulado do serviço para lançar uma exceção
+        Long userId = 1L;
+        when(userService.delete(userId)).thenThrow(new RuntimeException("Erro ao deletar usuário"));
+
+        // Executar o método a ser testado
+        ResponseEntity responseEntity = userController.delete(userId);
+
+        // Verificar se o serviço foi chamado com o ID correto
+        verify(userService, times(1)).delete(userId);
+
+        // Verificar se a resposta de erro esperada foi retornada
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+    }
+
 }
