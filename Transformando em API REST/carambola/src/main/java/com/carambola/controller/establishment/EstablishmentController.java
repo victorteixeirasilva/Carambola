@@ -1,9 +1,11 @@
 package com.carambola.controller.establishment;
 
+import com.carambola.exception.ResponseModel;
 import com.carambola.model.User;
 import com.carambola.model.form.establishment.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.carambola.service.EstablishmentService;
@@ -27,9 +29,13 @@ public class EstablishmentController {
     private EstablishmentService establishmentService;
 
     @PostMapping
-    public ResponseEntity<EstablishmentForm> insert(@Valid @RequestBody EstablishmentForm establishmentForm){
-        establishmentService.insert(establishmentForm);
-        return ResponseEntity.ok(establishmentForm);
+    public ResponseEntity insert(@Valid @RequestBody EstablishmentForm establishmentForm){
+        try{
+            return ResponseEntity.ok(establishmentService.insert(establishmentForm));
+        } catch (Exception ex){
+            ResponseModel responseModel = new ResponseModel(500,"Não foi possível inserir o estabelecimento");
+            return new ResponseEntity(responseModel, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.carambola.service.Implementation;
 
+import com.carambola.exception.ResponseModel;
 import com.carambola.model.Address;
 import com.carambola.model.Role;
 import com.carambola.model.User;
@@ -10,6 +11,8 @@ import com.carambola.repository.UserRepository;
 import com.carambola.service.EstablishmentService;
 import com.carambola.service.ViaCepService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -88,7 +91,7 @@ public class EstablishmentServiceImplementation implements EstablishmentService 
     }
 
     @Override
-    public void insert(EstablishmentForm establishmentForm) {
+    public ResponseEntity insert(EstablishmentForm establishmentForm) {
 
         User user = new User();
 
@@ -110,6 +113,13 @@ public class EstablishmentServiceImplementation implements EstablishmentService 
 
 
         saveUserWithCep(user);
+        Optional<User> optional = userRepository.findById(user.getId());
+        if (optional.isPresent()){
+            return ResponseEntity.ok(establishmentForm);
+        } else {
+            ResponseModel responseModel = new ResponseModel(500, "Não foi possível cadastrar esse Estabelecimento");
+            return new ResponseEntity(responseModel, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     private void saveUserWithCep(User user){
