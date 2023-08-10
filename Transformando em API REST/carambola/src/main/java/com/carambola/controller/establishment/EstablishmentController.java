@@ -33,14 +33,19 @@ public class EstablishmentController {
         try{
             return ResponseEntity.ok(establishmentService.insert(establishmentForm));
         } catch (Exception ex){
-            ResponseModel responseModel = new ResponseModel(500,"Não foi possível inserir o estabelecimento");
+            ResponseModel responseModel = new ResponseModel(500,"Não foi possível inserir o estabelecimento!");
             return new ResponseEntity(responseModel, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable Long id, @Valid @RequestBody EstablishmentUpdateForm establishmentUpdateForm){
-        return ResponseEntity.ok(establishmentService.update(id, establishmentUpdateForm));
+       try {
+           return ResponseEntity.ok(establishmentService.update(id, establishmentUpdateForm));
+       } catch (Exception exception) {
+           ResponseModel responseModel = new ResponseModel(500,"Não foi possível atualizar o estabelecimento!");
+           return new ResponseEntity(responseModel, HttpStatus.INTERNAL_SERVER_ERROR);
+       }
     }
 
 
