@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @description Classe responsavel por criar a entidade category no banco de dados, dentro dessa classe estão
  * os atributos dos categorias.
@@ -33,8 +36,7 @@ public class Category {
     @JoinColumn(name = "parent_category")
     private Category parentCategory;
     private String name;
-
-
+    private boolean active = true;
 
 
 

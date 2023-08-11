@@ -29,6 +29,7 @@ public class Carambola {
 				+ "\nCaso não queira fazer login nem cadastro escolha a opção (CANCEL)\n"
 				);
 		if(escolha == JOptionPane.YES_OPTION) {
+			
 			fazerLogin();
 		} else if (escolha == JOptionPane.NO_OPTION) {
 			cadastrarNoSistema();

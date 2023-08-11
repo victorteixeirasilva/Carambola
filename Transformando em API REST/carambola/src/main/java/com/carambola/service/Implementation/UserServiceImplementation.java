@@ -1,11 +1,16 @@
 package com.carambola.service.Implementation;
 
+import com.carambola.exception.ResponseModel;
+import com.carambola.model.Catalog;
 import com.carambola.model.User;
 import com.carambola.repository.UserRepository;
 import com.carambola.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -26,30 +31,47 @@ public class UserServiceImplementation implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public Optional<User> SearchById(Long id) {
-        Optional<User> user = userRepository.findById(id);
+    public ResponseEntity SearchById(Long id) {
+        Optional<User> user = userRepository.findByIdAndActiveTrue(id);
         if(user.isPresent()){
-            return user;
+            return ResponseEntity.ok(user.get());
+        } else {
+            ResponseModel responseModel = new ResponseModel(404, "Não é possível encontrar esse usuário!");
+            return new ResponseEntity(responseModel, HttpStatus.NOT_FOUND);
         }
-        System.out.println("------------ ERRO: Usuário não existe! -------------");
-        return user;
     }
 
     @Override
-    public Iterable<User> fetchAll() {
-       return userRepository.findAll();
+    public ResponseEntity fetchAll() {
+        List<User> allUsers = userRepository.findAllAndActiveTrue();
+        if (!allUsers.isEmpty()){
+            return ResponseEntity.ok(allUsers);
+        } else {
+            ResponseModel responseModel = new ResponseModel(404, "Não foi possível encontrar nenhum usuário!");
+            return new ResponseEntity(responseModel, HttpStatus.NOT_FOUND);
+        }
     }
 
 
     @Override
-    public String delete(Long id) {
+    public ResponseEntity delete(Long id) {
         Optional<User> user = userRepository.findById(id);
         if(user.isPresent()){
-            userRepository.delete(user.get());
-            return "Usuário (ID:" + user.get().getId() + ", NAME:" + user.get().getName()
-                    + ", EMAIL:" + user.get().getEmail() + ". Foi deletado com sucesso!";
+            if(userRepository.hasCatalog(id)){
+                ResponseModel isPresentCatalog = new ResponseModel(500, "Não é possível deletar esse usuário pois existem catalogos vinculados!");
+                return new ResponseEntity(isPresentCatalog, HttpStatus.INTERNAL_SERVER_ERROR);
+            } else if(userRepository.hasFormOfPayment(id)){
+                ResponseModel isPresentFormOfPayment = new ResponseModel(500, "Não é possível deletar esse usuário pois existem formas de pagamento vinculadas!");
+                return new ResponseEntity(isPresentFormOfPayment, HttpStatus.INTERNAL_SERVER_ERROR);
+            } else {
+                user.get().setActive(false);
+                userRepository.save(user.get());
+                return ResponseEntity.ok(user.get());
+            }
+        } else {
+            ResponseModel notFound = new ResponseModel(404, "Esse usuário não pode ser deletado, pois não existe!");
+            return new ResponseEntity(notFound, HttpStatus.NOT_FOUND);
         }
-        return "Esse usuário não pode ser deletado, pois não existe!";
     }
 
 

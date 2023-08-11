@@ -58,6 +58,7 @@ public class User {
     private String cnpj;
     @ManyToOne
     private Role role;
+    private boolean active = true;
 
 
 

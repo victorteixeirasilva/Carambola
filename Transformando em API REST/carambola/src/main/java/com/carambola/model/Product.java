@@ -1,9 +1,11 @@
 package com.carambola.model;
 
+import com.carambola.model.form.establishment.ProductForm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -32,4 +34,17 @@ public class Product {
     private String name;
     private String description;
     private boolean haveStock;
+    private boolean active = true;
+
+    public Product(ProductForm productForm) {
+
+        Category categoryForm = new Category();
+        categoryForm.setId(productForm.getIdCategory());
+
+        this.category = categoryForm;
+        this.name = productForm.getName();
+        this.description = productForm.getDescription();
+        this.haveStock = productForm.isHaveStock();
+
+    }
 }
