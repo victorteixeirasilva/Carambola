@@ -30,18 +30,39 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> insert(@RequestBody CategoryForm categoryForm){
-        return ResponseEntity.ok(categoryService.insert(categoryForm));
+    public ResponseEntity insert(@RequestBody CategoryForm categoryForm){
+        try {
+            return categoryService.insert(categoryForm);
+        } catch (Exception exception) {
+            ResponseModel responseModel = new ResponseModel(
+                    500,
+                    "Não foi possível inserir a categoria!");
+            return new ResponseEntity(responseModel, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{idCategory}")
-    public ResponseEntity<Category> update(@PathVariable Long idCategory, @RequestBody CategoryForm categoryForm){
-        return ResponseEntity.ok(categoryService.update(idCategory, categoryForm));
+    public ResponseEntity update(@PathVariable Long idCategory, @RequestBody CategoryForm categoryForm){
+        try {
+            return categoryService.update(idCategory, categoryForm);
+        } catch (Exception e){
+            ResponseModel responseModel = new ResponseModel(
+                    500,
+                    "Não foi possível atualizar a catégoria!");
+            return new ResponseEntity(responseModel, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/{idCategory}")
-    public String delete(@PathVariable Long idCategory){
-        return categoryService.delete(idCategory);
+    public ResponseEntity delete(@PathVariable Long idCategory){
+        try {
+            return categoryService.delete(idCategory);
+        } catch (Exception e){
+            ResponseModel responseModel = new ResponseModel(
+                    500,
+                    "Não foi possivel deletar a categoria.");
+            return new ResponseEntity(responseModel, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
