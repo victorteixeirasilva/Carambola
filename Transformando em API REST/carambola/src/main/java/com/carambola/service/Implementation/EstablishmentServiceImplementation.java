@@ -29,7 +29,7 @@ public class EstablishmentServiceImplementation implements EstablishmentService 
 
 
     @Override
-    public User update(Long id, EstablishmentUpdateForm establishmentUpdateForm) {
+    public ResponseEntity update(Long id, EstablishmentUpdateForm establishmentUpdateForm) {
         Optional<User> userBd = userRepository.findById(id);
         if (userBd.isPresent()){
             User user = new User();
@@ -86,8 +86,13 @@ public class EstablishmentServiceImplementation implements EstablishmentService 
 
             saveUserWithCep(user);
 
+            return ResponseEntity.ok(userBd.get());
+        } else {
+            ResponseModel responseModel = new ResponseModel(
+                    404,
+                    "Não é possível atualizar, pois não encontramos o usuário do id:" + id);
+            return new ResponseEntity(responseModel, HttpStatus.NOT_FOUND);
         }
-        return userBd.get();
     }
 
     @Override

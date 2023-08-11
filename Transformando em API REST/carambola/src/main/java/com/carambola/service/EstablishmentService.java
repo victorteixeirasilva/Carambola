@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface EstablishmentService {
-    public User update(Long id, EstablishmentUpdateForm establishmentUpdateForm);
+    public ResponseEntity update(Long id, EstablishmentUpdateForm establishmentUpdateForm);
 
     public ResponseEntity insert(EstablishmentForm establishmentForm);
 }

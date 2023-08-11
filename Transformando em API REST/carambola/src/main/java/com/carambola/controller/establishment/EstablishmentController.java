@@ -39,7 +39,7 @@ public class EstablishmentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable Long id, @Valid @RequestBody EstablishmentUpdateForm establishmentUpdateForm){
+    public ResponseEntity update(@PathVariable Long id, @Valid @RequestBody EstablishmentUpdateForm establishmentUpdateForm){
        try {
            return ResponseEntity.ok(establishmentService.update(id, establishmentUpdateForm));
        } catch (Exception exception) {
