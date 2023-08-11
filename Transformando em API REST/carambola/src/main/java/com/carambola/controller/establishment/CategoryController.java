@@ -17,7 +17,11 @@ public class CategoryController {
 
     @GetMapping("/{idCatalog}")
     public Iterable<Category> getCategoriesByCatalog(@PathVariable Long idCatalog){
-        return categoryService.getCategoriesByCatalog(idCatalog);
+        try {
+            return categoryService.getCategoriesByCatalog(idCatalog);
+        } catch (Exception e){
+
+        }
     }
 
     @PostMapping
