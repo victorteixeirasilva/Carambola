@@ -1,5 +1,6 @@
 package com.carambola.service.Implementation;
 
+import com.carambola.exception.ResponseModel;
 import com.carambola.model.Catalog;
 import com.carambola.model.Category;
 import com.carambola.model.form.establishment.CategoryForm;
@@ -7,8 +8,11 @@ import com.carambola.repository.CatalogRepository;
 import com.carambola.repository.CategoryRepository;
 import com.carambola.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -89,8 +93,25 @@ public class CategoryServiceImplementation implements CategoryService {
     }
 
     @Override
-    public Iterable<Category> getCategoriesByCatalog(Long id) {
-        return categoryRepository.findByCatalogId(id);
+    public ResponseEntity getCategoriesByCatalog(Long id) {
+        Optional<Catalog> byId = catalogRepository.findById(id);
+        if (byId.isPresent()){
+            List<Category> byCatalogId = categoryRepository.findCategoriesByCatalogId(id);
+            if(!byCatalogId.isEmpty()){
+                return ResponseEntity.ok(byCatalogId);
+            } else {
+                ResponseModel responseModel = new ResponseModel(
+                        404,
+                        "Não existe nenhuma categoria nesse catalogo, que não seja a categoria base (Todos os produtos)!");
+                return new ResponseEntity(responseModel, HttpStatus.NOT_FOUND);
+            }
+        } else {
+            ResponseModel responseModel = new ResponseModel(
+                    404,
+                    "Não foi possível encontrar o catalogo de id:" + id);
+            return new ResponseEntity(responseModel, HttpStatus.NOT_FOUND);
+
+        }
     }
 
 
