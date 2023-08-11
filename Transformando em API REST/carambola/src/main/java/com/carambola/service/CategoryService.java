@@ -10,11 +10,11 @@ import java.util.Optional;
 @Component
 public interface CategoryService {
 
-    public String delete(Long idCategory);
+    public ResponseEntity delete(Long idCategory);
 
-    public Category update(Long idCategory, CategoryForm categoryForm);
+    public ResponseEntity update(Long idCategory, CategoryForm categoryForm);
 
-    public Category insert(CategoryForm categoryForm);
+    public ResponseEntity insert(CategoryForm categoryForm);
 
     public ResponseEntity getCategoriesByCatalog(Long id);
 
