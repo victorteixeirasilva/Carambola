@@ -32,7 +32,7 @@ public class ProductController {
     @GetMapping("/{idProduct}")
     public ResponseEntity getProduct(@PathVariable Long idProduct){
         try {
-\            return productService.getProduct(idProduct);
+            return productService.getProduct(idProduct);
         } catch (Exception e){
             ResponseModel responseModel = new ResponseModel(
                     500,
