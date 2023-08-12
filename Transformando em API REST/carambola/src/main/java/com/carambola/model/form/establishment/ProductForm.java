@@ -15,4 +15,5 @@ public class ProductForm {
     private String name;
     private String description;
     private boolean haveStock;
+    private Double value;
 }

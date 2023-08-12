@@ -34,6 +34,7 @@ public class Product {
     private String name;
     private String description;
     private boolean haveStock;
+    private Double value;
     private boolean active = true;
 
     public Product(ProductForm productForm) {
@@ -45,6 +46,7 @@ public class Product {
         this.name = productForm.getName();
         this.description = productForm.getDescription();
         this.haveStock = productForm.isHaveStock();
+        this.value = productForm.getValue();
 
     }
 }

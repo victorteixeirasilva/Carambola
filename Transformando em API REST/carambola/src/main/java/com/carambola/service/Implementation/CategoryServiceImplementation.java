@@ -113,7 +113,7 @@ public class CategoryServiceImplementation implements CategoryService {
             category.setCatalog(catalog);
 
             if(categoryForm.getIdParentCategory()==0){
-                Category parentCategory = categoryRepository.findCategoriesByCatalogIdAndName(category.getCatalog().getId());
+                Category parentCategory = categoryRepository.findCategoryAllProduct(category.getCatalog().getId());
                 if (parentCategory != null){
                     category.setParentCategory(parentCategory);
                 } else {
