@@ -1,6 +1,7 @@
 package com.carambola.model;
 
 import com.carambola.model.form.establishment.ProductForm;
+import com.carambola.model.form.establishment.ProductUpdateForm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +35,7 @@ public class Product {
     private String name;
     private String description;
     private boolean haveStock;
+    private Double value;
     private boolean active = true;
 
     public Product(ProductForm productForm) {
@@ -45,6 +47,18 @@ public class Product {
         this.name = productForm.getName();
         this.description = productForm.getDescription();
         this.haveStock = productForm.isHaveStock();
+        this.value = productForm.getValue();
 
+    }
+
+    public Product(ProductUpdateForm productUpdateForm){
+        Category categoryForm = new Category();
+        categoryForm.setId(productUpdateForm.getIdCategory());
+
+        this.category = categoryForm;
+        this.name = productUpdateForm.getName();
+        this.description = productUpdateForm.getDescription();
+        this.haveStock = productUpdateForm.isHaveStock();
+        this.value = productUpdateForm.getValue();
     }
 }

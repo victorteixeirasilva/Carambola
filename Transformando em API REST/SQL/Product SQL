@@ -1,0 +1,29 @@
+SELECT * FROM tb_product p
+	WHERE p.category_id = 2 
+		AND have_stock = true
+		AND active = true;
+	
+SELECT *
+  FROM tb_product p
+   JOIN tb_category c ON p.category_id = c.category_id
+   JOIN tb_catalog cat ON c.catalog_id = cat.catalog_id
+  WHERE (cat.catalog_id = 1 OR c.category_id = 1)
+   AND p.have_stock = true
+   AND p.active = true;
+   
+   	
+SELECT *
+  FROM tb_product p
+   JOIN tb_category c ON p.category_id = c.category_id
+   JOIN tb_catalog cat ON c.catalog_id = cat.catalog_id
+  WHERE (cat.catalog_id = 1 OR c.category_id = 1)
+   AND p.have_stock = false
+   AND p.active = true;
+
+		
+		
+SELECT * FROM tb_product;
+
+SELECT * FROM tb_catalog;
+
+SELECT * FROM tb_category;
