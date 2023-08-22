@@ -17,9 +17,13 @@ public class CatalogController {
 
 
     @PostMapping("/{idEstablishment}")
-    public ResponseEntity<Catalog> insert(@PathVariable Long idEstablishment, @RequestBody CatalogForm catalogForm){
-        Catalog catalog = catalogService.insert(idEstablishment, catalogForm);
-        return ResponseEntity.ok(catalog);
+    public ResponseEntity insert(@PathVariable Long idEstablishment, @RequestBody CatalogForm catalogForm){
+        try {
+            return catalogService.insert(idEstablishment, catalogForm);
+        } catch (Exception e){
+            ResponseModel responseModel = new ResponseModel(500, "Não foi possível inserir esse catalogo!");
+            return new ResponseEntity(responseModel, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{idEstablishment}")
@@ -37,13 +41,19 @@ public class CatalogController {
         try {
             return catalogService.delete(id);
         } catch (Exception ex){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            ResponseModel responseModel = new ResponseModel(500, "Não foi possível deletar o catalogo (id:" + id + ")");
+            return new ResponseEntity(responseModel, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Catalog> update(@PathVariable Long id, @RequestBody CatalogForm catalogForm){
-        return ResponseEntity.ok(catalogService.update(id,catalogForm));
+    public ResponseEntity update(@PathVariable Long id, @RequestBody CatalogForm catalogForm){
+        try {
+            return catalogService.update(id,catalogForm);
+        } catch (Exception e){
+            ResponseModel responseModel = new ResponseModel(500, "Não foi possível atualizar o catalogo!");
+            return new ResponseEntity<>(responseModel, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 

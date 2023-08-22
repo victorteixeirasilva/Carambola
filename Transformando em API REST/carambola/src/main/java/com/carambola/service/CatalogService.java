@@ -14,5 +14,5 @@ public interface CatalogService {
 
     public ResponseEntity delete(Long id);
 
-    public Catalog update(Long id, CatalogForm catalogForm);
+    public ResponseEntity update(Long id, CatalogForm catalogForm);
 }
