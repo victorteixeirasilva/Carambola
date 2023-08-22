@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface CatalogService {
 
-    public Catalog insert(Long id, CatalogForm catalogForm);
+    public ResponseEntity insert(Long id, CatalogForm catalogForm);
 
     public ResponseEntity getCatalogs(Long id);
 

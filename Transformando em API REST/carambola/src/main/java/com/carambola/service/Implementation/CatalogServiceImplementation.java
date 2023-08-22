@@ -34,7 +34,7 @@ public class CatalogServiceImplementation implements CatalogService {
     @Autowired
     private CategoryService categoryService;
     @Override
-    public Catalog insert(Long id, CatalogForm catalogForm) {
+    public ResponseEntity insert(Long id, CatalogForm catalogForm) {
         Catalog catalog = new Catalog();
         catalog.setName(catalogForm.getName());
 
@@ -49,7 +49,7 @@ public class CatalogServiceImplementation implements CatalogService {
         categoryForm.setIdParentCategory(0L);
         categoryService.insert(categoryForm);
 
-        return catalog;
+        return ResponseEntity.ok(catalog);
     }
 
     @Override
@@ -89,21 +89,22 @@ public class CatalogServiceImplementation implements CatalogService {
     }
 
     @Override
-    public Catalog update(Long id, CatalogForm catalogForm) {
+    public ResponseEntity update(Long id, CatalogForm catalogForm) {
         Optional<Catalog> catalogBd = catalogRepository.findById(id);
         Catalog catalog = new Catalog();
         if(catalogBd.isPresent()){
             if(catalogBd.get().getName()==catalogForm.getName()||catalogForm.getName()==""){
-                return catalogBd.get();
+                return ResponseEntity.ok(catalogBd.get());
             } else {
                 catalog.setName(catalogForm.getName());
                 catalog.setId(catalogBd.get().getId());
                 catalog.setUser(catalogBd.get().getUser());
                 catalogRepository.save(catalog);
-                return catalog;
+                return ResponseEntity.ok(catalog);
             }
         } else {
-            return null;
+            ResponseModel responseModel = new ResponseModel(404, "Não foi possível editar esse catalogo, pois o mesmo não foi encontrado!");
+            return new ResponseEntity(responseModel, HttpStatus.NOT_FOUND);
         }
     }
 }
