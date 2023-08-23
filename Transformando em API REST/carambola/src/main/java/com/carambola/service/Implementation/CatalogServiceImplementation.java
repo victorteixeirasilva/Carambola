@@ -35,21 +35,28 @@ public class CatalogServiceImplementation implements CatalogService {
     private CategoryService categoryService;
     @Override
     public ResponseEntity insert(Long id, CatalogForm catalogForm) {
-        Catalog catalog = new Catalog();
-        catalog.setName(catalogForm.getName());
-
         Optional<User> userBd = userRepository.findById(id);
-        catalog.setUser(userBd.get());
+        if (userBd.isPresent()){
+            Catalog catalog = new Catalog();
+            catalog.setName(catalogForm.getName());
+            catalog.setUser(userBd.get());
 
-        catalogRepository.save(catalog);
+            catalogRepository.save(catalog);
 
-        CategoryForm categoryForm = new CategoryForm();
-        categoryForm.setName("Todos os Produtos");
-        categoryForm.setIdCatalog(catalog.getId());
-        categoryForm.setIdParentCategory(0L);
-        categoryService.insert(categoryForm);
+            CategoryForm categoryForm = new CategoryForm();
+            categoryForm.setName("Todos os Produtos");
+            categoryForm.setIdCatalog(catalog.getId());
+            categoryForm.setIdParentCategory(0L);
+            categoryService.insert(categoryForm);
 
-        return ResponseEntity.ok(catalog);
+            return ResponseEntity.ok(catalog);
+        } else {
+            ResponseModel responseModel = new ResponseModel(
+                    404,
+                    "Não foi possível criar o catalogo, pois não encontramos o usuário (id:" + id + ")!"
+            );
+            return new ResponseEntity(responseModel, HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override

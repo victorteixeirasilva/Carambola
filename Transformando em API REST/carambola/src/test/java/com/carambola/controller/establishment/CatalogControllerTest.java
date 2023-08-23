@@ -1,5 +1,6 @@
 package com.carambola.controller.establishment;
 
+import com.carambola.exception.ResponseModel;
 import com.carambola.model.Address;
 import com.carambola.model.Catalog;
 import com.carambola.model.User;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
@@ -113,6 +115,8 @@ public class CatalogControllerTest {
 
     }
 
+    
+
     @Test
     public void testInsert_Ok(){
         User user = mockEstablishment();
@@ -132,6 +136,27 @@ public class CatalogControllerTest {
 
         Assertions.assertEquals(expectedResponse, actualResponse);
 
+    }
+
+    @Test
+    public void testInsert_Erro(){
+        User user = mockEstablishment();
+        CatalogForm catalogForm = mockCatalogForm();
+        Catalog catalog = new Catalog();
+        catalog.setId(1);
+        catalog.setUser(user);
+        catalog.setName(catalogForm.getName());
+        catalog.setActive(true);
+
+
+        when(catalogService.insert(2L, catalogForm)).thenReturn(new ResponseEntity(new ResponseModel(500, "Não foi possível inserir esse catalogo!"), HttpStatus.INTERNAL_SERVER_ERROR));
+
+        ResponseEntity actualResponse = catalogService.insert(2L, catalogForm);
+        ResponseEntity expectedResponse = new ResponseEntity(new ResponseModel(500, "Não foi possível inserir esse catalogo!"), HttpStatus.INTERNAL_SERVER_ERROR);
+
+        verify(catalogService, times(1)).insert(2L, catalogForm);
+
+        Assertions.assertEquals(expectedResponse, actualResponse);
     }
 
 
