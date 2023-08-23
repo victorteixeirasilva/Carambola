@@ -86,7 +86,21 @@ public class CatalogControllerTest {
         Assertions.assertEquals(expectedResponse, actualResponse);
     }
 
-    
+    @Test
+    public void testUpdate_Error(){
+        Catalog catalog = mockCatalog();
+        catalog.setName("Nome01");
+
+        ResponseModel responseModel = new ResponseModel(500, "Não foi possível deletar o catalogo (id:" + 2L + ")");
+        when(catalogService.update(2L, mockCatalogForm())).thenReturn(new ResponseEntity(responseModel, HttpStatus.INTERNAL_SERVER_ERROR));
+
+        ResponseEntity expectedResponse = new ResponseEntity(responseModel, HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity actualResponse = catalogService.update(2L, mockCatalogForm());
+
+        verify(catalogService, times(1)).update(2L, mockCatalogForm());
+
+        Assertions.assertEquals(expectedResponse, actualResponse);
+    }
 
     @Test
     public void testDelete(){
