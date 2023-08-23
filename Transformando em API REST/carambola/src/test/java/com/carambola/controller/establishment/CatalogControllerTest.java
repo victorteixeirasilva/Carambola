@@ -115,7 +115,17 @@ public class CatalogControllerTest {
 
     }
 
-    
+    @Test
+    public void testGetCatalogs_Error(){
+        when(catalogService.getCatalogs(2L)).thenReturn(new ResponseEntity(new ResponseModel(500, "Não foi possível pegas os catalogos!"), HttpStatus.INTERNAL_SERVER_ERROR));
+
+        ResponseEntity expectedResponse = new ResponseEntity(new ResponseModel(500, "Não foi possível pegas os catalogos!"), HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity actualResponse = catalogService.getCatalogs(2L);
+
+        verify(catalogService, times(1)).getCatalogs(2L);
+
+        Assertions.assertEquals(expectedResponse, actualResponse);
+    }
 
     @Test
     public void testInsert_Ok(){
@@ -139,7 +149,7 @@ public class CatalogControllerTest {
     }
 
     @Test
-    public void testInsert_Erro(){
+    public void testInsert_Error(){
         User user = mockEstablishment();
         CatalogForm catalogForm = mockCatalogForm();
         Catalog catalog = new Catalog();
