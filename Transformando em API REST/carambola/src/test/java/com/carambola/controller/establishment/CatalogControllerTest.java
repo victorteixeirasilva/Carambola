@@ -13,7 +13,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
-import static org.mockito.Mockito.when;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -47,8 +50,44 @@ public class CatalogControllerTest {
         return userEstablishment;
     }
 
-    
+    private Catalog mockCatalog(){
+        User user = mockEstablishment();
+        CatalogForm catalogForm = mockCatalogForm();
+        Catalog catalog = new Catalog();
+        catalog.setId(1);
+        catalog.setName(catalogForm.getName());
+        catalog.setUser(user);
+        catalog.setActive(true);
 
+        return catalog;
+    }
+
+    private ResponseEntity mockListCatalogsByEstablishmente(){
+        List<Catalog> catalogs = new ArrayList<>();
+        catalogs.add(mockCatalog());
+
+        return ResponseEntity.ok(catalogs);
+    }
+
+
+    @Test
+    public void testDelete(){
+
+    }
+
+
+    @Test
+    public void testGetCatalogs_Ok(){
+        when(catalogService.getCatalogs(1L)).thenReturn(mockListCatalogsByEstablishmente());
+
+        ResponseEntity expectedResponse = mockListCatalogsByEstablishmente();
+        ResponseEntity actualResponse = catalogService.getCatalogs(1L);
+
+        verify(catalogService, times(1)).getCatalogs(1L);
+
+        Assertions.assertEquals(expectedResponse, actualResponse);
+
+    }
 
     @Test
     public void testInsert_Ok(){
@@ -64,6 +103,8 @@ public class CatalogControllerTest {
 
         ResponseEntity actualResponse = catalogService.insert(user.getId(), catalogForm);
         ResponseEntity expectedResponse = ResponseEntity.ok(catalog);
+
+        verify(catalogService, times(1)).insert(user.getId(), catalogForm);
 
         Assertions.assertEquals(expectedResponse, actualResponse);
 
