@@ -69,9 +69,33 @@ public class CatalogControllerTest {
         return ResponseEntity.ok(catalogs);
     }
 
+    @Test
+    public void testUpdate(){
+        Catalog catalog = mockCatalog();
+        catalog.setName("Nome01");
+
+        when(catalogService.update(1L, mockCatalogForm())).thenReturn(ResponseEntity.ok(mockCatalog()));
+
+        ResponseEntity expectedResponse = ResponseEntity.ok(mockCatalog());
+        ResponseEntity actualResponse = catalogService.update(1L, mockCatalogForm());
+
+        verify(catalogService, times(1)).update(1L, mockCatalogForm());
+
+        Assertions.assertEquals(expectedResponse, actualResponse);
+    }
 
     @Test
     public void testDelete(){
+        Catalog catalog = mockCatalog();
+        catalog.setActive(false);
+        when(catalogService.delete(1L)).thenReturn(ResponseEntity.ok(catalog));
+
+        ResponseEntity expectedResponse = ResponseEntity.ok(catalog);
+        ResponseEntity actualResponse = catalogService.delete(1L);
+
+        verify(catalogService, times(1)).delete(1L);
+
+        Assertions.assertEquals(expectedResponse, actualResponse);
 
     }
 

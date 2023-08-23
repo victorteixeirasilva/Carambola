@@ -46,10 +46,10 @@ public class CatalogController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody CatalogForm catalogForm){
+    @PutMapping("/{idCatalog}")
+    public ResponseEntity update(@PathVariable Long idCatalog, @RequestBody CatalogForm catalogForm){
         try {
-            return catalogService.update(id,catalogForm);
+            return catalogService.update(idCatalog,catalogForm);
         } catch (Exception e){
             ResponseModel responseModel = new ResponseModel(500, "Não foi possível atualizar o catalogo!");
             return new ResponseEntity<>(responseModel, HttpStatus.INTERNAL_SERVER_ERROR);
